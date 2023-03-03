@@ -1,0 +1,64 @@
+.quanlybacsi .main-home {
+  margin-top: 60px;
+}
+
+.quanlybacsi .main-home .container .nav-tabs li {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.quanlybacsi .main-home .container .tab-content {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 0 10px 10px 10px;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+.quanlybacsi .main-home h3 {
+  color: #06a881;
+  font-weight: 600;
+  margin-top: 80px;
+}
+.quanlybacsi .main-home .line {
+  height: 1px;
+  background-color: #cccccc;
+  width: 1120px;
+}
+
+.quanlybacsi .main-home .active i,
+.quanlybacsi .main-home .active span {
+  color: #06a881;
+  font-weight: 600;
+  margin-right: 3px;
+}
+.quanlybacsi .main-home i,
+.quanlybacsi .main-home span {
+  color: #667580;
+  font-weight: 600;
+  margin-right: 3px;
+}
+.quanlybacsi .main-home .tab-content .title-line {
+  height: 20px;
+  width: 5px;
+  background-color: red;
+  margin-right: 2px;
+}
+.quanlybacsi .main-home .tab-content h5 {
+  color: #06a881;
+  font-weight: 600;
+}
+.quanlybacsi .main-home .tab-content select {
+  background-color: #e3fffb;
+}
+.quanlybacsi .main-home .tab-content ::placeholder {
+  color: rgba(102, 117, 128, 0.3);
+}
+.quanlybacsi .main-home .tab-content label {
+  color: #667580;
+}
+.quanlybacsi .main-home .tab-content .form-control {
+  font-style: italic;
+  color: #667580;
+  font-weight: 300;
+}
+.quanlybacsi .main-home .tab-content .div-table-list th {
+  background-color: #f3f7f9;
+  color: #06a881;
+}

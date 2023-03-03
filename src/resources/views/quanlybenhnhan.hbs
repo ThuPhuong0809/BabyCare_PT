@@ -1,0 +1,287 @@
+<div class=" row quanlybacsi">
+        <div class="col-sm-2">
+            {{>menubar}}
+        </div>
+        <div class="col-sm-10">
+            <div>
+                {{>header}}
+            </div>
+            <div class="main-home ">
+                <div class="container mt-3">
+                    <h3>Quản Lý Bệnh Nhân</h3>
+                    <div class="line" ></div>
+                      <br/>
+                     {{!-- <div class="divExcel">
+                            <form id="uploadSingleFileForm" class="row formThemExcel" style="align-items: center; ">
+                                <h5 class="control-label " for="uploadfile " style="margin-top:25px;margin-right:10px">
+                                    Chọn file excel để thêm Bác Sĩ: </h5>
+                                <div class="form-group" style="margin-top:36px;margin-right:10px">
+                                    <input type="file" class="form-control" placeholder="Choose a upload file"
+                                        name="file" required></input>
+                                </div>
+                                <button type="submit" class="btn btn-primary btnExcel" id="uploadSingleFileForm"
+                                    style="margin-top: 20px;">Thêm</button>
+                            </form>
+                        </div> --}}
+                    <br/>
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link " data-toggle="tab" href="#home" >
+                                <i class="fa fa-address-book"></i><span>Bệnh Nhân</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#menu1">
+                                <i class="fa fa-list-alt"></i><span>Danh Sách Bệnh Nhân</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="home" class="container tab-pane fade"><br />
+                            <div class="row" style="margin-left: 0px;">
+                                <div class="title-line"></div>
+                                <h5>Thông tin Bệnh Nhân</h5>
+                            </div>
+                            <form action="/quanlybenhnhan/thembenhnhan" method="POST">
+                                <div class="row">
+                                      <input  type="hidden" value="123456" name="matkhau"
+                                                class="form-control" >
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Họ tên Bệnh Nhân: </label>
+                                            <input  type="text" value="{{khoaChinhSua.TenKhoa}}" name="hoten"
+                                                class="form-control" placeholder="Họ tên Bệnh Nhân...">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Giới tính:</label>
+                                            <select class="form-control" id="ChonGioiTinh" name="gioitinh">
+                                                <option value="Nam">Nam</option>
+                                                <option value="Nữ">Nữ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Ngày sinh: </label>
+                                            <input type="date" name="ngaysinh"  value="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Ảnh: </label>
+                                            <input  type="file" name="anh"
+                                                class="form-control" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Số điện thoại: </label>
+                                            <input  type="tel" name="sodienthoai"
+                                                class="form-control" placeholder="Số điện thoại...">
+                                        </div>
+                                    </div>
+                                     <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Email: </label>
+                                            <input  type="text" name="email"
+                                                class="form-control" placeholder="Email...">
+                                        </div>
+                                    </div>
+                                    {{!-- <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Chuyên khoa:</label>
+                                            <select class="form-control" id="ChonChuyenKhoa" name="chuyenkhoa">
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Học hàm học vị:</label>
+                                            <select class="form-control" id="ChonGioiTinh" name="hochamhocvi">
+                                                <option value="GS.TS.BS">GS.TS.BS</option>
+                                                <option value="TS.BS">TS.BS</option>
+                                                <option value="Thạc sĩ, Bác sĩ">Thạc sĩ, Bác sĩ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Chức vụ: </label>
+                                            <input  type="text"  name="chucvu"
+                                                class="form-control" placeholder="Chức vụ...">
+                                        </div>
+                                    </div>
+                                     <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Kinh nghiệm (số năm): </label>
+                                            <input  type="text" value="{{khoaChinhSua.TenKhoa}}" name="kinhnghiem"
+                                                class="form-control" placeholder="Kinh nghiệm (số năm)...">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Trạng thái:</label>
+                                            <select class="form-control" id="ChonGioiTinh" name="trangthaikham">
+                                                <option value="Đang làm">Đang làm</option>
+                                                <option value="Tạm nghỉ">Tạm nghỉ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Địa chỉ phòng khám: </label>
+                                            <input type="text" name="diachiphongkham"
+                                                class="form-control" placeholder="Địa chỉ phòng khám...">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Đơn giá (VNĐ): </label>
+                                            <input type="text" name="dongia"
+                                                class="form-control" placeholder="Đơn giá (VNĐ)..."/>
+                                        </div>
+                                    </div>
+                                     <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="sel1">Giới thiệu về Bác sĩ:</label>
+                                            <textarea type="text" name="gioithieu"
+                                                class="form-control" placeholder="Giới thiệu về Bác sĩ..."></textarea>
+                                        </div>
+                                    </div> --}}
+                                </div>
+                                <div class="row" style="margin-top: 20px;">
+                                    <div class="col-lg-6" style="display: flex; justify-content: center;">
+                                        <button type="submit" onclick="ThemKhoaVien(this);" 
+                                            class="btn btn-primary">THÊM</button>
+                                    </div>
+                      
+                                    <div class="col-lg-6" style="display: flex; justify-content: center;" >
+                                        <button type="button" class="btn btn-secondary">LÀM MỚI</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div id="menu1" class="container tab-pane active div-table-list"><br />
+                            <form action="">
+                                <div class="card mb-4">
+                                    <div class="card-header" style="color: #06a881;font-weight: 600;">
+                                        <i class="fas fa-table me-1"></i>
+                                        Bảng hiển thị danh sách Bệnh Nhân
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table table-bordered" id="table_id">
+                                            <thead>
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Mã Bệnh Nhân</th>
+                                                    <th>Họ tên Bệnh Nhân</th>
+                                                    <th>Giới tính</th>
+                                                    <th>Ngày sinh</th>
+                                                    <th>Số điện thoại</th>
+                                                    <th>Tháo tác</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                 {{#each data}}
+                                                <tr>
+                                                    <td>{{sum @index 1}}</td>
+                                                    <td>{{this.mabenhnhan}}</td>
+                                                    <td>{{this.hoten}}</td>
+                                                    <td>{{this.gioitinh}}</td>
+                                                    <td>{{this.ngaysinh}}</td>
+                                                    <td>{{this.sodienthoai}}</td>
+                                                    <td>
+                                                       <a href="/quanlybenhnhan/{{this.mabenhnhan}}/xemchitietbenhnhan" class="btn btn-info">Xem Chi tiết</a>
+                                                        <a href="/quanlybenhnhan/{{this.mabenhnhan}}/chinhsuabenhnhan" class="btn btn-warning">Chỉnh Sửa</a>
+                                                        <a href="/quanlybenhnhan/xoabenhnhan/{{this.mabenhnhan}}" onclick="return confirm ('Xoá Bệnh Nhân {{this.hoten}} ?')" class="btn btn-danger">Xóa</a>
+                                                        <a href="/dangkylichranh/{{this.mabacsi}}" class="btn btn-success">Đăng Ký Lịch Khám/Lịch Khám</a>
+                                                    </td>
+                                                </tr>
+                                                {{/each}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ </div>
+        
+ 
+<script>
+    $(document).ready(function () {
+
+        /**
+         * Upload single file to SpringBoot
+         * at RestAPI: /api/upload/file/single
+         */
+        $("#uploadSingleFileForm").submit(function (evt) {
+            evt.preventDefault();
+
+            let formData = new FormData($(this)[0]);
+
+            $.ajax({
+                url:'/quanlybacsi/thembacsi/excel',
+                type: "POST",
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                enctype: "multipart/form-data",
+                processData: false,
+                
+                success: function (response) {
+                    if (response.status !== "error") {
+                        let displayInfo = response.message + response.filename;
+                        window.location.href = '/quanlybacsi/'
+                        alert(displayInfo);
+
+                    } else {
+                        let error = response.error;
+                        alert(error);
+                    }
+                },
+                error: function (e) {
+                    alert("Fail! " + e);
+
+                },
+            });
+
+            return false;
+        });
+    });
+</script>
+
+       
+<script>
+    $(document).ready(function () {
+        // hiển thị thông tin về các khoa
+        function loadChuyenKhoa() {
+            $.ajax({
+                url: '/quanlybacsi/loadchuyenkhoa',
+                type: 'get',
+                dataType: 'json'
+            }).done(function (result) {
+                if (result.length > 0) {
+                    for (let i = 0; i < result.length; i++) {
+
+                        let themChuyenKhoa = `
+                            <option value = "`+ result[i].tenchuyenkhoa + `">` + result[i].tenchuyenkhoa + `</option>`;
+                        $('#ChonChuyenKhoa').append(themChuyenKhoa);
+                    }
+                }
+
+            });
+        }
+        loadChuyenKhoa();
+    });
+</script>

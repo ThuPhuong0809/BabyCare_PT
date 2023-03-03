@@ -1,0 +1,110 @@
+<div class='login'>
+  <div>
+    {{>header}}
+  </div>
+  <div class='img_background_login'>
+    <img
+      src='https://cnm-lab3.s3.ap-southeast-1.amazonaws.com/hotrosinhvienIUH/bg_login.png'
+    />
+    <img
+      class='img'
+      src='https://cnm-lab3.s3.ap-southeast-1.amazonaws.com/hotrosinhvienIUH/favicon.png'
+    />
+    <div class="mainLogin col-6">
+      <div class="row mainLoginKH">
+        <div class='logo'>
+          <img
+            src='https://rubee.com.vn/wp-content/uploads/2021/05/Logo-IUH.jpg'
+            alt='ảnh thẻ header'
+            style='height: 100px;width: 101px;'
+          />
+        </div>
+
+        <div class='textLogin'>
+          <h1>ĐĂNG NHẬP</h1>
+        </div>
+        
+        <div class='div_input'>
+          <form action='/login' id='form-login' method='POST'>
+            <div class='div_input_row'>
+              <label>Tên đăng nhập</label>
+              <input
+                autocomplete='new-password'
+                class='input'
+                id='UserName'
+                name='tendangnhap'
+                placeholder='Nhập tên tài khoản'
+                required='required'
+                type='text'
+                value=''
+              />
+            </div>
+            <div class='div_input_row'>
+              <label>Mật khẩu</label>
+              <input
+                autocomplete='new-password'
+                class='input'
+                id='Password'
+                name='matkhau'
+                placeholder='Nhập mật khẩu'
+                required='required'
+                type='password'
+              />
+            </div>
+          
+           
+            <div class='Error'>
+              {{#if messages.error}}
+                <p style='color:red'>
+                  {{messages.error}}
+                </p>
+              {{/if}}
+            </div>
+
+            <div class="div_btn">
+              <a class='' href='/home'>
+                <p>Nhớ đăng nhập</p>
+              </a>
+               <a class='' href='/home'>
+                <p>Quên mật khẩu?</p>
+              </a>
+            </div>
+
+            <div class="div_btn">
+              <input type='submit' class='button btnDangNhap' value='ĐĂNG NHẬP' />
+               <a class='btnDangKy' href='/register'>
+                <p>ĐĂNG KÝ</p>
+              </a>
+            </div>
+
+            <div class="div_btn_line">
+              <div class="div_line_or">
+                  <div class="line_or"></div>
+              </div>
+              <p>Hoặc đăng nhập qua</p>
+              <div class="div_line_or">
+                  <div class="line_or"></div>
+              </div>
+            </div>
+
+            <div class="div_btn_social">
+              <a class='btnGoogle' href='/home'>
+                <i class="fab fa-google fa-10x"></i><p>Đăng nhập với Google</p>
+              </a>
+            </div>
+            <div class="div_btn_social">
+              <a class='btnGoogle' href='/home'>
+                <i class="fa fa-facebook-square"></i><p>Đăng nhập với Facebook</p>
+              </a>
+            </div>
+           
+
+          </form>
+        </div>
+      </div>
+    
+    </div>
+   
+
+  </div>
+</div>

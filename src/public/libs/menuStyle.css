@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+/* ----------------------- 
+Left Navigation Sidebar
+------------------------- */
+
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 {
+  width: 250px;
+  height: 100%;
+  top: 60px;
+  overflow: auto;
+  margin-right: 30px;
+  background-color: #fff;
+  -webkit-box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
+  box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
+}
+
+.quan-ly-mon-hoc
+  .quan-ly-mon-hoc-1
+  .nav-left-sidebar
+  .nav-link[data-toggle="collapse"] {
+  display: flex;
+  align-items: center;
+}
+
+.quan-ly-mon-hoc
+  .quan-ly-mon-hoc-1
+  .nav-left-sidebar
+  .nav-link[data-toggle="collapse"]::after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  right: 20px;
+  vertical-align: 0.255em;
+  content: "";
+  border-top: 0.3em solid;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0;
+  border-left: 0.3em solid transparent;
+}
+
+.quan-ly-mon-hoc
+  .quan-ly-mon-hoc-1
+  .nav-left-sidebar
+  .nav-link[data-toggle="collapse"][aria-expanded="false"]:after {
+  transform: rotate(-90deg);
+}
+.quan-ly-mon-hoc
+  .quan-ly-mon-hoc-1
+  .nav-left-sidebar
+  .nav-link[data-toggle="collapse"]:after {
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  opacity: 0.5;
+}
+
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1.navbar-nav {
+  width: 100%;
+}
+
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .submenu {
+  padding-left: 12px;
+  padding-right: 12px;
+  /* margin-top: 5px; */
+  background: white;
+}
+
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .submenu .nav .nav-item .nav-link {
+  padding: 6px 12px;
+  transition: 0.3s;
+}
+
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .navbar-nav .nav-link:focus,
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .navbar-nav .nav-link:hover {
+  background-color: #e2e2eb;
+  color: #3d405c;
+  border-radius: 2px;
+}
+
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .submenu .nav .nav-item .nav-link:hover {
+  color: blue;
+  border-radius: 2px;
+  background-color: #fff;
+}
+
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .navbar-toggler {
+  background-color: #fff;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 a {
+  font-size: 14px;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 i {
+  margin-right: 5px;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .nav-item {
+  margin-top: 10px;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .navbar-nav flex-column {
+  width: auto;
+}

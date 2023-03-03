@@ -1,0 +1,124 @@
+<div class='register'>
+  <div>
+    {{>header}}
+  </div>
+  <div class='img_background_login'>
+    <img
+      src='https://cnm-lab3.s3.ap-southeast-1.amazonaws.com/hotrosinhvienIUH/bg_login.png'
+    />
+    <img
+      class='img'
+      src='https://cnm-lab3.s3.ap-southeast-1.amazonaws.com/hotrosinhvienIUH/favicon.png'
+    />
+    <div class="mainLogin col-6">
+      <div class="row mainLoginKH">
+        <div class='textLogin'>
+          <h1>ĐĂNG KÝ</h1>
+        </div>
+        
+        <div class='div_input'>
+          <form action='/login' id='form-login' method='POST'>
+            <div class='div_input_row'>
+              <label>Tên đăng nhập</label>
+              <input
+                autocomplete='new-password'
+                class='input'
+                id='UserName'
+                name='tendangnhap'
+                placeholder='Nhập tên tài khoản'
+                required='required'
+                type='text'
+                value=''
+              />
+            </div>
+
+             <div class='div_input_row'>
+              <label>Email</label>
+              <input
+                autocomplete='new-password'
+                class='input'
+                id='Email'
+                name='tendangnhap'
+                placeholder='Nhập tên email'
+                required='required'
+                type='text'
+                value=''
+              />
+            </div>
+
+            <div class='div_input_row'>
+              <label>Mật khẩu</label>
+              <input
+                autocomplete='new-password'
+                class='input'
+                id='Password'
+                name='matkhau'
+                placeholder='Nhập mật khẩu'
+                required='required'
+                type='password'
+              />
+            </div>
+
+              <div class='div_input_row'>
+              <label>Nhập lại mật khẩu</label>
+              <input
+                autocomplete='new-password'
+                class='input'
+                id='RePassword'
+                name='matkhau'
+                placeholder='Nhập lại mật khẩu'
+                required='required'
+                type='password'
+              />
+            </div>
+          
+           
+            <div class='Error'>
+              {{#if messages.error}}
+                <p style='color:red'>
+                  {{messages.error}}
+                </p>
+              {{/if}}
+            </div>
+
+            <div class="div_btn">
+              <input type='submit' class='button btnDangNhap' value='ĐĂNG KÝ' />
+            </div>
+
+            <div class="div_btn_line">
+              <div class="div_line_or">
+                  <div class="line_or"></div>
+              </div>
+              <p>Hoặc đăng nhập qua</p>
+              <div class="div_line_or">
+                  <div class="line_or"></div>
+              </div>
+            </div>
+
+            <div class="div_btn_social">
+              <a class='btnGoogle' href='/home'>
+                <i class="fab fa-google fa-10x"></i><p>Đăng nhập với Google</p>
+              </a>
+            </div>
+            <div class="div_btn_social" style="margin-bottom: 10px;">
+              <a class='btnGoogle' href='/home'>
+                <i class="fa fa-facebook-square"></i><p>Đăng nhập với Facebook</p>
+              </a>
+            </div>
+
+            <div class="div_btn_login">
+              <label>Bạn đã có tài khoản BabyCare? </label>
+              <a class='' href='/login'>
+                <p> Đăng nhập</p>
+              </a>
+            </div>
+           
+          </form>
+        </div>
+      </div>
+    
+    </div>
+   
+
+  </div>
+</div>

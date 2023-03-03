@@ -1,0 +1,180 @@
+<div class=" row quanlybacsi">
+        <div class="col-sm-2">
+            {{>menubar}}
+        </div>
+        <div class="col-sm-10">
+            <div>
+                {{>header}}
+            </div>
+            <div class="main-home ">
+                <div class="container mt-3">
+                    <h3>Quản Lý Bác Sĩ</h3>
+                    <div class="line" ></div>
+                    <br/>
+                    
+                    <div class="tab-content">
+                        <div id="home" class="container"><br />
+                            <div class="row" style="margin-left: 0px;">
+                                <div class="title-line"></div>
+                                <h5>Thông tin Bác Sĩ</h5>
+                            </div>
+                            <form action="/quanlybacsi/chinhsua/{{bacsi.mabacsi}}" method="POST">
+                                <div class="row">
+                                   <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Mã Bác Sĩ: </label>
+                                            <input  type="text" value="{{bacsi.mabacsi}}" name="mabacsi"
+                                                class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Họ tên Bác Sĩ: </label>
+                                            <input  type="text" value="{{bacsi.hoten}}" name="hoten"
+                                                class="form-control" placeholder="Họ tên Bác sĩ...">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Giới tính:</label>
+                                            <select class="form-control" id="ChonGioiTinh" name="gioitinh">
+                                                <option value="Nam">Nam</option>
+                                                <option value="Nữ">Nữ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Ngày sinh: </label>
+                                            <input type="date" name="ngaysinh"  value="{{bacsi.ngaysinh}}" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Ảnh: </label>
+                                            <input  type="file" name="anh" value="{{bacsi.anh}}"
+                                                class="form-control" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Số điện thoại: </label>
+                                            <input  type="tel" name="sodienthoai" value="{{bacsi.sodienthoai}}"
+                                                class="form-control" placeholder="Số điện thoại...">
+                                        </div>
+                                    </div>
+                                     <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Email: </label>
+                                            <input  type="text" name="email" value="{{bacsi.email}}"
+                                                class="form-control" placeholder="Email...">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Chuyên khoa:</label>
+                                            <select class="form-control" id="ChonChuyenKhoa" name="chuyenkhoa">
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Học hàm học vị:</label>
+                                            <select class="form-control" id="ChonGioiTinh" name="hochamhocvi">
+                                                <option value="GS.TS.BS">GS.TS.BS</option>
+                                                <option value="TS.BS">TS.BS</option>
+                                                <option value="Thạc sĩ, Bác sĩ">Thạc sĩ, Bác sĩ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Chức vụ: </label>
+                                            <input  type="text"  name="chucvu" value="{{bacsi.chucvu}}"
+                                                class="form-control" placeholder="Chức vụ...">
+                                        </div>
+                                    </div>
+                                     <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Kinh nghiệm (số năm): </label>
+                                            <input  type="text" value="{{bacsi.kinhnghiem}}" name="kinhnghiem"
+                                                class="form-control" placeholder="Kinh nghiệm (số năm)...">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Trạng thái:</label>
+                                            <select class="form-control" id="ChonGioiTinh" name="trangthaikham" value="{{bacsi.trangthaikham}}" >
+                                                <option value="Đang làm">Đang làm</option>
+                                                <option value="Tạm nghỉ">Tạm nghỉ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Địa chỉ phòng khám: </label>
+                                            <input type="text" name="diachiphongkham"  value="{{bacsi.diachiphongkham}}"
+                                                class="form-control" placeholder="Địa chỉ phòng khám...">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="sel1">Đơn giá (VNĐ): </label>
+                                            <input type="text" name="dongia" value="{{bacsi.dongia}}"
+                                                class="form-control" placeholder="Đơn giá (VNĐ)..."/>
+                                        </div>
+                                    </div>
+                                     <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="sel1">Giới thiệu về Bác sĩ:</label>
+                                            <textarea type="text" name="gioithieu" value="{{bacsi.gioithieu}}"
+                                                class="form-control" placeholder="Giới thiệu về Bác sĩ..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 20px;">
+                                    <div class="col-lg-6" style="display: flex; justify-content: center;">
+                                        <button type="submit" onclick="ThemKhoaVien(this);" 
+                                            class="btn btn-primary">CHỈNH SỬA</button>
+                                    </div>
+                      
+                                    <div class="col-lg-6" style="display: flex; justify-content: center;" >
+                                        <button type="button" class="btn btn-secondary">LÀM MỚI</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                     
+                    </div>
+                </div>
+            </div>
+        </div>
+ </div>
+        
+        
+<script>
+    $(document).ready(function () {
+        // hiển thị thông tin về các khoa
+        function loadChuyenKhoa() {
+            $.ajax({
+                url: '/quanlybacsi/loadchuyenkhoa',
+                type: 'get',
+                dataType: 'json'
+            }).done(function (result) {
+                if (result.length > 0) {
+                    for (let i = 0; i < result.length; i++) {
+
+                        let themChuyenKhoa = `
+                            <option value = "`+ result[i].tenchuyenkhoa + `">` + result[i].tenchuyenkhoa + `</option>`;
+                        $('#ChonChuyenKhoa').append(themChuyenKhoa);
+                    }
+                }
+
+            });
+        }
+        loadChuyenKhoa();
+    });
+</script>

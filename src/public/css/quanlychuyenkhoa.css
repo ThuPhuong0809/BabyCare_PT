@@ -1,0 +1,102 @@
+.quanlychuyenkhoa .main-home {
+  margin-top: 60px;
+}
+
+.quanlychuyenkhoa .main-home .container .nav-tabs li {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.quanlychuyenkhoa .main-home .container .tab-content {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 0 10px 10px 10px;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+.quanlychuyenkhoa .main-home h3 {
+  color: #06a881;
+  font-weight: 600;
+  margin-top: 80px;
+}
+.quanlychuyenkhoa .main-home .line {
+  height: 1px;
+  background-color: #cccccc;
+  width: 1120px;
+}
+
+.quanlychuyenkhoa .main-home .active i,
+.quanlychuyenkhoa .main-home .active span {
+  color: #06a881;
+  font-weight: 600;
+  margin-right: 3px;
+}
+.quanlychuyenkhoa .main-home i,
+.quanlychuyenkhoa .main-home span {
+  color: #667580;
+  font-weight: 600;
+  margin-right: 3px;
+}
+.quanlychuyenkhoa .main-home .tab-content .title-line {
+  height: 20px;
+  width: 5px;
+  background-color: red;
+  margin-right: 2px;
+}
+.quanlychuyenkhoa .main-home .tab-content h5 {
+  color: #06a881;
+  font-weight: 600;
+}
+.quanlychuyenkhoa .main-home .tab-content select {
+  background-color: #e3fffb;
+}
+.quanlychuyenkhoa .main-home .tab-content ::placeholder {
+  color: rgba(102, 117, 128, 0.3);
+}
+.quanlychuyenkhoa .main-home .tab-content label {
+  color: #667580;
+}
+.quanlychuyenkhoa .main-home .tab-content .form-control {
+  font-style: italic;
+  color: #667580;
+  font-weight: 300;
+}
+.quanlychuyenkhoa .main-home .tab-content .div-table-list th {
+  background-color: #f3f7f9;
+  color: #06a881;
+}
+
+
+.quanlychuyenkhoa .main-home .model-xem-lich-dkhp {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+.quanlychuyenkhoa .main-home .model-xem-lich-dkhp.open {
+  display: flex;
+}
+.quanlychuyenkhoa .main-home .model-xem-lich-dkhp .container-model {
+  width: 55%;
+  height: 80%;
+  background-color: white;
+}
+.quanlychuyenkhoa .main-home .model-xem-lich-dkhp .header-model {
+  display: flex;
+  justify-content: flex-end;
+}
+.quanlychuyenkhoa .main-home .model-xem-lich-dkhp .header-model i {
+  color: #06a881;
+  font-size: 26px;
+  cursor: pointer;
+}
+.quanlychuyenkhoa .main-home .model-xem-lich-dkhp .container-model .body-model {
+  padding: 5px;
+}
+.quanlychuyenkhoa .main-home .model-xem-lich-dkhp .body-model thead {
+  background-color: #f3f7f9;
+  color: #06a881;
+  font-size: 14px;
+}

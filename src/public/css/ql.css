@@ -1,0 +1,280 @@
+.quan-ly-mon-hoc {
+  background-color: #e7ecf0;
+  justify-content: center;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 {
+  width: 90%;
+  margin-top: 60px;
+  background-color: #e7ecf0;
+}
+.card-body table {
+  text-align: center;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+#table_hocky table {
+  text-align: center;
+  display: inline-table;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+#lophocphandadangky table {
+  text-align: center;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+#xemlophpdadangkyroi table {
+  text-align: center;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+/* table{
+  text-align: center;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+} */
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .row button {
+  margin-top: 20px;
+  margin-left: 100px;
+  margin-bottom: 20px;
+  color: white;
+  height: 40px;
+  width: 120px;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .btnDiemSo {
+  margin-left: 580px;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 h3 {
+  margin-left: 20px;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .nav-tabs {
+  margin-left: 15px;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .col {
+  margin-left: 20px;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .container tab-pane fade active show {
+  width: 5px;
+  height: -10 px;
+  overflow-x: scroll;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 #hockyform {
+  height: 200px;
+}
+
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 #buoihoc {
+  padding-top: 35px;
+  padding-left: 15px;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 h5 {
+  color: blue;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 #lop_dssv h6 {
+  margin: 15px;
+}
+/* custom avatar đăng ký học phần */
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .avatar_hp {
+  margin-bottom: 20px;
+}
+/* end custom avatar đăng ký học phần */
+
+/* thông tin đăng ký học phần (quản lý) */
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .thongtin_dkhp h4 {
+  color: #0c6fbe;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .thongtin_dkhp .thongtin_1 {
+  width: 50%;
+  float: left;
+  margin-top: 20px;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .thongtin_dkhp .thongtin_2 {
+  width: 50%;
+  float: left;
+  margin-top: 20px;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .thongtin_dkhp .noidung_dangky {
+  width: 50%;
+  float: left;
+  margin-top: 20px;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .thongtin_dkhp .chk_theloai {
+  margin: 10px;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 p {
+  font-size: 15px;
+  text-align: left;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .lichtrung {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.quan-ly-mon-hoc .quan-ly-mon-hoc-1 .btnDangKy_lopHP {
+  margin-left: 120px;
+  width: 150px;
+  height: 40px;
+  margin-bottom: 10px;
+  background-color: #007bff;
+}
+
+/* end thông tin đăng ký học phần (quản lý) */
+
+.formThemExcel {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  margin-top: -40px;
+}
+
+.divExcel {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 15px;
+}
+
+#quan-ly-home a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+#quan-ly-home a:hover {
+  text-decoration: none;
+}
+#quan-ly-home .item-content-homeql {
+  margin: 2%;
+  height: 100px;
+  width: 300px;
+  border-radius: 5px;
+  box-shadow: 0px 1px 3px #ccc;
+
+  /* display: flex;
+  align-items: flex-start;
+  justify-content: end; */
+}
+#quan-ly-home .item-content-homeql-child {
+  height: 60px;
+  border-radius: 5px 5px 0px 0px;
+  width: 100%;
+  box-shadow: 0px 1px 3px midnightblue;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+#quan-ly-home .item-content-homeql-child #text-item-chucnang {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+#quan-ly-home #text-item-chitiet {
+  color: white;
+  font-size: 12px;
+  margin-left: 20px;
+  margin-top: 10px;
+  text-decoration: underline;
+}
+
+/* Model xem thông tin tkb (DK_HocPhan.hbs) */
+
+.quan-ly-mon-hoc .model-xem-lich-dkhp .container-model h3 {
+  color: #0c6fbe;
+  font-size: 16px;
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+.quan-ly-mon-hoc .model-xem-lich-dkhp {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+.quan-ly-mon-hoc .model-xem-lich-dkhp.open {
+  display: flex;
+}
+.quan-ly-mon-hoc .model-xem-lich-dkhp .container-model {
+  width: 75%;
+  height: 80%;
+  background-color: white;
+}
+.quan-ly-mon-hoc .model-xem-lich-dkhp .header-model {
+  display: flex;
+  justify-content: flex-end;
+}
+.quan-ly-mon-hoc .model-xem-lich-dkhp .header-model i {
+  color: #1da1f2;
+  font-size: 26px;
+  cursor: pointer;
+}
+.quan-ly-mon-hoc .model-xem-lich-dkhp .container-model .body-model {
+  padding: 5px;
+}
+.quan-ly-mon-hoc .model-xem-lich-dkhp .body-model thead {
+  background-color: #f3f7f9;
+  color: #1da1f2;
+  font-size: 14px;
+}
+.quan-ly-mon-hoc .model-xem-lich-dkhp .body-model tbody {
+  color: #667580;
+  font-size: 14px;
+}
+
+.model-header-ql.open {
+  display: flex;
+}
+.model-header-ql {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.3);
+  justify-content: center;
+  display: none;
+}
+.model-header-ql .container-model {
+  background: white;
+  height: 350px;
+  width: 500px;
+  margin-top: 150px;
+}
+.model-header-ql .icon-close-header-model {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.model-header-ql .container-model i {
+  color: #1da1f2;
+  font-size: 26px;
+}
+.model-header-ql .main-doi-mat-khau-header {
+  display: flex;
+  margin-left: 30px;
+}
+.model-header-ql .main-doi-mat-khau-header .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.model-header-ql .main-doi-mat-khau-header .form-group span {
+  color: red;
+}
+
+.model-header-ql .main-doi-mat-khau-header .form-group input {
+  width: 450px;
+}
+.model-header-ql .main-doi-mat-khau-header .form-group button {
+  color: #1da1f2;
+}

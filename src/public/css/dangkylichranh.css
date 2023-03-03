@@ -1,0 +1,98 @@
+.dangkylichranh .main-home {
+  margin-top: 60px;
+}
+.dangkylichranh .main-home h3 {
+  color: #06a881;
+  font-weight: 600;
+  margin-top: 80px;
+}
+.dangkylichranh .main-home .line {
+  height: 1px;
+  background-color: #cccccc;
+  width: 1120px;
+}
+.dangkylichranh .thong-tin-ca-nhan {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.dangkylichranh .thong-tin-ca-nhan .anh-bac-si {
+  justify-content: center;
+}
+.dangkylichranh .thong-tin-ca-nhan .anh-bac-si > img {
+  width: 130px;
+  height: 130px;
+  border-radius: 130px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+.dangkylichranh .thong-tin-ca-nhan .thong-tin-hoc-van {
+  color: #667580;
+  font-size: 14px;
+}
+.dangkylichranh .thong-tin-ca-nhan .thong-tin-hoc-van p {
+  margin-left: 10px;
+}
+.dangkylichranh .thong-tin-ca-nhan .text-title > p {
+  margin-bottom: -10px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #667580;
+}
+.dangkylichranh .thong-tin-ca-nhan .thong-tin-hoc-van .main-thong-tin span {
+  color: #667580;
+}
+.dangkylichranh .thong-tin-ca-nhan .thong-tin-hoc-van .main-thong-tin .bold {
+  font-weight: bold;
+}
+
+.dangkylichranh .thong-tin-ca-nhan .bold,
+.dangkylichranh .thong-tin-ca-nhan b {
+  font-weight: 600;
+  color: #667580;
+}
+
+/* Đăng ký */
+.dangkylichranh .tab-content-dangky {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 0 10px 10px 10px;
+  padding-bottom: 30px;
+  padding: 0 10px 20px 10px;
+  margin-bottom: 30px;
+}
+.dangkylichranh .title-line {
+  height: 20px;
+  width: 5px;
+  background-color: red;
+  margin-right: 3px;
+}
+.dangkylichranh h5 {
+  color: #06a881;
+  font-weight: 600;
+}
+.dangkylichranh .tab-content-dangky select {
+  background-color: #e3fffb;
+}
+.dangkylichranh .tab-content-dangky ::placeholder {
+  color: rgba(102, 117, 128, 0.3);
+}
+.dangkylichranh .tab-content-dangky label {
+  color: #667580;
+}
+.dangkylichranh .tab-content-dangky .form-control {
+  font-style: italic;
+  color: #667580;
+  font-weight: 300;
+}
+
+/*Danh sách đã đăng ký */
+.dangkylichranh .tab-content-lichdadangky {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 0 10px 10px 10px;
+  padding-bottom: 30px;
+  padding: 0 10px 30px 10px;
+  margin-bottom: 30px;
+}
+.dangkylichranh .tab-content-lichdadangky th {
+  background-color: #f3f7f9;
+  color: #06a881;
+}

@@ -1,0 +1,103 @@
+<div class=" row dangkylichranh">
+        <div class="col-sm-2">
+            {{>menubar}}
+        </div>
+        <div class="col-sm-10">
+            <div>
+                {{>header}}
+            </div>
+            <div class="main-home ">
+                <div class="container mt-3">
+                    <h3>Thông Tin Của Bác Sĩ</h3>
+                    <div class="line" ></div>
+                    <br/>
+                    <div class="thong-tin-ca-nhan row">
+                        <div class="nav anh-bac-si col col-lg-3">
+                            <img src="https://thuthuatnhanh.com/wp-content/uploads/2021/02/Avatar-ngau-dep-390x390.jpg" 
+                            alt="ảnh thẻ sinh viên" class="img-reponsive">
+                            <div class="rol">
+                                <div class="form-group">
+                                <div class="control-label">
+                                    <b>{{data.hoten}}</b>
+                                </div>
+                                </div>
+                                <div class="form-group">
+                                <div class="control-label">
+                                    <span lang="thongtinsinhvien-mssv">Mã Bác sĩ</span>:
+                                    <b>{{data.mabenhnhan}}</b>
+                                </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                <div class="control-label">
+                                    <span lang="thongtinsinhvien-gioitinh">Giới tính</span>:
+                                    <b>{{data.gioitinh}}</b>
+                                </div>
+                                <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="text-title">
+                                <p>
+                                Thông tin Bệnh Nhân
+                                </p>
+                                <hr style="width:100%;color:#cccccc" />
+                            </div>
+                            <div class="main-thong-tin">
+                                <div class="col-md-12">
+                                <form class="form-horizontal">
+                                    <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="col-md-6"><span lang="thongtinbáci-trangthai">Email</span>:
+                                        <span class="bold"> {{data.email}} </span></label>
+                                        <label class=""><span lang="thongtinbáci-ngayvaotruong">Ngày sinh</span>:
+                                        <span class="bold">{{data.ngaysinh}}</span></label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-6"><span lang="thongtinbáci-lophoc">Số điện thoại</span>:
+                                        <span class="bold">{{data.sodienthoai}}</span></label>
+                                       {{!-- <label class=""><span lang="thongtinbáci-bacdaotao">Chuyên khoa</span>:
+                                        <span class="bold">{{data.chuyenkhoa}}</span></label> --}}
+                                    </div>
+                                    {{!-- <div class="form-group">
+                                        <label class="col-md-6"><span lang="thongtinbáci-loaidaotao">Chức vụ</span>:
+                                        <span class="bold">{{data.chucvu}}</span></label>
+                                         <label class=""><span lang="thongtinbáci-chuyennganh">Kinh nghiệm</span>:
+                                        <span class="bold">{{data.kinhnghiem}}</span></label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-6"><span lang="thongtinbáci-nganh">Trạng thái</span>:
+                                        <span class="bold">{{data.trangthaikham}} </span></label>
+                                         <label class=""><span lang="thongtinbacsi-khoahoc">Đơn giá</span>:
+                                        <span class="bold">{{data.dongia}} VNĐ</span></label>
+                                    </div>
+                                    <div class="form-group">
+                                         <label class="col-md-12"><span lang="thongtinbáci-coso">Địa chỉ khám</span>:
+                                        <span class="bold">{{data.diachiphongkham}}</span></label>
+                                    </div>
+                                      <div class="form-group">
+                                         <label class="col-md-12"><span lang="thongtinbáci-coso">Giới thiệu</span>:
+                                        <span class="bold">{{data.gioithieu}}</span></label>
+                                    </div> --}}
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+
+                  
+                    
+                </div>
+            </div>
+        </div>
+ </div>
+        
+<script>
+     function ThemLichRanh() {
+           console.log('====mabacsi====');
+            
+        }
+</script>        

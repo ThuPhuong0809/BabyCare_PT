@@ -1,0 +1,103 @@
+<div class="thongtincanhanTV">
+    <div>
+        {{>header}}
+    </div>
+    <div class="main-home">
+        <div class="main-body">
+            <div class="list-left">
+                <div class="main-list-left">
+                    <form action='/login' id='form-login' method='POST'>
+                        <div class='div_input_row'>
+                            <label>Tên đăng nhập</label>
+                            <input
+                                autocomplete='new-password'
+                                class='input'
+                                id='TenDangNhap'
+                                name='tendangnhap'
+                                placeholder='Nhập tên tài khoản'
+                                required='required'
+                                type='text'
+                                value=''
+                            />
+                        </div>
+                        <div class='div_input_row'>
+                            <label>Họ và tên</label>
+                            <input
+                                autocomplete='new-password'
+                                class='input'
+                                id='HoTen'
+                                name='matkhau'
+                                placeholder='Nhập mật khẩu'
+                                required='required'
+                                type='text'
+                            />
+                        </div>
+
+                        <div class='div_input_row'>
+                            <label>Ngày sinh</label>
+                            <input
+                                autocomplete='new-password'
+                                class='input'
+                                id='NgaySinh'
+                                name='matkhau'
+                                placeholder='Nhập mật khẩu'
+                                required='required'
+                                type='text'
+                            />
+                        </div>
+                        
+                        <div class="div_btn">
+                            <input type='submit' class='button btnChangeThongtin' value='LƯU' />
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="list-right">
+                <div class="div_avatar">
+                    <img src='https://bedental.vn/wp-content/uploads/2022/12/f637b0052729d9502ff03abe390fe051.jpg'
+                        alt='ảnh thẻ header'
+                        style='height: 150px;width: 150px;border-radius: 100px;'/>  
+                    <p>thu_phuong</p> 
+                </div>
+                <div class="item_menu_right">
+                    <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconMessage.png'
+                        alt='ảnh thẻ header'
+                        style='height: 60px;'/>  
+                    <p>Tin nhắn</p> 
+                </div>
+
+                 <div class="item_menu_right">
+                    <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconListNew.png'
+                        alt='ảnh thẻ header'
+                        style='height: 28px; margin:14px 15px 14px 18px;'/>  
+                    <p>Bài viết</p> 
+                </div>
+
+                 <div class="item_menu_right">
+                    <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconNew.png'
+                        alt='ảnh thẻ header'
+                        style='height: 28px; margin:14px 15px 14px 18px;'/>  
+                    <p>Bài viết chờ phê duyệt</p> 
+                </div>
+
+                <a class='item_menu_right_pass' href='/home'>
+                    <p>Đổi mật khẩu</p>
+                </a>
+                 
+               
+                <a class="chat_real_time" href='/register'>
+                    <img
+                        src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
+                        alt='ảnh thẻ header'
+                        style='height: 60px;width: 60px;border-radius: 30px;box-shadow: 3px 5px 3px #DCDFE4;'/>
+                <a/>
+            </div>
+        </div>
+
+        
+    </div>
+ </div>
+        
+        

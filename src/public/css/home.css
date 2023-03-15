@@ -122,6 +122,16 @@
   flex-direction:column;
   background-color:white;
   padding: 10px;
+  position: relative;
+}
+
+.home .list-right .chat_real_time{
+  position:absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 30px;
+  right: 20px;
 }
 
 .home .header_right_list{

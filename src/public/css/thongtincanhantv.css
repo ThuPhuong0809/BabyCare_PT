@@ -1,0 +1,329 @@
+.thongtincanhanTV{
+    background-color: #DCDFE4;
+    height: 100%;
+  }
+  .thongtincanhanTV .main-home {
+    height: 100%;
+    padding-top: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .thongtincanhanTV .main-home .main-body {
+    height: 95%;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction:row;
+  }
+  .thongtincanhanTV .list-left{
+    height: 100%;
+    width: 75%;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+  }
+  
+  .thongtincanhanTV .main-list-left{
+    height: 100%;
+    width: 90%;
+    display: flex;
+    flex-direction:column;
+    overflow-x:hidden;
+    overflow-y:auto;
+    padding-top:20px ;
+  }
+
+  .thongtincanhanTV .main-list-left .div_input_row{
+    display: flex;
+    flex-direction:column;
+    margin-bottom: 20px;
+  }
+
+.thongtincanhanTV #TenDangNhap,
+.thongtincanhanTV #HoTen,
+.thongtincanhanTV #NgaySinh {
+  width: 100%;
+  height: 43px;
+  border-radius: 6px;
+  border: 1px solid #296088;
+  color: #296088;
+  font-style: italic;
+  font-size: 14px;
+  padding-left: 15px;
+  outline: none;
+}
+.thongtincanhanTV .div_btn{
+  width: 100%;
+  flex-direction:row;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+}
+.thongtincanhanTV .div_btn a{
+  text-decoration: none
+}
+.thongtincanhanTV .div_btn p{
+  color: #296088;
+  font-size: 16px;
+}
+
+.thongtincanhanTV .btnChangeThongtin {
+    width: 200px;
+    height: 48px;
+    background-color: #296088;
+    border: none;
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+    border-radius: 10px;
+  }
+
+  
+  .thongtincanhanTV .item_left_new{
+    width: 100%;
+    border-bottom: 1px solid #D9D9D9;
+    flex-direction:column;
+    padding: 10px;
+    text-decoration: none
+  }
+  .thongtincanhanTV .item_left_author{
+    height: 35%;
+    width: 100%;
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+  }
+  .thongtincanhanTV .item_left_author .name_page{
+    color: #373737;
+    font-size: 14px;
+    font-weight: 450;
+    margin-right: 5px;
+  }
+  
+  .thongtincanhanTV .item_left_author .dot_item{
+    background-color:#9B9B9B ;
+    height: 3px;
+    width: 3px;
+    border-radius: 10px;
+    margin-right: 5px;
+  }
+  
+  .thongtincanhanTV .item_left_author b{
+    color: #9B9B9B;
+    font-size: 14px;
+    font-weight: 450;
+    margin-right: 5px;
+  }
+  
+  .thongtincanhanTV .item_left_title{
+    height: 45%;
+    width: 95%;
+    display: flex; 
+    align-items: center;
+  }
+  
+  .thongtincanhanTV .item_left_title b{
+    color: #000000;
+    font-size: 16px;
+  }
+  
+  .thongtincanhanTV .item_left_comment{
+    height: 20%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+  }
+  
+  .thongtincanhanTV .item_left_comment b{
+    color:#9B9B9B;
+    font-size: 14px;
+    font-weight: 450;
+  }
+  
+  .thongtincanhanTV .list-right{
+    height: 100%;
+    width: 24.4%;
+    display: flex;
+    flex-direction:column;
+    background-color:white;
+    position: relative;
+  }
+  
+  .thongtincanhanTV .list-right .chat_real_time{
+    position:absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 30px;
+    right: 20px;
+  }
+  
+  .thongtincanhanTV .list-right .div_avatar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0px 0px 10px;
+    flex-direction:column;
+  }
+
+  .thongtincanhanTV .list-right .div_avatar p{
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000;
+    padding-top: 10px;
+  }
+
+  .thongtincanhanTV .list-right .item_menu_right{
+    display: flex;
+    flex-direction:row;
+    border-top: 1px solid #D9D9D9;
+  }
+
+  .thongtincanhanTV .list-right .item_menu_right p{
+    font-size: 16px;
+    font-weight: 450;
+    color: #000000;
+    padding-top: 15px;
+  }
+
+  .thongtincanhanTV .list-right .item_menu_right_pass{
+    border-top: 1px solid #D9D9D9;
+    border-bottom: 1px solid #D9D9D9;
+    text-decoration: none;
+  }
+
+  .thongtincanhanTV .list-right .item_menu_right_pass p{
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000;
+    padding-top: 15px;
+    padding-right: 10px;
+  }
+
+
+  .thongtincanhanTV .header_right_list{
+    height: 30px;
+    width:100%;
+    display: flex;
+    border-bottom: 2px solid #000000;
+  }
+  
+  .thongtincanhanTV .header_right_list b{
+    font-size: 16px;
+    font-weight: 700;
+  }
+  
+  .thongtincanhanTV .main_right_list{
+    height: 90%;
+    width:100%;
+    display: flex;
+    overflow-x:hidden;
+    overflow-y:auto;
+    flex-direction:column;
+    margin-top: 10px;
+  }
+  
+  .thongtincanhanTV .item_right_new{
+    /* height: 100px; */
+    width:100%;
+    display: flex;
+    flex-direction:row;
+    margin-bottom: 5px;
+    text-decoration: none
+  }
+  
+  .thongtincanhanTV .item_right_new .dot_item{
+    background-color:#9B9B9B ;
+    height: 6px;
+    width: 6px;
+    border-radius: 10px;
+    margin-right: 5px;
+    margin-top: 7px;
+  }
+  
+  .thongtincanhanTV .item_right_new b{
+    width: 95%;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000000;
+  }
+  
+  .thongtincanhanTV .div_cmt_tintuc {
+    background-color: #F3F6F9;
+    padding: 0px 10px;
+  }
+  
+  .thongtincanhanTV .div_cmt_tintuc p{
+    font-size: 18px;
+    font-weight:600;
+  }
+  
+  .thongtincanhanTV .div_main_cmt {
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .thongtincanhanTV .div_input_cmt {
+    /* display: flex;
+    flex-direction:row;
+    align-items: center; */
+    width: 100%;
+    position:relative;
+  }
+  
+  .thongtincanhanTV .div_cmt_tintuc .div_main_cmt{
+    width: 94%;
+  }
+  
+  .thongtincanhanTV .div_main_cmt form a{
+    position: absolute;
+    top: 8px;
+    right: 80px;
+  }
+  
+  .thongtincanhanTV .div_main_cmt form a i {
+    color: #296088;
+    font-size: 26px;
+  }
+  
+  .thongtincanhanTV .div_main_cmt form input {
+    width: 92%;
+    background-color: #fff;
+    height: 42px;
+    color: #296088;
+    font-size: 12px;
+    border: 1px solid #e6ecf0;
+    padding: 0 15px;
+    border-radius: 20px !important;
+  }
+  .thongtincanhanTV .div_main_cmt::placeholder {
+    color: #296088;
+  }
+  .thongtincanhanTV .div_main_cmt form input:focus {
+    outline: none;
+  }
+  .thongtincanhanTV .div_main_cmt form button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #296088;
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 20px;
+    margin-right: 15px;
+  }
+  .thongtincanhanTV .div_main_cmt form button > i {
+    color: #fff;
+    font-size: 16px;
+    transform: rotate(35deg);
+  }
+  

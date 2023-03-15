@@ -8,7 +8,10 @@ router.get('/login', mainController.loginql);
 router.post('/login', mainController.login);
 router.get('/register', mainController.register);
 router.post('/themquanly', mainController.themquanly);
+router.get('/chitiettintuc', mainController.chitiettintuc);
+router.get('/thongtincanhan', mainController.thongtincanhanTV);
 
+//OLD
 router.get('/quanlybacsi', mainController.quanlybacsi);
 router.post('/quanlybacsi/thembacsi', mainController.thembacsi);
 router.get('/quanlybacsi/xoabacsi/:mabacsi', mainController.xoabacsi);

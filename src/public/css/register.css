@@ -72,6 +72,20 @@
   width: 100%;
   margin-bottom: 15px;
 }
+.register .div_input .div_input_row #btnRePassword,
+.register .div_input .div_input_row #btnPassword{
+  border: none;
+  height: 43px;
+  width: 50px;
+  position: absolute;
+  top: 35px;
+  right: 0px;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
+
 .register .div_input .div_input_row label{
   color: #296088;
   font-size: 18px;

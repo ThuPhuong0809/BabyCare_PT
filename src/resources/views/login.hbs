@@ -39,7 +39,7 @@
                 value=''
               />
             </div>
-            <div class='div_input_row'>
+            <div class='div_input_row' style="position: relative;">
               <label>Mật khẩu</label>
               <input
                 autocomplete='new-password'
@@ -50,6 +50,9 @@
                 required='required'
                 type='password'
               />
+              <div class="" type="button" id="btnPassword">
+                <i id="iconEye" class="fas fa-eye-slash eye-password" style='font-size:22px;color: #296088;'></i>
+              </div>
             </div>
           
            
@@ -108,3 +111,29 @@
 
   </div>
 </div>
+
+<script>
+  // step 1
+  const ipnElement = document.querySelector('#Password')
+  const btnElement = document.querySelector('#btnPassword')
+  const iconEye = document.querySelector('#iconEye')
+
+  // step 2
+  btnElement.addEventListener('click', function() {
+    // step 3
+    const currentType = ipnElement.getAttribute('type')
+    // step 4
+    ipnElement.setAttribute(
+      'type',
+      currentType === 'password' ? 'text' : 'password'
+    )
+
+    if(currentType ==="password"){
+      iconEye.classList.replace("fa-eye-slash", "fa-eye");
+    }else{
+      iconEye.classList.replace("fa-eye", "fa-eye-slash");
+    }
+
+   
+  })
+</script>

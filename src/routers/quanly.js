@@ -10,6 +10,7 @@ router.get('/register', mainController.register);
 router.post('/themquanly', mainController.themquanly);
 router.get('/chitiettintuc', mainController.chitiettintuc);
 router.get('/thongtincanhan', mainController.thongtincanhanTV);
+router.get('/cvtvsk/listchat', mainController.listchatcvtv);
 
 //OLD
 router.get('/quanlybacsi', mainController.quanlybacsi);

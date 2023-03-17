@@ -1,0 +1,132 @@
+.listchatCVTVSK{
+  background-color: #DCDFE4;
+  height: 100%;
+}
+.listchatCVTVSK .main-home {
+  height: 100%;
+  padding-top: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.listchatCVTVSK .main-home .main-body {
+  height: 95%;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction:row;
+  background-color: white;
+  border: 1px solid white;
+}
+.listchatCVTVSK .list-left{
+  height: 100%;
+  width: 25%;
+  display: flex;
+  flex-direction:column;
+  overflow-x:hidden;
+  overflow-y:auto;
+}
+
+.listchatCVTVSK .header_search_list_chat{
+  height: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction:row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding-top: 12px;
+}
+
+.listchatCVTVSK .header_search_list_chat a{
+  text-decoration: none;
+  color: black;
+}
+
+.listchatCVTVSK .search-chat{
+  width: 94%;
+  margin-left: 2px;
+}
+
+.listchatCVTVSK .search-chat form {
+  width: 90%;
+  position: relative;
+  align-self: center;
+}
+
+.listchatCVTVSK .search-chat form input {
+  width: 100%;
+  background-color: #F5F5F5;
+  height: 32px;
+  color: #296088;
+  font-size: 12px;
+  padding: 0 15px;
+  border: none;
+  border-radius: 20px !important;
+}
+.listchatCVTVSK .search-chat ::placeholder {
+  color: #296088;
+}
+.listchatCVTVSK .search-chat form input:focus {
+  outline: none;
+}
+.listchatCVTVSK .search-chat form button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+  width: 38px;
+  height: 100%;
+  border: 0;
+}
+.listchatCVTVSK .search-chat form button i {
+  color: #296088;
+  font-size: 16px;
+}
+
+.listchatCVTVSK .main_list_chat{
+  width: 100%;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+  overflow-x:hidden;
+  overflow-y:auto;
+}
+
+.listchatCVTVSK .main_list_chat .item_list_chat{
+  height: 60px;
+  width: 100%;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+}
+
+.listchatCVTVSK .main_list_chat .item_list_chat{
+  height: 60px;
+  width: 100%;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  padding: 10px;
+}
+
+.listchatCVTVSK .main_list_chat .item_list_chat p{
+  /* color: #ffffff; */
+  font-size: 16px;
+  font-weight: 550;
+  margin-top: 15px;
+  margin-left: 10px;
+}
+
+
+.listchatCVTVSK .list-right{
+  height: 100%;
+  width: 75%;
+  display: flex;
+  flex-direction:column;
+  position: relative;
+  background-color: #DCDFE4;
+
+}

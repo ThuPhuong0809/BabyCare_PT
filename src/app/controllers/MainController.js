@@ -35,6 +35,11 @@ class MainController {
     res.render('thongtincanhantv');
   }
 
+  // [GET] /register
+  listchatcvtv(req, res) {
+    res.render('listchatcvtv');
+  }
+
   // [GET] /home
   loginql(req, res) {
     res.render('login');

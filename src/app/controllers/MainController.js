@@ -9,8 +9,9 @@ class MainController {
   home(req, res) {
     if (req.session.isAuth) {
       New.find((err, data) => {
+        //lấy tất cả dữ liệu bảng new
         if (!err) {
-          res.render('home', { data: data, username: req.session.username });
+          res.render('home', { data: data, username: req.session.username }); //có dữ liệu sẽ đưa data vào trang home với data là d/s new tìm đc
           console.log(data);
         } else {
           res.status(400).json({ error: 'ERROR!!!' });
@@ -65,15 +66,16 @@ class MainController {
   login(req, res) {
     Account.findOne(
       // { tendangnhap: req.body.tendangnhap, matkhau: req.body.matkhau },
-      { username: req.body.username },
+      { username: req.body.username }, // bắt user name trước
 
       function (err, user) {
         if (!err) {
           if (user == null) {
-            req.flash('error', 'Tên đăng nhập không đúng!');
+            req.flash('error', 'Tên đăng nhập không đúng!'); //nếu bắt user ko đúng sẽ trả dòng này
             res.redirect('/login/');
           } else {
             if (bcrypt.compareSync(req.body.password, user.password)) {
+              //nếu bắt được user sẽ bắt password
               var sess = req.session; //initialize session variable
               sess.isAuth = true;
               sess.role = user.role;

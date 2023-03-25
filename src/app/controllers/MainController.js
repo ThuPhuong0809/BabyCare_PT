@@ -25,19 +25,12 @@ class MainController {
   // [PUT] /chitiettintuc/:id
   chitiettintuc(req, res, next) {
     if (req.session.isAuth) {
-      New.find((err, listNew) => {
+      New.findOne({ idNew: Number(req.params.idNew) }, (err, data) => {
         if (!err) {
-          New.findOne({ idNew: Number(req.params.idNew) }, (err, data) => {
-            if (!err) {
-              res.render('chitiettintuc', {
-                data: data,
-                listNew: listNew,
-                username: req.session.username,
-              });
-            } else {
-              res.status(400).json({ error: 'ERROR!!!' });
-            }
-          }).lean();
+          res.render('chitiettintuc', {
+            data: data,
+            username: req.session.username,
+          });
         } else {
           res.status(400).json({ error: 'ERROR!!!' });
         }

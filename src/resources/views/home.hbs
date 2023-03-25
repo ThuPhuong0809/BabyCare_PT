@@ -7,7 +7,7 @@
             <div class="list-left">
                 <div class="div-status">
                      <img
-                        src='https://rubee.com.vn/wp-content/uploads/2021/05/Logo-IUH.jpg'
+                        src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/logo.png'
                         alt='ảnh thẻ header'
                         style='height: 35px;width: 35px;border-radius: 28px;align-self: center;
                             '
@@ -17,146 +17,27 @@
                     </a>
                 </div>
                 <div class="main-list-left">
-                    <a class="item_left_new" href='/chitiettintuc'>
+                     {{#each data}}
+                    <a class="item_left_new" href='/chitiettintuc/{{this.idNew}}'>
                         <div class="item_left_author">
                              <img
-                                src='https://rubee.com.vn/wp-content/uploads/2021/05/Logo-IUH.jpg'
+                                src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/logo.png'
                                 alt='ảnh thẻ header'
                                 style='height: 26px;width: 26px;border-radius: 10px;margin-right: 5px;align-self: center; '/>
-                            <b class="name_page">Chăm sóc trẻ em mới sinh</b>
+                            <b class="name_page">{{this.nameType}}</b>
                             <div class="dot_item"></div>
-                            <b>mevabe</b>
+                            <b>{{this.authorName}}</b>
                             <div class="dot_item"></div>
                             <b>20/01/2023</b>
                         </div>
                         <div class="item_left_title">
-                            <b class="name_page">Nhiều mẹ sợ con lạnh nên đội mũ liên tục bất kể ngày đêm, dù thời tiết nóng hay lạnh, tuy nhiên thói quen này hoàn.</b>
+                            <b class="name_page">{{this.title}}</b>
                         </div>
                         <div class="item_left_comment">
-                            <b style="margin-right: 3px;">21 </b><b> bình luận</b>
+                            <b style="margin-right: 3px;">{{this.countLike}} </b><b> bình luận</b>
                         </div>
                     </a>
-
-                     <a class="item_left_new" href='/register'>
-                        <div class="item_left_author">
-                             <img
-                                src='https://rubee.com.vn/wp-content/uploads/2021/05/Logo-IUH.jpg'
-                                alt='ảnh thẻ header'
-                                style='height: 26px;width: 26px;border-radius: 10px;margin-right: 5px;align-self: center; '/>
-                            <b class="name_page">Chăm sóc trẻ em mới sinh</b>
-                            <div class="dot_item"></div>
-                            <b>mevabe</b>
-                            <div class="dot_item"></div>
-                            <b>20/01/2023</b>
-                        </div>
-                        <div class="item_left_title">
-                            <b class="name_page">Nhiều mẹ sợ con lạnh nên đội mũ liên tục bất kể ngày đêm, dù thời tiết nóng hay lạnh, tuy nhiên thói quen này hoàn.</b>
-                        </div>
-                        <div class="item_left_comment">
-                            <b style="margin-right: 3px;">21 </b><b> bình luận</b>
-                        </div>
-                    </a>
-
-                     <a class="item_left_new" href='/register'>
-                        <div class="item_left_author">
-                             <img
-                                src='https://rubee.com.vn/wp-content/uploads/2021/05/Logo-IUH.jpg'
-                                alt='ảnh thẻ header'
-                                style='height: 26px;width: 26px;border-radius: 10px;margin-right: 5px;align-self: center; '/>
-                            <b class="name_page">Chăm sóc trẻ em mới sinh</b>
-                            <div class="dot_item"></div>
-                            <b>mevabe</b>
-                            <div class="dot_item"></div>
-                            <b>20/01/2023</b>
-                        </div>
-                        <div class="item_left_title">
-                            <b class="name_page">Nhiều mẹ sợ con lạnh nên đội mũ liên tục bất kể ngày đêm, dù thời tiết nóng hay lạnh, tuy nhiên thói quen này hoàn.</b>
-                        </div>
-                        <div class="item_left_comment">
-                            <b style="margin-right: 3px;">21 </b><b> bình luận</b>
-                        </div>
-                    </a>
-
-                     <a class="item_left_new" href='/register'>
-                        <div class="item_left_author">
-                             <img
-                                src='https://rubee.com.vn/wp-content/uploads/2021/05/Logo-IUH.jpg'
-                                alt='ảnh thẻ header'
-                                style='height: 26px;width: 26px;border-radius: 10px;margin-right: 5px;align-self: center; '/>
-                            <b class="name_page">Chăm sóc trẻ em mới sinh</b>
-                            <div class="dot_item"></div>
-                            <b>mevabe</b>
-                            <div class="dot_item"></div>
-                            <b>20/01/2023</b>
-                        </div>
-                        <div class="item_left_title">
-                            <b class="name_page">Nhiều mẹ sợ con lạnh nên đội mũ liên tục bất kể ngày đêm, dù thời tiết nóng hay lạnh, tuy nhiên thói quen này hoàn.</b>
-                        </div>
-                        <div class="item_left_comment">
-                            <b style="margin-right: 3px;">21 </b><b> bình luận</b>
-                        </div>
-                    </a>
-
-                     <a class="item_left_new" href='/register'>
-                        <div class="item_left_author">
-                             <img
-                                src='https://rubee.com.vn/wp-content/uploads/2021/05/Logo-IUH.jpg'
-                                alt='ảnh thẻ header'
-                                style='height: 26px;width: 26px;border-radius: 10px;margin-right: 5px;align-self: center; '/>
-                            <b class="name_page">Chăm sóc trẻ em mới sinh</b>
-                            <div class="dot_item"></div>
-                            <b>mevabe</b>
-                            <div class="dot_item"></div>
-                            <b>20/01/2023</b>
-                        </div>
-                        <div class="item_left_title">
-                            <b class="name_page">Nhiều mẹ sợ con lạnh nên đội mũ liên tục bất kể ngày đêm, dù thời tiết nóng hay lạnh, tuy nhiên thói quen này hoàn.</b>
-                        </div>
-                        <div class="item_left_comment">
-                            <b style="margin-right: 3px;">21 </b><b> bình luận</b>
-                        </div>
-                    </a>
-
-                     <a class="item_left_new" href='/register'>
-                        <div class="item_left_author">
-                             <img
-                                src='https://rubee.com.vn/wp-content/uploads/2021/05/Logo-IUH.jpg'
-                                alt='ảnh thẻ header'
-                                style='height: 26px;width: 26px;border-radius: 10px;margin-right: 5px;align-self: center; '/>
-                            <b class="name_page">Chăm sóc trẻ em mới sinh</b>
-                            <div class="dot_item"></div>
-                            <b>mevabe</b>
-                            <div class="dot_item"></div>
-                            <b>20/01/2023</b>
-                        </div>
-                        <div class="item_left_title">
-                            <b class="name_page">Nhiều mẹ sợ con lạnh nên đội mũ liên tục bất kể ngày đêm, dù thời tiết nóng hay lạnh, tuy nhiên thói quen này hoàn.</b>
-                        </div>
-                        <div class="item_left_comment">
-                            <b style="margin-right: 3px;">21 </b><b> bình luận</b>
-                        </div>
-                    </a>
-
-                     <a class="item_left_new" href='/register'>
-                        <div class="item_left_author">
-                             <img
-                                src='https://rubee.com.vn/wp-content/uploads/2021/05/Logo-IUH.jpg'
-                                alt='ảnh thẻ header'
-                                style='height: 26px;width: 26px;border-radius: 10px;margin-right: 5px;align-self: center; '/>
-                            <b class="name_page">Chăm sóc trẻ em mới sinh</b>
-                            <div class="dot_item"></div>
-                            <b>mevabe</b>
-                            <div class="dot_item"></div>
-                            <b>20/01/2023</b>
-                        </div>
-                        <div class="item_left_title">
-                            <b class="name_page">Nhiều mẹ sợ con lạnh nên đội mũ liên tục bất kể ngày đêm, dù thời tiết nóng hay lạnh, tuy nhiên thói quen này hoàn.</b>
-                        </div>
-                        <div class="item_left_comment">
-                            <b style="margin-right: 3px;">21 </b><b> bình luận</b>
-                        </div>
-                    </a>
-                    
+                    {{/each}}
                 </div>
             </div>
             <div class="list-right">
@@ -164,22 +45,12 @@
                     <b>Bài viết phổ biến</b>
                 </div>
                 <div class="main_right_list">
-                    <a class="item_right_new" href='/register'>
+                    {{#each data}}
+                    <a class="item_right_new" href='/chitiettintuc/{{this.idNew}}'>
                         <div class="dot_item"></div>
-                        <b>Nhiều mẹ sợ con lạnh nên đội mũ liên tục bất kể ngày đêm, dù thời tiết nóng hay lạnh,...</b>
+                        <b>{{this.title}}</b>
                     </a>
-
-                      <a class="item_right_new" href='/register'>
-                        <div class="dot_item"></div>
-                        <b>Nhiều mẹ sợ con lạnh nên đội mũ liên tục bất kể ngày đêm, dù thời tiết nóng hay lạnh,...</b>
-                    </a>
-
-                      <a class="item_right_new" href='/register'>
-                        <div class="dot_item"></div>
-                        <b>Nhiều mẹ sợ con lạnh nên đội mũ liên tục bất kể ngày đêm, dù thời tiết nóng hay lạnh,...</b>
-                    </a>
-                    
-                    
+                    {{/each}}
                 </div>
                 <a class="chat_real_time" href='/register'>
                     <img

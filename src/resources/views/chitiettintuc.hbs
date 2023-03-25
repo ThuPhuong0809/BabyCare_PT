@@ -8,24 +8,24 @@
                 <div class="main-list-left">
                     <div class="user_create">
                         <img
-                            src='https://rubee.com.vn/wp-content/uploads/2021/05/Logo-IUH.jpg'
+                            src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/logo.png'
                             alt='ảnh thẻ header'
                             style='height: 35px;width: 35px;border-radius: 20px;margin-right: 5px;align-self: center; '/>
                         <div class="thongtin_user">
-                            <b class="name_page" style="font-weight: 600;font-size: 16px;">mevabe</b>
+                            <b class="name_page" style="font-weight: 600;font-size: 16px;">{{data.authorName}}</b>
                             <b class="ngay_create">12/03/2023</b>
                         </div>    
                     </div>
 
                     <div class="main_tintuc">
-                        <p style="" class="title">Nhiều mẹ sợ con lạnh nên đội mũ liên tục bất kể ngày đêm, dù thời tiết nóng hay lạnh, tuy nhiên thói quen này hoàn.</p>
-                        <p  style="margin-top:-15px" class="sub_main">Bé nhà em 2 tuổi rưỡi rồi nhưng nói được ít và ghi nhớ các con vật, màu sắc cũng hơi chậm. Hôm qua em có đọc trên mạng thấy có mẹ review là cho con đọc sách âm thanh okela lắm, kiểu vừa thúc đẩy ngôn ngữ, phát triển nhận thức lại tăng khả năng tập trung tốt cho trẻ nữa ko biết có đúng k? Em cũng đang tò mò tìm hiểu mấy cuốn sách âm thanh như Những loài vật quanh em, Âm thanh của thiên nhiên, Bé ngoan học lễ phép... của Đinh Tị books mà vẫn có chút băn khoăn, kb bé nhà em 2 tuổi rưỡi thì có nên đọc loại sách này chưa? Mẹ nào có kinh nghiệm khoản này chia sẻ giùm em ạ?</p>
+                        <p style="" class="title">{{data.title}}</p>
+                        <p  style="margin-top:-15px" class="sub_main">{{data.content}}</p>
                     </div>
 
                     <div class="div_luotxem_cmt">
                         <div class="luotxem"> <i class="fas fa-eye"></i><p>1.2K</p></div>
-                        <div class="like"> <i class="fas fa-thumbs-up"></i><p>200</p></div>
-                        <div class="cmt"> <i class="fa fa-commenting"></i><p>21</p></div>
+                        <div class="like"> <i class="fas fa-thumbs-up"></i><p>{{data.countLike}}</p></div>
+                        <div class="cmt"> <i class="fa fa-commenting"></i><p>{{data.countLike}}</p></div>
                     </div>
 
                     <div class="div_cmt_tintuc">
@@ -33,7 +33,7 @@
                         <div style="  width: 100%; display: flex; flex-direction:row; align-items: center;justify-content: center;">
                             <div class="div_main_cmt">
                                 <img
-                                src='https://rubee.com.vn/wp-content/uploads/2021/05/Logo-IUH.jpg'
+                                src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/logo.png'
                                 alt='ảnh thẻ header'
                                 style='height: 35px;width: 35px;border-radius: 20px;margin-right: 5px; margin-bottom:12px '/>
                                 <div class="div_input_cmt">
@@ -64,7 +64,7 @@
                     <div class="div_list_cmt_tintuc">
                         <div class="item_cmt">
                             <img
-                            src='https://rubee.com.vn/wp-content/uploads/2021/05/Logo-IUH.jpg'
+                            src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/logo.png'
                             alt='ảnh thẻ header'
                             style='height: 35px;width: 35px;border-radius: 20px;margin-right: 5px; margin-bottom:12px '/>
                             <div class="item_main_cmt">
@@ -74,7 +74,7 @@
                         </div>
                           <div class="item_cmt">
                             <img
-                            src='https://rubee.com.vn/wp-content/uploads/2021/05/Logo-IUH.jpg'
+                            src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/logo.png'
                             alt='ảnh thẻ header'
                             style='height: 35px;width: 35px;border-radius: 20px;margin-right: 5px; margin-bottom:12px '/>
                             <div class="item_main_cmt">
@@ -87,34 +87,7 @@
                 </div>
             </div>
 
-            <div class="list-right">
-                <div class="header_right_list">
-                    <b>Bài viết phổ biến</b>
-                </div>
-                <div class="main_right_list">
-                    <a class="item_right_new" href='/register'>
-                        <div class="dot_item"></div>
-                        <b>Nhiều mẹ sợ con lạnh nên đội mũ liên tục bất kể ngày đêm, dù thời tiết nóng hay lạnh,...</b>
-                    </a>
-
-                      <a class="item_right_new" href='/register'>
-                        <div class="dot_item"></div>
-                        <b>Nhiều mẹ sợ con lạnh nên đội mũ liên tục bất kể ngày đêm, dù thời tiết nóng hay lạnh,...</b>
-                    </a>
-
-                      <a class="item_right_new" href='/register'>
-                        <div class="dot_item"></div>
-                        <b>Nhiều mẹ sợ con lạnh nên đội mũ liên tục bất kể ngày đêm, dù thời tiết nóng hay lạnh,...</b>
-                    </a>
-                    
-                </div>
-                <a class="chat_real_time" href='/register'>
-                    <img
-                        src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
-                        alt='ảnh thẻ header'
-                        style='height: 60px;width: 60px;border-radius: 30px;box-shadow: 3px 5px 3px #DCDFE4;'/>
-                <a/>
-            </div>
+        
         </div>
 
         

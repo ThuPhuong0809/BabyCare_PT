@@ -8,7 +8,7 @@ const Schema = mongoose.Schema;
 
 const User = new Schema(
   {
-    id: { type: Number },
+    idUser: { type: Number },
     name: { type: String, maxLength: 255 },
     dateOfBirth: { type: Date },
     gender: { type: String, maxLength: 255 },
@@ -27,7 +27,7 @@ const User = new Schema(
 
 // Add plugin
 mongoose.plugin(slug);
-User.plugin(AutoIncrement, { inc_field: 'id' });
+User.plugin(AutoIncrement, { inc_field: 'idUser' });
 User.plugin(mongooseDelete, { deletedAt: true, overrideMethods: 'all' });
 
 module.exports = mongoose.model('User', User);

@@ -8,7 +8,7 @@ const Schema = mongoose.Schema;
 
 const New = new Schema(
   {
-    id: { type: Number },
+    idNew: { type: Number },
     title: { type: String, maxLength: 255 },
     content: { type: String, maxLength: 255 },
     authorId: { type: Number },
@@ -26,7 +26,7 @@ const New = new Schema(
 
 // Add plugin
 mongoose.plugin(slug);
-New.plugin(AutoIncrement, { inc_field: 'id' });
+New.plugin(AutoIncrement, { inc_field: 'idNew' });
 New.plugin(mongooseDelete, { deletedAt: true, overrideMethods: 'all' });
 
 module.exports = mongoose.model('New', New);

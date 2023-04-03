@@ -28,70 +28,17 @@
 
                 </div>
                 <div class="main_list_chat">
-                    <div class="item_list_chat">
-                        <img
-                        src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
-                        alt='ảnh thẻ header'
-                        style='height: 40px;width: 40px;border-radius: 30px;'
-                        />
-                         <p>Tin Tức</p>
-                    </div>
-                     <div class="item_list_chat">
-                        <img
-                        src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
-                        alt='ảnh thẻ header'
-                        style='height: 40px;width: 40px;border-radius: 30px;'
-                        />
-                         <p>Tin Tức</p>
-                    </div>
-                     <div class="item_list_chat">
-                        <img
-                        src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
-                        alt='ảnh thẻ header'
-                        style='height: 40px;width: 40px;border-radius: 30px;'
-                        />
-                         <p>Tin Tức</p>
-                    </div>
-                     <div class="item_list_chat">
-                        <img
-                        src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
-                        alt='ảnh thẻ header'
-                        style='height: 40px;width: 40px;border-radius: 30px;'
-                        />
-                         <p>Tin Tức</p>
-                    </div>
-                     <div class="item_list_chat">
-                        <img
-                        src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
-                        alt='ảnh thẻ header'
-                        style='height: 40px;width: 40px;border-radius: 30px;'
-                        />
-                         <p>Tin Tức</p>
-                    </div>
-                     <div class="item_list_chat">
-                        <img
-                        src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
-                        alt='ảnh thẻ header'
-                        style='height: 40px;width: 40px;border-radius: 30px;'
-                        />
-                         <p>Tin Tức</p>
-                    </div>
-                     <div class="item_list_chat">
-                        <img
-                        src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
-                        alt='ảnh thẻ header'
-                        style='height: 40px;width: 40px;border-radius: 30px;'
-                        />
-                         <p>Tin Tức</p>
-                    </div>
-                     <div class="item_list_chat">
-                        <img
-                        src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
-                        alt='ảnh thẻ header'
-                        style='height: 40px;width: 40px;border-radius: 30px;'
-                        />
-                         <p>Tin Tức</p>
-                    </div>
+                   {{#each data}}
+                        <a class="item_list_chat" href='/cvtvsk/listchat/{{this.userName}}'>
+                            <img
+                            src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
+                            alt='ảnh thẻ header'
+                            style='height: 40px;width: 40px;border-radius: 30px;'
+                            />
+                            <p>{{this.userName}}</p>
+                        </a>
+                    {{/each}}
+                     
                 </div>
             </div>
 

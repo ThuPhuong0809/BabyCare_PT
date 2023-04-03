@@ -12,7 +12,7 @@
 }
 .listchatCVTVSK .main-home .main-body {
   height: 95%;
-  width: 90%;
+  width: 80%;
   display: flex;
   justify-content: space-between;
   flex-direction:row;
@@ -101,6 +101,8 @@
   display: flex;
   flex-direction:row;
   align-items: center;
+  text-decoration: none;
+  color: #000;
 }
 
 .listchatCVTVSK .main_list_chat .item_list_chat{
@@ -110,6 +112,7 @@
   flex-direction:row;
   align-items: center;
   padding: 10px;
+  text-decoration: none;
 }
 
 .listchatCVTVSK .main_list_chat .item_list_chat p{

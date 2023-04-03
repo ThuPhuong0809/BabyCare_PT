@@ -10,7 +10,14 @@ router.get('/register', mainController.register);
 // router.get('/chitiettintuc', mainController.chitiettintuc);
 router.get('/thongtincanhan', mainController.thongtincanhanTV);
 router.get('/chitiettintuc/:idNew', mainController.chitiettintuc);
+router.post('/thembinhluan', mainController.themcmt);
+router.get('/guitinnhan', mainController.viettinnhan);
+router.post('/guitinnhan', mainController.guitinnhan);
+router.get('/dangtin', mainController.taotinthanhvien);
+router.post('/dangtin', mainController.dangtinthanhvien);
+router.get('/danhsachtypenew', mainController.danhsachtypenew);
 
 router.get('/cvtvsk/listchat', mainController.listchatcvtv);
-
+router.get('/cvtvsk/listchat/:userName', mainController.chitietchat);
+router.post('/cvtvsk/guitinnhan', mainController.guitinnhanCVTV);
 module.exports = router;

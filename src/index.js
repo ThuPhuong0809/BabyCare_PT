@@ -29,9 +29,35 @@ app.engine(
     extname: '.hbs',
     helpers: {
       sum: (a, b) => a + b,
-      // ngay: datee => new Intl.DateTimeFormat('en-AU').format(datee),
+      ngay: datee => new Intl.DateTimeFormat('en-AU').format(datee),
       // noidung: thongtinMH =>
       //   mahoa.AES.encrypt(String(thongtinMH), 'diep123').toString(),
+      ifCond: (v1, operator, v2, options) => {
+        switch (operator) {
+          case '==':
+            return v1 == v2 ? options.fn(this) : options.inverse(this);
+          case '===':
+            return v1 === v2 ? options.fn(this) : options.inverse(this);
+          case '!=':
+            return v1 != v2 ? options.fn(this) : options.inverse(this);
+          case '!==':
+            return v1 !== v2 ? options.fn(this) : options.inverse(this);
+          case '<':
+            return v1 < v2 ? options.fn(this) : options.inverse(this);
+          case '<=':
+            return v1 <= v2 ? options.fn(this) : options.inverse(this);
+          case '>':
+            return v1 > v2 ? options.fn(this) : options.inverse(this);
+          case '>=':
+            return v1 >= v2 ? options.fn(this) : options.inverse(this);
+          case '&&':
+            return v1 && v2 ? options.fn(this) : options.inverse(this);
+          case '||':
+            return v1 || v2 ? options.fn(this) : options.inverse(this);
+          default:
+            return options.inverse(this);
+        }
+      },
     },
   })
 );

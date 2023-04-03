@@ -1,0 +1,118 @@
+<div class="chitietchat">
+    <div>
+        {{>header}}
+    </div>
+    <div class="main-home">
+        <div class="main-body">
+            <div class="list-left">
+                <div class="header_search_list_chat">
+                    <a class='nav-link' href=''>
+                        <p> <i class='fa fa-navicon'></i></p>
+                    </a>
+
+                    <div class='row search-chat'>
+                        <form action=''>
+                        <input
+                            type='text'
+                            id='searchHeader'
+                            name='searchHeader'
+                            placeholder='Tìm kiếm'
+                            required=''
+                        />
+                        <button type='submit'><i
+                            class='fa fa-search'
+                            aria-hidden='true'
+                            ></i></button>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="main_list_chat">
+                   {{#each data}}
+                        {{!-- {{#ifCond userNameNow '===' userNameNow}}
+                            <a class="item_list_chat" href='/cvtvsk/listchat/{{data.userName}}' style="background-color: aqua;">
+                                <img
+                                src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
+                                alt='ảnh thẻ header'
+                                style='height: 40px;width: 40px;border-radius: 30px;'
+                                />
+                                <p>{{data.userName}}</p>
+                            </a>
+                        {{else}} --}}
+                             <a class="item_list_chat" href='/cvtvsk/listchat/{{this.userName}}'>
+                                <img
+                                src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
+                                alt='ảnh thẻ header'
+                                style='height: 40px;width: 40px;border-radius: 30px;'
+                                />
+                                <p>{{this.userName}}</p>
+                            </a>
+                        {{!-- {{/ifCond}} --}}
+                    {{/each}}
+                     
+                </div>
+            </div>
+
+            <div class="list-right">
+                <div class="header_chat">
+                     <img
+                        src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
+                        alt='ảnh thẻ header'
+                        style='height: 40px;width: 40px;border-radius: 30px;  margin-right: 10px;'
+                        />
+                    <p>{{userNameNow}}</p>
+                </div>
+                <div class="list_tinhan">
+                        {{#each listChat}}
+                            {{#if this.type}}
+                                    <div class="message recieved" >
+                                        <div class="content">
+                                            <p>{{this.message}}</p>
+                                        </div>
+                                    </div>
+                            {{else}}
+                                    <div class= "message sended" >
+                                        <div class="content">
+                                            <p>{{this.message}}</p>
+                                        </div>
+                                    </div>
+                            {{/if}}
+                        {{/each}}
+                    
+                </div>
+                <div class="form_gui">
+                        <form action='/cvtvsk/guitinnhan' id='' method='POST'>
+                            <div class='div_input_row'>
+                                 <input  type="hidden"  name="userName" value={{userNameNow}}
+                                                class="form-control" >
+                                <input  type="hidden"  name="type" value=false
+                                        class="form-control" >
+                                <textarea autocomplete='new-password'
+                                    class='input'
+                                    id='TinNhan'
+                                    name='message'
+                                    placeholder='Nhập tin nhắn bạn muốn gửi'
+                                    required='required'
+                                    type='text'
+                                    value=''
+                                    rows="5" 
+                                    cols="40" ></textarea>
+                            </div>
+                            
+                            
+                            <div class="div_btn">
+                                <input type='submit' class='button btnSend' value='GỬI' />
+                            </div>
+                        </form>
+                    </div>
+               
+            </div>
+        </div>
+
+        
+    </div>
+ </div>
+
+
+        
+        

@@ -1,0 +1,265 @@
+.chitietchat{
+  background-color: #DCDFE4;
+  height: 100%;
+}
+.chitietchat .main-home {
+  height: 100%;
+  padding-top: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.chitietchat .main-home .main-body {
+  height: 95%;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction:row;
+  background-color: white;
+  border: 1px solid white;
+}
+.chitietchat .list-left{
+  height: 100%;
+  width: 25%;
+  display: flex;
+  flex-direction:column;
+  overflow-x:hidden;
+  overflow-y:auto;
+}
+
+.chitietchat .header_search_list_chat{
+  height: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction:row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding-top: 12px;
+}
+
+.chitietchat .header_search_list_chat a{
+  text-decoration: none;
+  color: black;
+}
+
+.chitietchat .search-chat{
+  width: 94%;
+  margin-left: 2px;
+}
+
+.chitietchat .search-chat form {
+  width: 90%;
+  position: relative;
+  align-self: center;
+}
+
+.chitietchat .search-chat form input {
+  width: 100%;
+  background-color: #F5F5F5;
+  height: 32px;
+  color: #296088;
+  font-size: 12px;
+  padding: 0 15px;
+  border: none;
+  border-radius: 20px !important;
+}
+.chitietchat .search-chat ::placeholder {
+  color: #296088;
+}
+.chitietchat .search-chat form input:focus {
+  outline: none;
+}
+.chitietchat .search-chat form button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+  width: 38px;
+  height: 100%;
+  border: 0;
+}
+.chitietchat .search-chat form button i {
+  color: #296088;
+  font-size: 16px;
+}
+
+.chitietchat .main_list_chat{
+  width: 100%;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+  overflow-x:hidden;
+  overflow-y:auto;
+}
+
+.chitietchat .main_list_chat .item_list_chat{
+  height: 60px;
+  width: 100%;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  text-decoration: none;
+  color: #000;
+}
+
+.chitietchat .main_list_chat .item_list_chat{
+  height: 60px;
+  width: 100%;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.chitietchat .main_list_chat .item_list_chat p{
+  /* color: #ffffff; */
+  font-size: 16px;
+  font-weight: 550;
+  margin-top: 15px;
+  margin-left: 10px;
+}
+
+
+.chitietchat .list-right{
+  height: 100%;
+  width: 75%;
+  display: flex;
+  flex-direction:column;
+  position: relative;
+  background-color: #DCDFE4;
+
+}
+.chitietchat .list-right .header_chat{
+  height: 8%;
+  width: 100%;
+  background-color: white;
+  border-left: 1px solid #DCDFE4;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding-left: 10px;
+}
+
+.chitietchat .list-right .header_chat p{
+  font-weight: 550;
+  margin-top: 10px;
+}
+
+.chitietchat .list-right .list_tinhan{
+  height: 64.5%;
+  width: 100%;
+  overflow-x:hidden;
+  overflow-y:auto;
+  padding: 10px;
+}
+.chitietchat .list-right .message{
+  display: flex;
+
+}
+
+.chitietchat .list-right .message p{
+  color: black;
+  font-size: 16px;
+}
+
+.chitietchat .list-right .message .content {
+  max-width: 40%;
+  overflow-wrap: break-word;
+  padding: 0.8rem;
+  font-size: 1.1rem;
+  border-radius: 1rem;
+  color: #d1d1d1;
+  margin-bottom: 5px;
+  @media screen and (min-width: 720px) and (max-width: 1080px) {
+    max-width: 70%;
+  };
+
+}
+
+.chitietchat .list-right .sended {
+  justify-content: flex-end;
+}
+
+.chitietchat .list-right .sended .content {
+  background-color: #4f04ff21;
+}
+
+.chitietchat .list-right .recieved {
+  justify-content: flex-start;
+}
+
+.chitietchat .list-right  .recieved  .content {
+  background-color: #9900ff20;
+}
+
+.chitietchat .list-right .form_gui{
+  height: 24.5%;
+  width: 100%;
+  border-top: 1px solid #9B9B9B;
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.chitietchat .list-right form{
+  display: flex;
+  margin-bottom: 20px;
+  width: 90%;
+  flex-direction:column;
+}
+
+.chitietchat .list-right .div_input_row{
+  display: flex;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.chitietchat .list-right .div_input_row >label{
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.chitietchat .list-right #TinNhan {
+width: 100%;
+/* height: 200px; . */
+border-radius: 6px;
+border: 1px solid #296088;
+color: #296088;
+font-style: italic;
+font-size: 14px;
+padding-left: 15px;
+outline: none;
+}
+
+.chitietchat .list-right .div_btn{
+  width: 100%;
+  flex-direction:row;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+  }
+  .chitietchat .list-right .div_btn a{
+  text-decoration: none
+  }
+  .chitietchat .list-right .div_btn p{
+  color: #296088;
+  font-size: 16px;
+  }
+  
+  .chitietchat .list-right .btnSend {
+    width: 200px;
+    height: 48px;
+    background-color: #296088;
+    border: none;
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+    border-radius: 10px;
+  }
+  

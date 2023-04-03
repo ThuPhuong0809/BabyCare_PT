@@ -1,22 +1,31 @@
 <div class='navbar-expand-lg header'>
   <div class='row container-header'>
-    <div class='col-3 left-bar row'>
-      <div class='col-4 divHinhAnh'>
+    <div class='col-4 left-bar row'>
+      <div class='col-3 divHinhAnh'>
         <img
           src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/logo.png'
           alt='ảnh thẻ header'
           style='height: 50px;width: 51px;'
         />
       </div>
-      <div class='row btnTinTuc col-8'>
+      <div class='row btnTinTuc col-9'>
         <div class='btnTinTucMain'></div>
-        <a class='' href='/home'>
-          <p>Tin Tức</p>
-        </a>
+        {{#ifCond role '==' 2}}
+          <a class='' href='/home'>
+            <p>Tin Tức</p>
+          </a>
+          <a class='' href='/cvtvsk/listchat' style='margin-left: 20px;'>
+            <p>Danh sách tin nhắn</p>
+          </a>
+        {{else}}
+          <a class='' href='/home'>
+            <p>Tin Tức</p>
+          </a>
+        {{/ifCond}}
       </div>
     </div>
 
-    <div class='row col-6 search-bar'>
+    <div class='row col-5 search-bar'>
       <div class='div-search-bar'>
       </div>
       <form action=''>
@@ -43,7 +52,7 @@
         <ul class='row navbar-nav mr-auto nav-header'>
           <div class='btnTinTucMain'></div>
           <li class='nav-item active' style='margin-right: 15px;'>
-            <a class='nav-link' href='/cvtvsk/listchat'>
+            <a class='nav-link' href='/dangtin'>
               <p> <i class='fa fa-pencil'></i></p>
               <span class='sr-only'>(current)</span>
             </a>
@@ -189,4 +198,15 @@
   }, dataType: 'json', success: function (result) { alert("Cập nhật thành công
   !"); hideDoiMatKhau(); }, error: function (result) { alert("Mật khẩu cũ không
   hợp lệ !"); } }); } }); }
+</script>
+
+<script>
+  // step 1 const ipnElement = document.querySelector('#Password') const
+  btnElement = document.querySelector('#btnPassword') const iconEye =
+  document.querySelector('#iconEye') // step 2
+  btnElement.addEventListener('click', function() { // step 3 const currentType
+  = ipnElement.getAttribute('type') // step 4 ipnElement.setAttribute( 'type',
+  currentType === 'password' ? 'text' : 'password' ) if(currentType
+  ==="password"){ iconEye.classList.replace("fa-eye-slash", "fa-eye"); }else{
+  iconEye.classList.replace("fa-eye", "fa-eye-slash"); } })
 </script>

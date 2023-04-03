@@ -330,3 +330,10 @@
 .chitiettintuc .div_list_cmt_tintuc .item_main_cmt .name_cmt{
   font-weight: 600;
 }
+
+.chitiettintuc .div_list_cmt_tintuc  .time_cmt{
+  font-weight: 450;
+  color: #9B9B9B;
+  margin-left: 60px;
+  font-size: 14px;
+}

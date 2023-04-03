@@ -145,12 +145,14 @@
                 </a>
                  
                
-                <a class="chat_real_time" href='/register'>
-                    <img
-                        src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
-                        alt='ảnh thẻ header'
-                        style='height: 60px;width: 60px;border-radius: 30px;box-shadow: 3px 5px 3px #DCDFE4;'/>
-                <a/>
+                {{#ifCond role '==' 1}}
+                    <a class="chat_real_time" href='/guitinnhan'>
+                        <img
+                            src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
+                            alt='ảnh thẻ header'
+                            style='height: 60px;width: 60px;border-radius: 30px;box-shadow: 3px 5px 3px #DCDFE4;'/>
+                    <a/>
+                {{/ifCond}}
             </div>
         </div>
 

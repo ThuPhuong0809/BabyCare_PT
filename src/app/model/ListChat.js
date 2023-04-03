@@ -5,12 +5,10 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const Schema = mongoose.Schema;
 
-const Chat = new Schema(
+const ListChat = new Schema(
   {
-    idChat: { type: Number },
+    idListChat: { type: Number },
     userName: { type: String, maxLength: 255 },
-    type: { type: Boolean },
-    message: { type: String, maxLength: 255 },
     createdDate: { type: Date, default: Date.now },
   },
   {
@@ -20,7 +18,7 @@ const Chat = new Schema(
 
 // Add plugin
 mongoose.plugin(slug);
-Chat.plugin(AutoIncrement, { inc_field: 'idChat' });
-Chat.plugin(mongooseDelete, { deletedAt: true, overrideMethods: 'all' });
+ListChat.plugin(AutoIncrement, { inc_field: 'ListChat' });
+ListChat.plugin(mongooseDelete, { deletedAt: true, overrideMethods: 'all' });
 
-module.exports = mongoose.model('Chat', Chat);
+module.exports = mongoose.model('ListChat', ListChat);

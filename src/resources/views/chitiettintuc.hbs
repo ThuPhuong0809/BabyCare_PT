@@ -37,11 +37,18 @@
                                 alt='ảnh thẻ header'
                                 style='height: 35px;width: 35px;border-radius: 20px;margin-right: 5px; margin-bottom:12px '/>
                                 <div class="div_input_cmt">
-                                    <form action=''>
+                                    <form action="/thembinhluan" method="POST">
+                                        <input  type="hidden"  name="userName" value={{username}}
+                                                class="form-control" >
+                                        <input  type="hidden"  name="newId" value={{data.idNew}}
+                                                class="form-control" >
+                                        <input  type="hidden"  name="status" value="1"
+                                                class="form-control" >
+            
                                         <input
                                         type='text'
                                         id='searchHeader'
-                                        name='searchHeader'
+                                        name='content'
                                         placeholder='Tìm kiếm bài viết...'
                                         required=''
                                         />
@@ -62,26 +69,19 @@
                     </div>
 
                     <div class="div_list_cmt_tintuc">
-                        <div class="item_cmt">
-                            <img
-                            src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/logo.png'
-                            alt='ảnh thẻ header'
-                            style='height: 35px;width: 35px;border-radius: 20px;margin-right: 5px; margin-bottom:12px '/>
-                            <div class="item_main_cmt">
-                                <p class="name_cmt">nguyennguyen123</p>
-                                <p>Đúng rồi đấy sách âm thanh vừa thúc đẩy giúp con phát triển khả năng ngôn ngữ, phát triển nhận thức với cả lại còn tăng khả năng tập trung tốt cho trẻ nữa đấy ạSách âm thanh Đinh Tị books này chất liệu giấy dày dặn, đẹp, màu sắc bắt mắt, âm thanh cực sống động mà chuẩn nữa. Các góc sách làm bo tròn an toàn cho con. Nói chung okiii lắm</p>
+                        {{#each listComment}}
+                            <div class="item_cmt">
+                                <img
+                                src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/logo.png'
+                                alt='ảnh thẻ header'
+                                style='height: 35px;width: 35px;border-radius: 20px;margin-right: 5px; margin-bottom:12px '/>
+                                <div class="item_main_cmt">
+                                    <p class="name_cmt">{{this.userName}}</p>
+                                    <p>{{this.content}}</p>
+                                </div>
                             </div>
-                        </div>
-                          <div class="item_cmt">
-                            <img
-                            src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/logo.png'
-                            alt='ảnh thẻ header'
-                            style='height: 35px;width: 35px;border-radius: 20px;margin-right: 5px; margin-bottom:12px '/>
-                            <div class="item_main_cmt">
-                                <p class="name_cmt">nguyennguyen123</p>
-                                <p>Đúng rồi đấy sách âm thanh vừa thúc đẩy giúp con phát triển khả năng ngôn ngữ, phát triển nhận thức với cả lại còn tăng khả năng tập trung tốt cho trẻ nữa đấy ạSách âm thanh Đinh Tị books này chất liệu giấy dày dặn, đẹp, màu sắc bắt mắt, âm thanh cực sống động mà chuẩn nữa. Các góc sách làm bo tròn an toàn cho con. Nói chung okiii lắm</p>
-                            </div>
-                        </div>
+                            <p class="time_cmt">{{this.createdDate}}</p>
+                         {{/each}}
                     </div>
                     
                 </div>

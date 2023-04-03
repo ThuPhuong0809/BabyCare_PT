@@ -1,0 +1,108 @@
+    <div class="dangtinthanhvien">
+    <div>
+        {{>header}}
+    </div>
+    <div class="main-home">
+        <div class="main-body">
+            <div class="list-left">
+                <div class="main-list-left">
+                    <label>CHIA SẺ KINH NGIỆM CỦA BẠN</label>
+                     <div class="form_gui">
+                        <form action='/dangtin' id='form-login' method='POST'>
+                            <div class='div_input_row'>
+                                 <input  type="hidden"  name="authorName" value={{username}}
+                                                class="form-control" >
+                                <input  type="hidden"  name="status" value=1
+                                        class="form-control" >
+                                <div class='div_input_row_item'>
+                                    <label>Chọn lĩnh vực bạn muốn đăng: </label>
+                                    <select class="form-control" id="ChonLinhVuc" name="nameType">
+                                        
+                                    </select>
+                                </div>
+                                 <div class='div_input_row_item'>
+                                    <label>Tiêu đề tin: </label>
+                                    <input  type="text"  name="title" value=''
+                                        class="form-control" >
+                                </div>
+                                <textarea autocomplete='new-password'
+                                    class='input'
+                                    id='TinNhan'
+                                    name='content'
+                                    placeholder='Nhập tin bạn muốn đăng'
+                                    required='required'
+                                    type='text'
+                                    value=''
+                                    rows="15" 
+                                    cols="40" ></textarea>
+                                    
+                                
+                            </div>
+                            
+                            
+                            <div class="div_btn">
+                                <input type='submit' class='button btnChangeThongtin' value='GỬI' />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-right">
+                <div class="div_avatar">
+                    <img src='https://bedental.vn/wp-content/uploads/2022/12/f637b0052729d9502ff03abe390fe051.jpg'
+                        alt='ảnh thẻ header'
+                        style='height: 150px;width: 150px;border-radius: 100px;'/>  
+                    <p>thu_phuong</p> 
+                </div>
+
+                 <div class="item_menu_right">
+                    <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconListNew.png'
+                        alt='ảnh thẻ header'
+                        style='height: 28px; margin:14px 15px 14px 18px;'/>  
+                    <p>Bài viết</p> 
+                </div>
+
+                 <div class="item_menu_right">
+                    <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconNew.png'
+                        alt='ảnh thẻ header'
+                        style='height: 28px; margin:14px 15px 14px 18px;'/>  
+                    <p>Bài viết chờ phê duyệt</p> 
+                </div>
+
+                <a class='item_menu_right_pass' href='/home'>
+                    <p>Đổi mật khẩu</p>
+                </a>
+                 
+               
+            </div>
+        </div>
+
+        
+    </div>
+ </div>
+        
+        
+<script>
+    $(document).ready(function () {
+        // hiển thị thông tin về các khoa
+        function loadLinhVuc() {
+            $.ajax({
+                url: '/danhsachtypenew',
+                type: 'get',
+                dataType: 'json'
+            }).done(function (result) {
+                if (result.length > 0) {
+                    for (let i = 0; i < result.length; i++) {
+
+                        let themType = `
+                            <option value = "`+ result[i].name + `">` + result[i].name + `</option>`;
+                        $('#ChonLinhVuc').append(themType);
+                    }
+                }
+
+            });
+        }
+        loadLinhVuc();
+    });
+</script>

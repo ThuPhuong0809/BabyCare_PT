@@ -23,6 +23,7 @@
     "express-session": "^1.17.2",
     "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
+    "moment": "^2.29.4",
     "mongoose": "^5.13.7",
     "mongoose-delete": "^0.5.3",
     "mongoose-sequence": "^5.3.1",

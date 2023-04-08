@@ -17,6 +17,7 @@ const User = new Schema(
     dateOfIssue: { type: Date },
     status: { type: Number },
     avatar: { type: String, maxLength: 255 },
+    idAccount: { type: Number },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },

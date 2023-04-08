@@ -98,6 +98,10 @@
   align-items: center;
  }
 
+ .chitiettintuc .div_luotxem_cmt .like{
+  text-decoration: none;
+ }
+
  .chitiettintuc .main_tintuc .title{
   font-size: 18px;
   font-weight: 700;

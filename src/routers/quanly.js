@@ -16,6 +16,7 @@ router.post('/guitinnhan', mainController.guitinnhan);
 router.get('/dangtin', mainController.taotinthanhvien);
 router.post('/dangtin', mainController.dangtinthanhvien);
 router.get('/danhsachtypenew', mainController.danhsachtypenew);
+router.get('/thichtintuc/:idNew', mainController.thichtintuc);
 
 router.get('/cvtvsk/listchat', mainController.listchatcvtv);
 router.get('/cvtvsk/listchat/:userName', mainController.chitietchat);

@@ -13,6 +13,7 @@ const Comment = new Schema(
   {
     idComment: { type: Number },
     userName: { type: String, maxLength: 255 },
+    userImage: { type: String, maxLength: 255 },
     newId: { type: Number },
     content: { type: String, maxLength: 255 },
     status: { type: Number },

@@ -7,20 +7,51 @@ const Comment = require('../model/Comment');
 const Chat = require('../model/Chat');
 const ListChat = require('../model/ListChat');
 const NewType = require('../model/NewType');
+const Like = require('../model/Like');
+
+const NewTemp = require('../model/NewTemp');
 
 class MainController {
   // [GET] /home
   home(req, res) {
+    const array = [];
+    const listNewType = [];
     if (req.session.isAuth) {
       New.find((err, data) => {
-        //lấy tất cả dữ liệu bảng new
         if (!err) {
-          res.render('home', {
-            data: data,
-            username: req.session.username,
-            role: req.session.role,
-          }); //có dữ liệu sẽ đưa data vào trang home với data là d/s new tìm đc
-          console.log(data);
+          for (var i = 0; i < data.length; i++) {
+            const newTemp = new NewTemp();
+            newTemp.idNewTemp = data[i].idNew;
+            newTemp.title = data[i].title;
+            newTemp.content = data[i].content;
+            newTemp.authorId = data[i].authorId;
+            newTemp.authorName = data[i].authorName;
+            newTemp.image = data[i].image;
+            newTemp.status = data[i].status;
+            newTemp.countLike = data[i].countLike;
+            newTemp.countComment = data[i].countComment;
+            newTemp.createdDate = data[i].createdDate;
+            newTemp.updatedDate = data[i].updatedDate;
+
+            NewType.findOne({ idNewType: data[i].typeId }, (err, newType) => {
+              if (!err) {
+                listNewType.push(newType);
+                newTemp.idNewType = newType.idNewType;
+                newTemp.nameNewType = newType.name;
+                newTemp.imageNewType = newType.image;
+                array.push(newTemp);
+                if (listNewType.length == data.length) {
+                  res.render('home', {
+                    array: array,
+                    username: req.session.username,
+                    role: req.session.role,
+                  });
+                }
+              } else {
+                res.status(400).json({ error: 'ERROR!!!' });
+              }
+            }).lean();
+          }
         } else {
           res.status(400).json({ error: 'ERROR!!!' });
         }
@@ -40,12 +71,38 @@ class MainController {
             { newId: Number(req.params.idNew) },
             (err, listComment) => {
               if (!err) {
-                res.render('chitiettintuc', {
-                  data: data,
-                  username: req.session.username,
-                  listComment: listComment,
-                  role: req.session.role,
-                });
+                Like.find(
+                  { newId: Number(req.params.idNew) },
+                  (err, listLike) => {
+                    if (!err) {
+                      Like.find(
+                        {
+                          userId: req.session.userId,
+                          newId: Number(req.params.idNew),
+                        },
+                        (err, isLike) => {
+                          if (!err) {
+                            res.render('chitiettintuc', {
+                              data: data,
+                              username: req.session.username,
+                              userId: req.session.idUser,
+                              avatar: req.session.avatar,
+                              listComment: listComment,
+                              role: req.session.role,
+                              countLike: listLike.length,
+                              countComment: listComment.length,
+                              liked: isLike.length,
+                            });
+                          } else {
+                            res.status(400).json({ error: 'ERROR!!!' });
+                          }
+                        }
+                      ).lean();
+                    } else {
+                      res.status(400).json({ error: 'ERROR!!!' });
+                    }
+                  }
+                ).lean();
               } else {
                 res.status(400).json({ error: 'ERROR!!!' });
               }
@@ -65,15 +122,75 @@ class MainController {
     const comemnt = new Comment(req.body);
     const idNew = parseInt(req.body.newId);
     console.log(comemnt);
+
     if (req.session.isAuth) {
-      comemnt
-        .save()
-        .then(() => res.redirect(`/chitiettintuc/${idNew}`))
-        .catch(error => {});
+      Comment.find({ newId: idNew }, (err, listComment) => {
+        console.log('listComment', listComment.length);
+        if (!err) {
+          New.findOne({ idNew: idNew }, (err, data) => {
+            console.log('data', data);
+            if (!err) {
+              if (data) {
+                data.countComment = listComment.length + 1;
+                console.log('data update', data);
+                New.updateOne({ idNew: idNew }, data)
+                  .then(() => {
+                    console.log('TRUEEE');
+                    comemnt
+                      .save()
+                      .then(() => res.redirect(`/chitiettintuc/${idNew}`))
+                      .catch(error => {});
+                  })
+                  .catch(err => next(err));
+              }
+            } else {
+              res.status(400).json({ error: 'ERROR!!!' });
+            }
+          }).lean();
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
     } else {
       req.session.back = `/chitiettintuc/${idNew}`;
       res.redirect('/login/');
     }
+  }
+
+  thichtintuc(req, res) {
+    const like = new Like();
+    like.userId = req.session.userId;
+    like.newId = req.params.idNew;
+    const idNew = parseInt(req.params.idNew);
+
+    Like.find({ userId: req.session.userId, newId: idNew }, (err, isLike) => {
+      if (!err) {
+        if (isLike.length > 0) {
+          if (req.session.isAuth) {
+            Like.delete({ userId: req.session.userId, newId: idNew })
+              .then(() => {
+                res.redirect(`/chitiettintuc/${idNew}`);
+              })
+              .catch(err => next(err));
+          } else {
+            req.session.back = `/chitiettintuc/${idNew}`;
+            res.redirect('/login/');
+          }
+        } else {
+          if (req.session.isAuth) {
+            like
+              .save()
+              .then(() => res.redirect(`/chitiettintuc/${idNew}`))
+              .catch(error => {});
+          } else {
+            req.session.back = `/chitiettintuc/${idNew}`;
+            res.redirect('/login/');
+          }
+        }
+      } else {
+        res.status(400).json({ error: 'ERROR!!!' });
+      }
+    }).lean();
   }
 
   viettinnhan(req, res) {
@@ -186,29 +303,68 @@ class MainController {
             res.redirect('/login/');
           } else {
             if (bcrypt.compareSync(req.body.password, user.password)) {
-              //nếu bắt được user sẽ bắt password
-              var sess = req.session; //initialize session variable
-              sess.isAuth = true;
-              sess.role = user.role;
-              sess.username = user.username;
-              sess.userId = user.username;
+              var sess = req.session;
+              User.findOne({ idAccount: user.id }, (err, userInfo) => {
+                if (!err) {
+                  console.log('-----userInfo--------', userInfo.idUser);
+                  sess.isAuth = true;
+                  sess.role = user.role;
+                  sess.username = user.username;
+                  sess.userId = userInfo.idUser;
+                  sess.avatar = userInfo.avatar;
+                } else {
+                  res.status(400).json({ error: 'ERROR!!!' });
+                }
+              }).lean();
               if (sess.back) {
                 res.redirect(sess.back);
               } else {
+                const array = [];
+                const listNewType = [];
                 New.find((err, data) => {
-                  //lấy tất cả dữ liệu bảng new
                   if (!err) {
-                    res.render('home', {
-                      data: data,
-                      username: req.session.username,
-                      role: req.session.role,
-                    }); //có dữ liệu sẽ đưa data vào trang home với data là d/s new tìm đc
-                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                      const newTemp = new NewTemp();
+                      newTemp.idNewTemp = data[i].idNew;
+                      newTemp.title = data[i].title;
+                      newTemp.content = data[i].content;
+                      newTemp.authorId = data[i].authorId;
+                      newTemp.authorName = data[i].authorName;
+                      newTemp.image = data[i].image;
+                      newTemp.status = data[i].status;
+                      newTemp.countLike = data[i].countLike;
+                      newTemp.countComment = data[i].countComment;
+                      newTemp.createdDate = data[i].createdDate;
+                      newTemp.updatedDate = data[i].updatedDate;
+
+                      NewType.findOne(
+                        { idNewType: data[i].typeId },
+                        (err, newType) => {
+                          if (!err) {
+                            listNewType.push(newType);
+                            newTemp.idNewType = newType.idNewType;
+                            newTemp.nameNewType = newType.name;
+                            newTemp.imageNewType = newType.image;
+                            array.push(newTemp);
+                            if (listNewType.length == data.length) {
+                              res.render('home', {
+                                array: array,
+                                username: req.session.username,
+                                role: req.session.role,
+                                userId: req.session.idUser,
+                                avatar: req.session.avatar,
+                              });
+                            }
+                          } else {
+                            res.status(400).json({ error: 'ERROR!!!' });
+                          }
+                        }
+                      ).lean();
+                    }
                   } else {
                     res.status(400).json({ error: 'ERROR!!!' });
                   }
                 }).lean();
-                // res.render('home', { username: req.session.username });
               }
             } else {
               req.flash('error', 'Mật khẩu không đúng!');

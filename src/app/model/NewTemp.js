@@ -6,19 +6,21 @@ const bcrypt = require('bcryptjs');
 
 const Schema = mongoose.Schema;
 
-const New = new Schema(
+const NewTemp = new Schema(
   {
-    idNew: { type: Number },
+    idNewTemp: { type: Number },
     title: { type: String, maxLength: 255 },
     content: { type: String, maxLength: 255 },
     authorId: { type: Number },
     authorName: { type: String, maxLength: 255 },
+    authorImage: { type: String, maxLength: 255 },
     image: { type: String, maxLength: 255 },
-    typeId: { type: Number },
-    nameType: { type: String, maxLength: 255 },
     status: { type: Number },
     countLike: { type: Number },
     countComment: { type: Number },
+    idNewType: { type: Number },
+    nameNewType: { type: String, maxLength: 255 },
+    imageNewType: { type: String, maxLength: 255 },
     createdDate: { type: Date, default: Date.now },
     updatedDate: { type: Date, default: Date.now },
   },
@@ -29,7 +31,7 @@ const New = new Schema(
 
 // Add plugin
 mongoose.plugin(slug);
-New.plugin(AutoIncrement, { inc_field: 'idNew' });
-New.plugin(mongooseDelete, { deletedAt: true, overrideMethods: 'all' });
+NewTemp.plugin(AutoIncrement, { inc_field: 'idNewTemp' });
+NewTemp.plugin(mongooseDelete, { deletedAt: true, overrideMethods: 'all' });
 
-module.exports = mongoose.model('New', New);
+module.exports = mongoose.model('NewTemp', NewTemp);

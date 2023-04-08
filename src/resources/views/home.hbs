@@ -17,25 +17,25 @@
                     </a>
                 </div>
                 <div class="main-list-left">
-                     {{#each data}}
-                    <a class="item_left_new" href='/chitiettintuc/{{this.idNew}}'>
+                     {{#each array}}
+                    <a class="item_left_new" href='/chitiettintuc/{{this.idNewTemp}}'>
                         <div class="item_left_author">
                              <img
-                                src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/logo.png'
+                                src={{this.imageNewType}}
                                 alt='ảnh thẻ header'
                                 style='height: 26px;width: 26px;border-radius: 10px;margin-right: 5px;align-self: center; '/>
-                            <b class="name_page">{{this.nameType}}</b>
+                            <b class="name_page">{{this.nameNewType}}</b>
                             <div class="dot_item"></div>
                             <b>{{this.authorName}}</b>
                             <div class="dot_item"></div>
-                            <b>20/01/2023</b>
-                            {{!-- <b>{{#ngay this.createdDate}}</b> --}}
+                            <b>{{{changeNgay this.createdDate}}}</b>
+                            
                         </div>
                         <div class="item_left_title">
                             <b class="name_page">{{this.title}}</b>
                         </div>
                         <div class="item_left_comment">
-                            <b style="margin-right: 3px;">{{this.countLike}} </b><b> bình luận</b>
+                            <b style="margin-right: 3px;">{{this.countComment}} </b><b> bình luận</b>
                         </div>
                     </a>
                     {{/each}}
@@ -46,8 +46,8 @@
                     <b>Bài viết phổ biến</b>
                 </div>
                 <div class="main_right_list">
-                    {{#each data}}
-                    <a class="item_right_new" href='/chitiettintuc/{{this.idNew}}'>
+                    {{#each array}}
+                    <a class="item_right_new" href='/chitiettintuc/{{this.idNewTemp}}'>
                         <div class="dot_item"></div>
                         <b>{{this.title}}</b>
                     </a>

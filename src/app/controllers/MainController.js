@@ -26,6 +26,7 @@ class MainController {
             newTemp.content = data[i].content;
             newTemp.authorId = data[i].authorId;
             newTemp.authorName = data[i].authorName;
+            newTemp.authorImage = data[i].authorImage;
             newTemp.image = data[i].image;
             newTemp.status = data[i].status;
             newTemp.countLike = data[i].countLike;
@@ -44,6 +45,8 @@ class MainController {
                   res.render('home', {
                     array: array,
                     username: req.session.username,
+                    userId: req.session.userId,
+                    avatar: req.session.avatar,
                     role: req.session.role,
                   });
                 }
@@ -85,7 +88,7 @@ class MainController {
                             res.render('chitiettintuc', {
                               data: data,
                               username: req.session.username,
-                              userId: req.session.idUser,
+                              userId: req.session.userId,
                               avatar: req.session.avatar,
                               listComment: listComment,
                               role: req.session.role,
@@ -201,6 +204,8 @@ class MainController {
           res.render('guitinnhan', {
             listData: listData,
             username: req.session.username,
+            userId: req.session.userId,
+            avatar: req.session.avatar,
             role: req.session.role,
           }); //có dữ liệu sẽ đưa data vào trang home với data là d/s new tìm đc
           console.log(listData);
@@ -245,7 +250,41 @@ class MainController {
 
   // [GET] /register
   thongtincanhanTV(req, res) {
-    res.render('thongtincanhantv');
+    if (req.session.isAuth) {
+      User.findOne({ idUser: req.session.userId }, (err, data) => {
+        if (!err) {
+          console.log('==================', req.session.userId, data);
+          res.render('thongtincanhantv', {
+            data: data,
+            username: req.session.username,
+            userId: req.session.userId,
+            avatar: req.session.avatar,
+            role: req.session.role,
+          });
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
+    } else {
+      req.session.back = '/home';
+      res.redirect('/login/');
+    }
+  }
+
+  // [GET] /register
+  chinhsuathongtincanhan(req, res) {
+    if (req.session.isAuth) {
+      req.body.idUser = Number(req.params.idUser);
+      console.log('req.body', req.body);
+      User.updateOne({ idUser: Number(req.params.idUser) }, req.body)
+        .then(() => {
+          res.redirect('/thongtincanhan');
+        })
+        .catch(err => next(err));
+    } else {
+      req.session.back = '/home';
+      res.redirect('/login/');
+    }
   }
 
   danhsachtypenew(req, res) {
@@ -262,6 +301,8 @@ class MainController {
     if (req.session.isAuth) {
       res.render('dangtinthanhvien', {
         username: req.session.username,
+        userId: req.session.idUser,
+        avatar: req.session.avatar,
         role: req.session.role,
       }); //có dữ liệu sẽ đưa data vào trang home với data là d/s new tìm đc
     } else {
@@ -306,7 +347,6 @@ class MainController {
               var sess = req.session;
               User.findOne({ idAccount: user.id }, (err, userInfo) => {
                 if (!err) {
-                  console.log('-----userInfo--------', userInfo.idUser);
                   sess.isAuth = true;
                   sess.role = user.role;
                   sess.username = user.username;
@@ -330,6 +370,7 @@ class MainController {
                       newTemp.content = data[i].content;
                       newTemp.authorId = data[i].authorId;
                       newTemp.authorName = data[i].authorName;
+                      newTemp.authorImage = data[i].authorImage;
                       newTemp.image = data[i].image;
                       newTemp.status = data[i].status;
                       newTemp.countLike = data[i].countLike;
@@ -351,7 +392,7 @@ class MainController {
                                 array: array,
                                 username: req.session.username,
                                 role: req.session.role,
-                                userId: req.session.idUser,
+                                userId: req.session.userId,
                                 avatar: req.session.avatar,
                               });
                             }
@@ -386,6 +427,8 @@ class MainController {
           res.render('listchatcvtv', {
             data: data,
             username: req.session.username,
+            userId: req.session.userId,
+            avatar: req.session.avatar,
             role: req.session.role,
           });
           // console.log(data);
@@ -408,6 +451,8 @@ class MainController {
               res.render('chitietchat', {
                 data: data,
                 username: req.session.username,
+                userId: req.session.userId,
+                avatar: req.session.avatar,
                 role: req.session.role,
                 userNameNow: req.params.userName,
                 listChat: listChat,

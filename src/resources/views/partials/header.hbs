@@ -63,59 +63,44 @@
               <span class='sr-only'>(current)</span>
             </a>
           </li>
-          {{! <li class='nav-item active'>
-            <a class='nav-link' href='/register'>
-              <p> Đăng ký</p>
-              <span class='sr-only'>(current)</span>
-            </a>
-          </li> }}
-          <li class='nav-item active'>
-            <a
-              class='nav-link'
-              style='display: flex; flex-direction: row;'
-              href='/login'
-            >
-              {{#if avatar}}
-                <img
-                  src={{avatar}}
-                  alt='ảnh thẻ header'
-                  style='height: 30px;width: 31px; border-radius:20px; margin-right:5px'
-                />
-              {{/if}}
 
-              {{! <p> Đăng nhập</p> }}
-              <p> {{username}}</p>
-              <span class='sr-only'>(current)</span>
-            </a>
-          </li>
-          {{!-- <li class='nav-item dropdown row'>
+          {{#if avatar}}
+            <li class='nav-item dropdown row' style='margin-left:20px'>
+              <img
+                src={{avatar}}
+                alt='ảnh thẻ header'
+                style='height: 30px;width: 31px; border-radius:20px;  margin-top:5px'
+              />
+              <a
+                class='nav-link dropdown-toggle'
+                href='#'
+                id='navbarDropdown'
+                role='button'
+                data-toggle='dropdown'
+                aria-haspopup='true'
+                aria-expanded='false'
+                style='margin-right: 30px; margin-top:-5px'
+              >
+                {{username}}
+              </a>
+              <div class='dropdown-menu'>
+                <a class='dropdown-item' href='/thongtincanhan'>Thông tin cá
+                  nhân</a>
+                <div class='dropdown-divider'></div>
+                <a class='dropdown-item' href='/guitinnhan'>
+                  Tin nhắn</a>
+                <div class='dropdown-divider'></div>
+                <a class='dropdown-item' href='/dangtin'>Bài viết</a>
+                <div class='dropdown-divider'></div>
+                <button class='dropdown-item js-doi-mat-khau-ql'>Đổi mật khẩu</button>
+                {{! <a class="dropdown-item" href="#">Đổi mật khẩu</a> }}
+                <div class='dropdown-divider'></div>
+                <a class='dropdown-item' style='color: red;' href='/login'>Đăng
+                  xuất</a>
+              </div>
 
-            <img
-              src='https://rubee.com.vn/wp-content/uploads/2021/05/Logo-IUH.jpg'
-              alt='ảnh thẻ header'
-              style='height: 28px;width: 28px;border-radius: 28px; margin-bottom: 10px;align-self: center;
-                '
-            />
-
-            <a
-              class='nav-link dropdown-toggle'
-              href='#'
-              id='navbarDropdown'
-              role='button'
-              data-toggle='dropdown'
-              aria-haspopup='true'
-              aria-expanded='false'
-              style='margin-right: 30px;'
-            >
-              {{hoten}}
-            </a>
-            <div class='dropdown-menu'>
-              <button class='dropdown-item js-doi-mat-khau-ql'>Đổi mật khẩu</button>
-              {{! <a class="dropdown-item" href="#">Đổi mật khẩu</a> }}
-              <div class='dropdown-divider'></div>
-              <a class='dropdown-item' href='/login'>Đăng xuất</a>
-            </div>
-          </li> --}}
+            </li>
+          {{/if}}
         </ul>
       </div>
     </div>

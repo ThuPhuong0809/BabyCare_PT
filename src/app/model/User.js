@@ -10,11 +10,11 @@ const User = new Schema(
   {
     idUser: { type: Number },
     name: { type: String, maxLength: 255 },
-    dateOfBirth: { type: Date },
+    dateOfBirth: { type: String, maxLength: 255 },
     gender: { type: String, maxLength: 255 },
     cccd: { type: String, maxLength: 255 },
     issuedBy: { type: String, maxLength: 255 },
-    dateOfIssue: { type: Date },
+    dateOfIssue: { type: String, maxLength: 255 },
     status: { type: Number },
     avatar: { type: String, maxLength: 255 },
     idAccount: { type: Number },

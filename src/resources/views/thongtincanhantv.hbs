@@ -6,18 +6,27 @@
         <div class="main-body">
             <div class="list-left">
                 <div class="main-list-left">
-                    <form action='/login' id='form-login' method='POST'>
+                    <form action='/chinhsuathongtincanhan/{{data.idUser}}' id='form-login' method='POST'>
+                        <input  type="hidden"  name="idUser" value={{data.idUser}}
+                            class="form-control" >
+                        <input  type="hidden"  name="status" value=1
+                            class="form-control" >
+                        <input  type="hidden"  name="avatar" value={{data.avatar}}
+                            class="form-control" >
+                        <input  type="hidden"  name="idAccount" value={{data.idAccount}}
+                            class="form-control" >
                         <div class='div_input_row'>
                             <label>Tên đăng nhập</label>
                             <input
                                 autocomplete='new-password'
                                 class='input'
                                 id='TenDangNhap'
-                                name='tendangnhap'
                                 placeholder='Nhập tên tài khoản'
                                 required='required'
                                 type='text'
-                                value=''
+                                value="{{username}}"
+                                readonly
+                                style="background-color: #DCDFE4;"
                             />
                         </div>
                         <div class='div_input_row'>
@@ -26,10 +35,11 @@
                                 autocomplete='new-password'
                                 class='input'
                                 id='HoTen'
-                                name='matkhau'
+                                name='name'
                                 placeholder='Nhập họ và tên'
                                 required='required'
                                 type='text'
+                                value="{{data.name}}"
                             />
                         </div>
 
@@ -39,29 +49,20 @@
                                 autocomplete='new-password'
                                 class='input'
                                 id='NgaySinh'
-                                name='matkhau'
+                                name='dateOfBirth'
                                 placeholder='Nhập ngày sinh'
                                 required='required'
                                 type='text'
+                                value="{{data.dateOfBirth}}"
                             />
                         </div>
 
                         <div class='div_input_row'>
-                            <label>Ngày sinh</label>
-                            <div class="raido_gender">
-                                <div class="item_raido_gender">
-                                    <input type="radio" id="nam" name="gender" value="Nam">
-                                    <label for="nam">Nam</label>
-                                </div>
-                                <div class="item_raido_gender">
-                                    <input type="radio" id="nu" name="gender" value="Nu">
-                                    <label for="nu">Nữ</label>
-                                </div>
-                                <div class="item_raido_gender">
-                                    <input type="radio" id="khac" name="gender" value="Khac">
-                                    <label for="khac">Khác</label>
-                                </div>
-                            </div>
+                            <label>Giới tính</label>
+                            <select class="form-control" id="ChonGioiTinh" name="gender">
+                                <option value="Nữ">Nữ</option>
+                                <option value="Nam">Nam</option>
+                            </select>
                             
                         </div>
 
@@ -71,11 +72,11 @@
                                 autocomplete='new-password'
                                 class='input'
                                 id='TenDangNhap'
-                                name='tendangnhap'
+                                name='cccd'
                                 placeholder='Nhập CMND/CCCD'
                                 required='required'
                                 type='text'
-                                value=''
+                                value="{{data.cccd}}"
                             />
                         </div>
                         <div class='div_input_row'>
@@ -84,10 +85,11 @@
                                 autocomplete='new-password'
                                 class='input'
                                 id='HoTen'
-                                name='matkhau'
+                                name='dateOfIssue'
                                 placeholder='Nhập ngày cấp'
                                 required='required'
                                 type='text'
+                                value="{{ data.dateOfIssue}}"
                             />
                         </div>
 
@@ -97,10 +99,11 @@
                                 autocomplete='new-password'
                                 class='input'
                                 id='NgaySinh'
-                                name='matkhau'
+                                name='issuedBy'
                                 placeholder='Nhập nơi cấp'
                                 required='required'
                                 type='text'
+                                value="{{data.issuedBy}}"
                             />
                         </div>
                         
@@ -114,45 +117,42 @@
 
             <div class="list-right">
                 <div class="div_avatar">
-                    <img src='https://bedental.vn/wp-content/uploads/2022/12/f637b0052729d9502ff03abe390fe051.jpg'
+                    <img src={{avatar}}
                         alt='ảnh thẻ header'
                         style='height: 150px;width: 150px;border-radius: 100px;'/>  
-                    <p>thu_phuong</p> 
+                    <div class="div_btn">
+                        <input type='submit' class='btnDoiAnh' value='Đổi ảnh' />
+                    </div>
+                    <p style='font-size: 26px; font-weight: 600;'>{{data.name}} ({{username}})</p> 
                 </div>
-                <div class="item_menu_right">
+                <a class="item_menu_right" href='/guitinnhan'>
                     <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconMessage.png'
                         alt='ảnh thẻ header'
                         style='height: 60px;'/>  
                     <p>Tin nhắn</p> 
-                </div>
+                </a>
 
-                 <div class="item_menu_right">
+                 <a class="item_menu_right">
                     <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconListNew.png'
                         alt='ảnh thẻ header'
                         style='height: 28px; margin:14px 15px 14px 18px;'/>  
                     <p>Bài viết</p> 
-                </div>
+                </a>
 
-                 <div class="item_menu_right">
+                 <a class="item_menu_right">
                     <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconNew.png'
                         alt='ảnh thẻ header'
                         style='height: 28px; margin:14px 15px 14px 18px;'/>  
                     <p>Bài viết chờ phê duyệt</p> 
-                </div>
-
-                <a class='item_menu_right_pass' href='/home'>
-                    <p>Đổi mật khẩu</p>
                 </a>
-                 
-               
-                {{#ifCond role '==' 1}}
-                    <a class="chat_real_time" href='/guitinnhan'>
-                        <img
-                            src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
-                            alt='ảnh thẻ header'
-                            style='height: 60px;width: 60px;border-radius: 30px;box-shadow: 3px 5px 3px #DCDFE4;'/>
-                    <a/>
-                {{/ifCond}}
+
+                <a class='item_menu_right' href='/home'>
+                    <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/changePass.png'
+                        alt='ảnh thẻ header'
+                        style='height: 28px; margin:14px 15px 14px 18px;'/>  
+                    <p style='color:red;'>Đổi mật khẩu</p>
+                </a>
+                
             </div>
         </div>
 

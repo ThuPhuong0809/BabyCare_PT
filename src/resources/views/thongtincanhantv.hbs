@@ -108,7 +108,7 @@
                         </div>
                         
                         <div class="div_btn">
-                            <input type='submit' class='button btnChangeThongtin' value='LƯU'  />
+                            
                         </div>
 
                     </form>
@@ -117,12 +117,24 @@
 
             <div class="list-right">
                 <div class="div_avatar">
-                    <img src={{avatar}}
+                    <img src={{data.avatar}}
                         alt='ảnh thẻ header'
-                        style='height: 150px;width: 150px;border-radius: 100px;'/>  
-                    <div class="div_btn">
-                        <input type='submit' class='btnDoiAnh' value='Đổi ảnh' />
-                    </div>
+                        style='height: 150px;width: 150px;border-radius: 100px;'/> 
+                    <form  action='/images' id='form-login' method='POST' enctype="multipart/form-data">
+                        <div class="div_input_change_avatar">
+                            <input  type="hidden"  name="idUser" value={{data.idUser}}
+                            class="form-control" >
+                            <input type="file" id="actual-btn" name='image' hidden/>
+                            <label for="actual-btn">                  
+                                Tải ảnh mới
+                            </label>
+                            <span id="file-chosen">JPG, JPEG, hoặc PNG</span>
+                        </div>
+                        <div id="div_btn_save_avatar">
+
+                            
+                        </div>
+                    </form>
                     <p style='font-size: 26px; font-weight: 600;'>{{data.name}} ({{username}})</p> 
                 </div>
                 <a class="item_menu_right" href='/guitinnhan'>
@@ -214,5 +226,18 @@ function CustomAlert(){
 }
 
 let customAlert = new CustomAlert();
+</script>
+
+<script>
+const actualBtn = document.getElementById('actual-btn');
+
+const fileChosen = document.getElementById('file-chosen');
+
+actualBtn.addEventListener('change', function(){
+  fileChosen.textContent = this.files[0].name;
+ let themType = `<input type='submit' class='btnDoiAnh' value='Lưu' />`;
+ $('#div_btn_save_avatar').append(themType);
+})
+
 </script>
         

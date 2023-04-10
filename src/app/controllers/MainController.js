@@ -526,5 +526,56 @@ class MainController {
       res.redirect('/login/');
     }
   }
+
+  changeAvatar(req, res) {
+    const multer = require('multer');
+    const AWS = require('aws-sdk');
+    require('aws-sdk/lib/maintenance_mode_message').suppress = true;
+
+    const s3 = new AWS.S3({
+      accessKeyId: 'AKIA5HNAI5CXIHX5736U',
+      secretAccessKey: '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',
+    });
+
+    const storage = multer.memoryStorage({
+      destination(req, file, callback) {
+        callback(null, '');
+      },
+    });
+
+    function checkFileType(file, cb) {
+      const fileTypes = /jpeg|jpg|png|gif/;
+
+      const extname = fileTypes.test(
+        path.extname(file.originalname).toLowerCase()
+      );
+      const minetype = fileTypes.test(file.minetype);
+      if (extname && minetype) {
+        return cb(null, true);
+      }
+
+      return cb('Error: Image Only!');
+    }
+
+    const upload = multer({
+      storage,
+      limits: { fieldSize: 2000000 },
+      fileFilter(req, file, cb) {
+        checkFileType(file, cb);
+      },
+    });
+
+    upload.single('image');
+
+    const image = req.file.originalname.split('.');
+    const fileType = image[image.length - 1];
+    const filePath = `${uuid() + Date.now().toString()}.${fileType}`;
+    const CLOUND_FONT_URL = 'https://https://d2zi3l02n28hxa.cloudfront.net';
+
+    const params = {
+      Bucket: 'babycaredoan',
+      Key: filePath,
+    };
+  }
 }
 module.exports = new MainController();

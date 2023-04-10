@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.5",
+    "aws-sdk": "^2.1353.0",
     "bcryptjs": "^2.4.3",
     "convert-excel-to-json": "^1.7.0",
     "exceljs": "^4.3.0",
@@ -31,7 +32,8 @@
     "mongoose-slug-generator": "^1.0.4",
     "multer": "^1.4.4",
     "read-excel-file": "^5.2.28",
-    "sequelize": "^6.19.0"
+    "sequelize": "^6.19.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "morgan": "^1.10.0",

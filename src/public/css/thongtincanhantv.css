@@ -358,6 +358,17 @@ font-size: 16px;
   border-radius: 20px;
   margin-right: 15px;
 }
+
+.thongtincanhanTV  .btnChangeThongtin {
+  background-color: #296088;
+  width: 100px;
+  height: 38px;
+  border: 0;
+  border-radius: 20px;
+  color: white;
+  font-weight: 600;
+}
+
 .thongtincanhanTV .btnDoiAnh {
   background-color: #296088;
   width: 100px;
@@ -366,6 +377,40 @@ font-size: 16px;
   border-radius: 20px;
   color: white;
   font-weight: 600;
+}
+
+.thongtincanhanTV .div_input_change_avatar {
+  display: flex;
+  align-items: center;
+  width:90%;
+  height: 35px;
+  border: 0;
+  border-radius: 5px;
+  border: 1px solid #9B9B9B;
+  margin: 10px;
+}
+
+.thongtincanhanTV .div_input_change_avatar label {
+  background-color: #296088;
+  color: white;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-top: 8px;
+  height: 35px;
+}
+
+.thongtincanhanTV .div_input_change_avatar #file-chosen{
+  margin-left: 0.3rem;
+  font-family: sans-serif;
+}
+
+.thongtincanhanTV .list-right form{
+  display: flex;
+  align-items: center;
+  width:100%;
+  flex-direction:column;
 }
 
 .thongtincanhanTV .div_main_cmt form button > i {

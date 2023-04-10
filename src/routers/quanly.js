@@ -6,7 +6,10 @@ let upload = require('../database/multer.config');
 router.get('/home', mainController.home);
 router.get('/login', mainController.loginql);
 router.post('/login', mainController.login);
-router.get('/register', mainController.register);
+router.get('/register', mainController.loadRegister);
+router.get('/verify/:username', mainController.loadVerification);
+router.post('/verify', mainController.verification);
+router.post('/register', mainController.register);
 // router.get('/chitiettintuc', mainController.chitiettintuc);
 router.get('/thongtincanhan', mainController.thongtincanhanTV);
 router.post(

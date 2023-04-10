@@ -10,6 +10,11 @@ const NewType = require('../model/NewType');
 const Like = require('../model/Like');
 
 const NewTemp = require('../model/NewTemp');
+const EmailOTP = require('../model/EmailOTPModel');
+const nodemailer = require('nodemailer');
+const dotenv = require('dotenv');
+const { param } = require('../../routers/quanly');
+dotenv.config();
 
 class MainController {
   // [GET] /home
@@ -243,10 +248,184 @@ class MainController {
     }
   }
 
-  // [GET] /register
-  register(req, res) {
+  // // [GET] /register
+  loadRegister(req, res) {
     res.render('register');
   }
+
+  register = (req, res, next) => {
+    const { username, email, password, repassword, role } = req.body;
+    console.log('========log', req.body);
+    Account.findOne({ username: username }, (err, data) => {
+      if (!err) {
+        if (data) {
+          req.flash('error', 'Tên đăng nhập đã tồn tại!');
+          res.redirect('/register');
+        } else {
+          User.findOne({ email: email }, (err, data) => {
+            if (!err) {
+              if (data) {
+                req.flash('error', 'Email đã tồn tại!');
+                res.redirect('/register');
+              } else {
+                if (password.length < 8) {
+                  req.flash('error', 'Mật khẩu phải từ 8 ký tự!');
+                  res.redirect('/register');
+                } else {
+                  if (password == repassword) {
+                    const account = new Account();
+                    account.username = username;
+                    account.password = password;
+                    account.role = role;
+                    account
+                      .save()
+                      .then(() => {
+                        Account.findOne({ username: username }, (err, data) => {
+                          if (!err) {
+                            if (data) {
+                              const user = new User();
+                              user.email = email;
+                              user.idAccount = data.id;
+                              user.status = 0;
+                              user
+                                .save()
+                                .then(() => {
+                                  // sendOTPEmail({ username, email });
+                                  // 12345678
+
+                                  let transporter = nodemailer.createTransport({
+                                    host: 'smtp.gmail.com',
+                                    port: 465,
+                                    secure: true,
+                                    auth: {
+                                      type: 'login',
+                                      user: 'haphuong09031993@gmail.com',
+                                      pass: 'aoayfjhrxdjzceux',
+                                    },
+                                  });
+
+                                  const otp = `${Math.floor(
+                                    1000 + Math.random() * 9000
+                                  )}`;
+
+                                  const mailOptions = {
+                                    from: 'haphuong09031993@gmail.com',
+                                    to: email,
+                                    subject: 'Verify your Email',
+                                    html: `<p> Enter <b>${otp}</b> in the app to verify your email address and complete</p>`,
+                                  };
+
+                                  const otpEmail = new EmailOTP({
+                                    userName: username,
+                                    otp: otp,
+                                    createAt: Date.now(),
+                                    expireAt: Date.now() + 3600000,
+                                  });
+
+                                  otpEmail
+                                    .save()
+                                    .then(() => {
+                                      transporter.sendMail(mailOptions);
+                                      res.redirect(`/verify/${username}`);
+                                    })
+                                    .catch(error => {});
+                                })
+                                .catch(error => {});
+                            } else {
+                              res.status(400).json({ error: 'ERROR!!!' });
+                            }
+                          } else {
+                            res.status(400).json({ error: 'ERROR!!!' });
+                          }
+                        }).lean();
+                      })
+                      .catch(error => {});
+                  } else {
+                    req.flash('error', 'Mật khẩu nhập lại không trùng!');
+                    res.redirect('/register');
+                  }
+                }
+              }
+            } else {
+              res.status(400).json({ error: 'ERROR!!!' });
+            }
+          }).lean();
+        }
+      } else {
+        res.status(400).json({ error: 'ERROR!!!' });
+      }
+    }).lean();
+  };
+
+  loadVerification(req, res) {
+    console.log('======== verification =========', req.params.username);
+    Account.findOne({ username: req.params.username }, (err, data) => {
+      if (!err) {
+        if (data) {
+          User.findOne({ idAccount: data.id }, (err, dataUser) => {
+            if (!err) {
+              if (dataUser) {
+                console.log('======== dataUser =========', dataUser);
+                console.log(
+                  '======== req.params.username =========',
+                  req.params.username
+                );
+                res.render('otpverification', {
+                  dataUser: dataUser,
+                  username: req.params.username,
+                }); //có dữ liệu sẽ đưa data vào trang home với data là d/s new tìm đc
+              }
+            } else {
+              res.status(400).json({ error: 'ERROR!!!' });
+            }
+          }).lean();
+        }
+      } else {
+        res.status(400).json({ error: 'ERROR!!!' });
+      }
+    }).lean();
+  }
+
+  verification(req, res) {
+    console.log('======== dataUser22 =========', req.body);
+    EmailOTP.findOne({ userName: req.body.userName }, (err, data) => {
+      if (!err) {
+        if (data) {
+          if (bcrypt.compareSync(req.body.optEmail, data.otp)) {
+            User.updateOne(
+              { idUser: Number(req.body.idUser) },
+              { status: 1, avatar: req.body.avatar }
+            )
+              .then(() => {
+                req.flash('success', 'Đăng ký tài khoản thành công!');
+                res.redirect('/login');
+              })
+              .catch(err => {
+                console.log('=========err', err);
+              });
+          } else {
+            req.flash('error', 'Mã OTP chưa chính xác!');
+            res.redirect(`/verify/${req.body.userName}`);
+          }
+        }
+      } else {
+        res.status(400).json({ error: 'ERROR!!!' });
+      }
+    }).lean();
+  }
+
+  getOTP = async (req, res, next) => {
+    const { username, otp } = req.body;
+    try {
+      const user = await EmailOTP.findOne({ userName: username });
+      if (!user) return res.json({ msg: 'Incorrect Username', status: false });
+      const isPasswordValid = await bcrypt.compare(otp, user.otp);
+      if (!isPasswordValid) return res.json({ msg: 'OTP Fail', status: false });
+      return res.json({ status: true });
+    } catch (ex) {
+      next(ex);
+    }
+  };
 
   // [GET] /register
   thongtincanhanTV(req, res) {
@@ -387,17 +566,25 @@ class MainController {
           } else {
             if (bcrypt.compareSync(req.body.password, user.password)) {
               var sess = req.session;
-              User.findOne({ idAccount: user.id }, (err, userInfo) => {
-                if (!err) {
-                  sess.isAuth = true;
-                  sess.role = user.role;
-                  sess.username = user.username;
-                  sess.userId = userInfo.idUser;
-                  sess.avatar = userInfo.avatar;
-                } else {
-                  res.status(400).json({ error: 'ERROR!!!' });
+              User.findOne(
+                { idAccount: user.id, status: 1 },
+                (err, userInfo) => {
+                  if (!err) {
+                    if (userInfo) {
+                      sess.isAuth = true;
+                      sess.role = user.role;
+                      sess.username = user.username;
+                      sess.userId = userInfo.idUser;
+                      sess.avatar = userInfo.avatar;
+                    } else {
+                      req.flash('error', 'Tài khoản chưa được kích hoạt!'); //nếu bắt user ko đúng sẽ trả dòng này
+                      res.redirect('/login/');
+                    }
+                  } else {
+                    res.status(400).json({ error: 'ERROR!!!' });
+                  }
                 }
-              }).lean();
+              ).lean();
               if (sess.back) {
                 res.redirect(sess.back);
               } else {
@@ -525,57 +712,6 @@ class MainController {
       req.session.back = `/cvtvsk/listchat/${userName}`;
       res.redirect('/login/');
     }
-  }
-
-  changeAvatar(req, res) {
-    const multer = require('multer');
-    const AWS = require('aws-sdk');
-    require('aws-sdk/lib/maintenance_mode_message').suppress = true;
-
-    const s3 = new AWS.S3({
-      accessKeyId: 'AKIA5HNAI5CXIHX5736U',
-      secretAccessKey: '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',
-    });
-
-    const storage = multer.memoryStorage({
-      destination(req, file, callback) {
-        callback(null, '');
-      },
-    });
-
-    function checkFileType(file, cb) {
-      const fileTypes = /jpeg|jpg|png|gif/;
-
-      const extname = fileTypes.test(
-        path.extname(file.originalname).toLowerCase()
-      );
-      const minetype = fileTypes.test(file.minetype);
-      if (extname && minetype) {
-        return cb(null, true);
-      }
-
-      return cb('Error: Image Only!');
-    }
-
-    const upload = multer({
-      storage,
-      limits: { fieldSize: 2000000 },
-      fileFilter(req, file, cb) {
-        checkFileType(file, cb);
-      },
-    });
-
-    upload.single('image');
-
-    const image = req.file.originalname.split('.');
-    const fileType = image[image.length - 1];
-    const filePath = `${uuid() + Date.now().toString()}.${fileType}`;
-    const CLOUND_FONT_URL = 'https://https://d2zi3l02n28hxa.cloudfront.net';
-
-    const params = {
-      Bucket: 'babycaredoan',
-      Key: filePath,
-    };
   }
 }
 module.exports = new MainController();

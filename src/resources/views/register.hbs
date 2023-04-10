@@ -17,14 +17,16 @@
         </div>
         
         <div class='div_input'>
-          <form action='/login' id='form-login' method='POST'>
+          <form action='/register' id='form-login' method='POST' >
             <div class='div_input_row'>
+                <input  type="hidden"  name="role" value=1
+                                                class="form-control" >
               <label>Tên đăng nhập</label>
               <input
                 autocomplete='new-password'
                 class='input'
                 id='UserName'
-                name='tendangnhap'
+                name='username'
                 placeholder='Nhập tên tài khoản'
                 required='required'
                 type='text'
@@ -38,7 +40,7 @@
                 autocomplete='new-password'
                 class='input'
                 id='Email'
-                name='tendangnhap'
+                name='email'
                 placeholder='Nhập tên email'
                 required='required'
                 type='text'
@@ -52,7 +54,7 @@
                 autocomplete='new-password'
                 class='input'
                 id='Password'
-                name='matkhau'
+                name='password'
                 placeholder='Nhập mật khẩu'
                 required='required'
                 type='password'
@@ -68,7 +70,7 @@
                 autocomplete='new-password'
                 class='input'
                 id='RePassword'
-                name='matkhau'
+                name='repassword'
                 placeholder='Nhập lại mật khẩu'
                 required='required'
                 type='password'

@@ -18,6 +18,7 @@ const User = new Schema(
     status: { type: Number },
     avatar: { type: String, maxLength: 255 },
     idAccount: { type: Number },
+    email: { type: String, maxLength: 255 },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },

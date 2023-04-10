@@ -1,0 +1,113 @@
+<div class='otpverification'>
+  <div>
+    {{>header}}
+  </div>
+  <div class='img_background_login'>
+    <img
+      src='https://cnm-lab3.s3.ap-southeast-1.amazonaws.com/hotrosinhvienIUH/bg_login.png'
+    />
+    <img
+      class='img'
+      src='https://cnm-lab3.s3.ap-southeast-1.amazonaws.com/hotrosinhvienIUH/favicon.png'
+    />
+    <div class="mainLogin col-6">
+      <div class="row mainLoginKH">
+        <div class='textLogin'>
+          <h1>XÁC THỰC TÀI KHOẢN</h1>
+        </div>
+         <img
+          src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/verification.jpeg'
+          style="width: 250px;"
+        />
+        
+        <div class='div_input'>
+          <form action='/verify' id='form-login' method='POST' >
+            <div class='div_input_row'>
+              <input  type="hidden"  name="status" value= 1
+                                              class="form-control" >
+              <input  type="hidden"  name="userName" value={{username}}
+              class="form-control" >
+              <input  type="hidden"  name="idUser" value={{dataUser.idUser}}
+              class="form-control" >
+               <input  type="hidden"  name="avatar" value='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/avatardefauft.png'
+              class="form-control" >
+              <label>Mã OTP đã được gửi về email của bạn!</label>
+              <label>Nhập mã OTP để xác thực tài khoản của bạn!</label>
+              <input
+                autocomplete='new-password'
+                class='input'
+                id='UserName'
+                name='optEmail'
+                placeholder='Nhập mã OPT gồm 4 ký tự số'
+                required='required'
+                type='text'
+                value=''
+              />
+            </div>
+            <div class='Error'>
+                {{#if messages.error}}
+                  <p style='color:red'>
+                    {{messages.error}}
+                  </p>
+                {{/if}}
+              </div>
+
+            <div class="div_btn">
+              <input type='submit' class='button btnDangNhap' value='XÁC NHẬN' />
+            </div>
+
+            
+           
+          </form>
+        </div>
+      </div>
+    
+    </div>
+   
+
+  </div>
+</div>
+
+<script>
+  // step 1
+  const ipnElement = document.querySelector('#Password')
+  const btnElement = document.querySelector('#btnPassword')
+  const iconEye = document.querySelector('#iconEye')
+
+  const ipnElementRe = document.querySelector('#RePassword')
+  const btnElementRe = document.querySelector('#btnRePassword')
+  const iconEyeRe = document.querySelector('#iconEyeRe')
+
+  // step 2
+  btnElement.addEventListener('click', function() {
+    // step 3
+    const currentType = ipnElement.getAttribute('type')
+    // step 4
+    ipnElement.setAttribute(
+      'type',
+      currentType === 'password' ? 'text' : 'password'
+    )
+
+    if(currentType ==="password"){
+      iconEye.classList.replace("fa-eye-slash", "fa-eye");
+    }else{
+      iconEye.classList.replace("fa-eye", "fa-eye-slash");
+    }
+  })
+
+   btnElementRe.addEventListener('click', function() {
+    // step 3
+    const currentTypeRe = ipnElementRe.getAttribute('type')
+    // step 4
+    ipnElementRe.setAttribute(
+      'type',
+      currentTypeRe === 'password' ? 'text' : 'password'
+    )
+
+    if(currentTypeRe ==="password"){
+      iconEyeRe.classList.replace("fa-eye-slash", "fa-eye");
+    }else{
+      iconEyeRe.classList.replace("fa-eye", "fa-eye-slash");
+    }
+  })
+</script>

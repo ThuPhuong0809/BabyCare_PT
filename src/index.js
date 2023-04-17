@@ -62,6 +62,7 @@ app.engine(
             return options.inverse(this);
         }
       },
+      handlebars: allowInsecurePrototypeAccess(Handlebars),
     },
     handlebars: allowInsecurePrototypeAccess(Handlebars),
   })

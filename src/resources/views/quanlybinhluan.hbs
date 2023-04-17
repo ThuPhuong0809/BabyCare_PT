@@ -1,0 +1,118 @@
+<div class="quanlybinhluan">
+        {{>menubaradmin}}
+        <div class="home-header-main">
+            {{>headeradmin}}
+            <div class="main-home-nv">
+                <div class="title_chucnang">
+                    <p>Quản lý bình luận</p>
+                </div>
+                <div class="line" ></div>
+
+                <div id="menu1" class="container tab-pane active div-table-list"><br />
+                            <form action="">
+                                <div class="card mb-4">
+                                    <div class="card-header" style="color: #296088;font-weight: 600;">
+                                        <i class="fas fa-table me-1"></i>
+                                        Bảng hiển thị danh sách bình luận
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table table-bordered" id="table_id">
+                                            <thead>
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Mã bình luận</th>
+                                                    <th>Nội dung bình luận</th>
+                                                    <th>Mã tin</th>
+                                                    <th>Tiêu đề tin</th>
+                                                    <th>Tên tác giả</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Thao Tác</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                 {{#each array}}
+                                                <tr>
+                                                    <td>{{sum @index 1}}</td>
+                                                    <td>{{this.idCommentTemp}}</td>
+                                                    <td>{{this.content}}</td>
+                                                    <td>{{this.newId}}</td>
+                                                    <td>{{this.titleNew}}</td>
+                                                    <td>{{this.userName}}</td>
+                                                    {{#ifCond this.status '==' 0}} <td style="color: red;"> Chưa duyệt</td>  {{else}} <td style="color: green;"> Đã duyệt</td>  {{/ifCond}}
+                                                    <td>
+                                                       <a href="/admin/chitiettintuc/{{this.newId}}" class="btn btn-info">Xem Chi tiết</a>
+                                                        <a href="/quanlybacsi/xoabacsi/{{this.idNew}}" onclick="return confirm ('Xoá Bác Sĩ {{this.hoten}} ?')" class="btn btn-danger">Xóa bình luận</a>
+                                                       
+                                                    </td>
+                                                </tr>
+                                                {{/each}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                
+                
+            </div>
+               <div class='Error'>
+              {{#if messages.success}}
+                <input id="change-success" value="success" type="hidden" >
+                </input>
+              {{/if}}
+            </div>
+        </div>
+
+ </div>
+        
+        
+
+
+<script>
+$(document).ready(function () { myFunction(); });
+function myFunction() {
+    if(document.getElementById("change-success").value){
+        customAlert.alert('Duyệt bình luận thành công!.' )
+    }
+    
+} 
+function CustomAlert(){
+  this.alert = function(message,title){
+    document.body.innerHTML = document.body.innerHTML + '<div id="dialogoverlay"></div><div id="dialogbox" class="slit-in-vertical"><div><div id="dialogboxhead"></div><div id="dialogboxbody"></div><div id="dialogboxfoot"></div></div></div>';
+
+    let dialogoverlay = document.getElementById('dialogoverlay');
+    let dialogbox = document.getElementById('dialogbox');
+    
+    let winH = window.innerHeight;
+    dialogoverlay.style.height = winH+"px";
+    
+    dialogbox.style.top = "100px";
+
+    dialogoverlay.style.display = "block";
+    dialogbox.style.display = "block";
+    
+    document.getElementById('dialogboxhead').style.display = 'block';
+
+    if(typeof title === 'undefined') {
+      document.getElementById('dialogboxhead').style.display = 'none';
+    } else {
+      document.getElementById('dialogboxhead').innerHTML = '<i class="fa fa-exclamation-circle" aria-hidden="true"></i> '+ title;
+    }
+    document.getElementById('dialogboxbody').innerHTML = message;
+    {{!-- document.getElementById('dialogboxfoot').innerHTML = '<button class="pure-material-button-contained active" onclick="customAlert.ok()">OK</button>'; --}}
+  }
+  
+  this.ok = function(){
+    document.getElementById('dialogbox').style.display = "none";
+    document.getElementById('dialogoverlay').style.display = "none";
+  }
+
+  setTimeout(function() {  
+    document.getElementById('dialogbox').style.display = "none";
+    document.getElementById('dialogoverlay').style.display = "none";
+    }, 3000);
+}
+
+let customAlert = new CustomAlert();
+</script>
+ 

@@ -9,6 +9,8 @@ const ListChat = require('../model/ListChat');
 const NewType = require('../model/NewType');
 const Like = require('../model/Like');
 
+const CommentTemp = require('../model/CommentTemp');
+const UserTempCV = require('../model/UserTempCV');
 const NewTemp = require('../model/NewTemp');
 const EmailOTP = require('../model/EmailOTPModel');
 const nodemailer = require('nodemailer');
@@ -49,6 +51,7 @@ class MainController {
                 if (listNewType.length == data.length) {
                   res.render('home', {
                     array: array,
+                    accountId: req.session.accountId,
                     username: req.session.username,
                     userId: req.session.userId,
                     avatar: req.session.avatar,
@@ -92,6 +95,7 @@ class MainController {
                           if (!err) {
                             res.render('chitiettintuc', {
                               data: data,
+                              accountId: req.session.accountId,
                               username: req.session.username,
                               userId: req.session.userId,
                               avatar: req.session.avatar,
@@ -175,21 +179,70 @@ class MainController {
       if (!err) {
         if (isLike.length > 0) {
           if (req.session.isAuth) {
-            Like.delete({ userId: req.session.userId, newId: idNew })
-              .then(() => {
-                res.redirect(`/chitiettintuc/${idNew}`);
-              })
-              .catch(err => next(err));
+            Like.find({ newId: idNew }, (err, listLike) => {
+              console.log('listComment', listLike.length);
+              if (!err) {
+                New.findOne({ idNew: idNew }, (err, data) => {
+                  console.log('data', data);
+                  if (!err) {
+                    if (data) {
+                      data.countLike = listLike.length - 1;
+                      console.log('data update', data);
+                      New.updateOne({ idNew: idNew }, data)
+                        .then(() => {
+                          console.log('TRUEEE');
+                          Like.delete({
+                            userId: req.session.userId,
+                            newId: idNew,
+                          })
+                            .then(() => {
+                              res.redirect(`/chitiettintuc/${idNew}`);
+                            })
+                            .catch(err => next(err));
+                        })
+                        .catch(err => next(err));
+                    }
+                  } else {
+                    res.status(400).json({ error: 'ERROR!!!' });
+                  }
+                }).lean();
+              } else {
+                res.status(400).json({ error: 'ERROR!!!' });
+              }
+            }).lean();
           } else {
             req.session.back = `/chitiettintuc/${idNew}`;
             res.redirect('/login/');
           }
         } else {
           if (req.session.isAuth) {
-            like
-              .save()
-              .then(() => res.redirect(`/chitiettintuc/${idNew}`))
-              .catch(error => {});
+            Like.find({ newId: idNew }, (err, listLike) => {
+              console.log('listComment', listLike.length);
+              if (!err) {
+                New.findOne({ idNew: idNew }, (err, data) => {
+                  console.log('data', data);
+                  if (!err) {
+                    if (data) {
+                      data.countLike = listLike.length + 1;
+                      console.log('data update', data);
+                      New.updateOne({ idNew: idNew }, data)
+                        .then(() => {
+                          console.log('TRUEEE');
+                          like
+                            .save()
+                            .then(() => res.redirect(`/chitiettintuc/${idNew}`))
+                            .catch(error => {});
+                        })
+                        .catch(err => next(err));
+                    }
+                  } else {
+                    res.status(400).json({ error: 'ERROR!!!' });
+                  }
+                }).lean();
+              } else {
+                res.status(400).json({ error: 'ERROR!!!' });
+              }
+            }).lean();
           } else {
             req.session.back = `/chitiettintuc/${idNew}`;
             res.redirect('/login/');
@@ -208,6 +261,7 @@ class MainController {
         if (!err) {
           res.render('guitinnhan', {
             listData: listData,
+            accountId: req.session.accountId,
             username: req.session.username,
             userId: req.session.userId,
             avatar: req.session.avatar,
@@ -256,105 +310,120 @@ class MainController {
   register = (req, res, next) => {
     const { username, email, password, repassword, role } = req.body;
     console.log('========log', req.body);
-    Account.findOne({ username: username }, (err, data) => {
-      if (!err) {
-        if (data) {
-          req.flash('error', 'Tên đăng nhập đã tồn tại!');
-          res.redirect('/register');
-        } else {
-          User.findOne({ email: email }, (err, data) => {
-            if (!err) {
-              if (data) {
-                req.flash('error', 'Email đã tồn tại!');
-                res.redirect('/register');
-              } else {
-                if (password.length < 8) {
-                  req.flash('error', 'Mật khẩu phải từ 8 ký tự!');
-                  res.redirect('/register');
-                } else {
-                  if (password == repassword) {
-                    const account = new Account();
-                    account.username = username;
-                    account.password = password;
-                    account.role = role;
-                    account
-                      .save()
-                      .then(() => {
-                        Account.findOne({ username: username }, (err, data) => {
-                          if (!err) {
-                            if (data) {
-                              const user = new User();
-                              user.email = email;
-                              user.idAccount = data.id;
-                              user.status = 0;
-                              user
-                                .save()
-                                .then(() => {
-                                  // sendOTPEmail({ username, email });
-                                  // 12345678
-
-                                  let transporter = nodemailer.createTransport({
-                                    host: 'smtp.gmail.com',
-                                    port: 465,
-                                    secure: true,
-                                    auth: {
-                                      type: 'login',
-                                      user: 'haphuong09031993@gmail.com',
-                                      pass: 'aoayfjhrxdjzceux',
-                                    },
-                                  });
-
-                                  const otp = `${Math.floor(
-                                    1000 + Math.random() * 9000
-                                  )}`;
-
-                                  const mailOptions = {
-                                    from: 'haphuong09031993@gmail.com',
-                                    to: email,
-                                    subject: 'Verify your Email',
-                                    html: `<p> Enter <b>${otp}</b> in the app to verify your email address and complete</p>`,
-                                  };
-
-                                  const otpEmail = new EmailOTP({
-                                    userName: username,
-                                    otp: otp,
-                                    createAt: Date.now(),
-                                    expireAt: Date.now() + 3600000,
-                                  });
-
-                                  otpEmail
-                                    .save()
-                                    .then(() => {
-                                      transporter.sendMail(mailOptions);
-                                      res.redirect(`/verify/${username}`);
-                                    })
-                                    .catch(error => {});
-                                })
-                                .catch(error => {});
-                            } else {
-                              res.status(400).json({ error: 'ERROR!!!' });
-                            }
-                          } else {
-                            res.status(400).json({ error: 'ERROR!!!' });
-                          }
-                        }).lean();
-                      })
-                      .catch(error => {});
-                  } else {
-                    req.flash('error', 'Mật khẩu nhập lại không trùng!');
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (username.length < 6) {
+      req.flash('error', 'Tên đăng nhập quá ngắn!');
+      res.redirect('/register');
+    } else {
+      Account.findOne({ username: username }, (err, data) => {
+        if (!err) {
+          if (data) {
+            req.flash('error', 'Tên đăng nhập đã tồn tại!');
+            res.redirect('/register');
+          } else {
+            if (email.match(mailformat)) {
+              User.findOne({ email: email }, (err, data) => {
+                if (!err) {
+                  if (data) {
+                    req.flash('error', 'Email đã tồn tại!');
                     res.redirect('/register');
+                  } else {
+                    if (password.length < 8) {
+                      req.flash('error', 'Mật khẩu phải từ 8 ký tự!');
+                      res.redirect('/register');
+                    } else {
+                      if (password == repassword) {
+                        const account = new Account();
+                        account.username = username;
+                        account.password = password;
+                        account.role = role;
+                        account
+                          .save()
+                          .then(() => {
+                            Account.findOne(
+                              { username: username },
+                              (err, data) => {
+                                if (!err) {
+                                  if (data) {
+                                    const user = new User();
+                                    user.email = email;
+                                    user.idAccount = data.id;
+                                    user.status = 0;
+                                    user
+                                      .save()
+                                      .then(() => {
+                                        // sendOTPEmail({ username, email });
+                                        // 12345678
+
+                                        let transporter =
+                                          nodemailer.createTransport({
+                                            host: 'smtp.gmail.com',
+                                            port: 465,
+                                            secure: true,
+                                            auth: {
+                                              type: 'login',
+                                              user: 'haphuong09031993@gmail.com',
+                                              pass: 'aoayfjhrxdjzceux',
+                                            },
+                                          });
+
+                                        const otp = `${Math.floor(
+                                          1000 + Math.random() * 9000
+                                        )}`;
+
+                                        const mailOptions = {
+                                          from: 'haphuong09031993@gmail.com',
+                                          to: email,
+                                          subject: 'Verify your Email',
+                                          html: `<p> Enter <b>${otp}</b> in the app to verify your email address and complete</p>`,
+                                        };
+
+                                        const otpEmail = new EmailOTP({
+                                          userName: username,
+                                          otp: otp,
+                                          createAt: Date.now(),
+                                          expireAt: Date.now() + 3600000,
+                                        });
+
+                                        otpEmail
+                                          .save()
+                                          .then(() => {
+                                            transporter.sendMail(mailOptions);
+                                            res.redirect(`/verify/${username}`);
+                                          })
+                                          .catch(error => {});
+                                      })
+                                      .catch(error => {});
+                                  } else {
+                                    res.status(400).json({ error: 'ERROR!!!' });
+                                  }
+                                } else {
+                                  res.status(400).json({ error: 'ERROR!!!' });
+                                }
+                              }
+                            ).lean();
+                          })
+                          .catch(error => {});
+                      } else {
+                        req.flash('error', 'Mật khẩu nhập lại không trùng!');
+                        res.redirect('/register');
+                      }
+                    }
                   }
+                } else {
+                  res.status(400).json({ error: 'ERROR!!!' });
                 }
-              }
+              }).lean();
             } else {
-              res.status(400).json({ error: 'ERROR!!!' });
+              req.flash('error', 'Email sai định dạng!');
+              res.redirect('/register');
             }
-          }).lean();
+          }
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
         }
-      } else {
-        res.status(400).json({ error: 'ERROR!!!' });
-      }
-    }).lean();
+      }).lean();
+    }
   };
 
   loadVerification(req, res) {
@@ -435,6 +504,7 @@ class MainController {
           console.log('==================', req.session.userId, data);
           res.render('thongtincanhantv', {
             data: data,
+            accountId: req.session.accountId,
             username: req.session.username,
             userId: req.session.userId,
             avatar: req.session.avatar,
@@ -508,9 +578,64 @@ class MainController {
     }
   }
 
+  danhsachtincho(req, res) {
+    const array = [];
+    const listNewType = [];
+    if (req.session.isAuth) {
+      New.find({ authorId: req.session.userId, status: 0 }, (err, data) => {
+        if (!err) {
+          for (var i = 0; i < data.length; i++) {
+            const newTemp = new NewTemp();
+            newTemp.idNewTemp = data[i].idNew;
+            newTemp.title = data[i].title;
+            newTemp.content = data[i].content;
+            newTemp.authorId = data[i].authorId;
+            newTemp.authorName = data[i].authorName;
+            newTemp.authorImage = data[i].authorImage;
+            newTemp.image = data[i].image;
+            newTemp.status = data[i].status;
+            newTemp.countLike = data[i].countLike;
+            newTemp.countComment = data[i].countComment;
+            newTemp.createdDate = data[i].createdDate;
+            newTemp.updatedDate = data[i].updatedDate;
+
+            NewType.findOne({ idNewType: data[i].typeId }, (err, newType) => {
+              if (!err) {
+                listNewType.push(newType);
+                newTemp.idNewType = newType.idNewType;
+                newTemp.nameNewType = newType.name;
+                newTemp.imageNewType = newType.image;
+                array.push(newTemp);
+                if (listNewType.length == data.length) {
+                  console.log('=========danhsachtincho', array);
+                  res.render('danhsachtincho', {
+                    array: array,
+                    accountId: req.session.accountId,
+                    username: req.session.username,
+                    userId: req.session.userId,
+                    avatar: req.session.avatar,
+                    role: req.session.role,
+                  });
+                }
+              } else {
+                res.status(400).json({ error: 'ERROR!!!' });
+              }
+            }).lean();
+          }
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
+    } else {
+      req.session.back = '/danhsachtincho';
+      res.redirect('/login/');
+    }
+  }
+
   danhsachtypenew(req, res) {
     NewType.find((err, data) => {
       if (!err) {
+        console.log('=========data', data);
         res.send(data);
       } else {
         res.status(400).json({ error: 'ERROR!!!' });
@@ -520,27 +645,51 @@ class MainController {
 
   taotinthanhvien(req, res) {
     if (req.session.isAuth) {
-      res.render('dangtinthanhvien', {
-        username: req.session.username,
-        userId: req.session.idUser,
-        avatar: req.session.avatar,
-        role: req.session.role,
-      }); //có dữ liệu sẽ đưa data vào trang home với data là d/s new tìm đc
+      NewType.find((err, data) => {
+        if (!err) {
+          console.log('=========data', data);
+          res.render('dangtinthanhvien', {
+            data: data,
+            accountId: req.session.accountId,
+            username: req.session.username,
+            userId: req.session.userId,
+            avatar: req.session.avatar,
+            role: req.session.role,
+          });
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      });
     } else {
-      req.session.back = '/dangtinthanhvien';
+      req.session.back = '/dangtin';
       res.redirect('/login/');
     }
   }
 
   dangtinthanhvien(req, res) {
     const news = new New(req.body);
-    console.log(news);
-    const userName = req.body.userName;
+    news.authorId = Number(req.body.authorId);
+    console.log('---------', news);
+    console.log('---------', news.authorId);
+
+    const idNewType = Number(req.body.typeId);
+
     if (req.session.isAuth) {
-      news
-        .save()
-        .then(() => res.redirect('/home'))
-        .catch(error => {});
+      NewType.findOne({ idNewType: idNewType }, (err, newType) => {
+        if (!err) {
+          if (newType) {
+            news.nameType = newType.name;
+            console.log('-----ddd----', news);
+
+            news
+              .save()
+              .then(() => res.redirect('/home'))
+              .catch(error => {});
+          }
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
     } else {
       req.session.back = '/home';
       res.redirect('/login/');
@@ -574,6 +723,7 @@ class MainController {
                       sess.isAuth = true;
                       sess.role = user.role;
                       sess.username = user.username;
+                      sess.accountId = user.id;
                       sess.userId = userInfo.idUser;
                       sess.avatar = userInfo.avatar;
                     } else {
@@ -619,6 +769,7 @@ class MainController {
                             if (listNewType.length == data.length) {
                               res.render('home', {
                                 array: array,
+                                accountId: req.session.accountId,
                                 username: req.session.username,
                                 role: req.session.role,
                                 userId: req.session.userId,
@@ -655,6 +806,7 @@ class MainController {
         if (!err) {
           res.render('listchatcvtv', {
             data: data,
+            accountId: req.session.accountId,
             username: req.session.username,
             userId: req.session.userId,
             avatar: req.session.avatar,
@@ -679,6 +831,7 @@ class MainController {
             if (!err) {
               res.render('chitietchat', {
                 data: data,
+                accountId: req.session.accountId,
                 username: req.session.username,
                 userId: req.session.userId,
                 avatar: req.session.avatar,
@@ -711,6 +864,458 @@ class MainController {
     } else {
       req.session.back = `/cvtvsk/listchat/${userName}`;
       res.redirect('/login/');
+    }
+  }
+
+  loaddoimatkhau(req, res) {
+    if (req.session.isAuth) {
+      res.render('doimatkhau', {
+        accountId: req.session.accountId,
+        username: req.session.username,
+        userId: req.session.userId,
+        avatar: req.session.avatar,
+        role: req.session.role,
+      }); //có dữ liệu sẽ đưa data vào trang home với data là d/s new tìm đc
+    } else {
+      req.session.back = '/doimatkhau';
+      res.redirect('/login/');
+    }
+  }
+
+  doimatkhau(req, res) {
+    Account.findOne({ id: Number(req.params.accountId) }, function (err, acc) {
+      if (!err) {
+        if (acc) {
+          if (bcrypt.compareSync(req.body.oldpassword, acc.password)) {
+            if (req.body.newpassword.length < 8) {
+              req.flash('error', 'Mật khẩu phải từ 8 ký tự!');
+              res.redirect('/doimatkhau');
+            } else {
+              if (req.body.newpassword == req.body.renewpassword) {
+                bcrypt.hash(req.body.newpassword, 10, function (error, hash) {
+                  if (error) {
+                    return next(error);
+                  } else {
+                    if (hash) {
+                      console.log('=========hash', hash);
+                      req.body.newpassword = hash;
+                      console.log('=========hash', req.body.newpassword);
+
+                      if (req.session.isAuth) {
+                        Account.updateOne(
+                          { id: Number(req.params.accountId) },
+                          { password: hash }
+                        )
+                          .then(() => {
+                            req.flash('success', 'Thành công!');
+                            res.redirect('/home');
+                          })
+                          .catch(err => {
+                            console.log('=========err', err);
+                          });
+                      } else {
+                        req.session.back = '/home';
+                        res.redirect('/login/');
+                      }
+                    }
+                  }
+                });
+              } else {
+                req.flash('error', 'Mật khẩu nhập lại không trùng!');
+                res.redirect('/doimatkhau');
+              }
+            }
+          } else {
+            req.flash('error', 'Mật khẩu cũ không đúng!');
+            res.redirect('/doimatkhau');
+          }
+        }
+      } else {
+        res.status(400).json({ error: 'ERROR!!!' });
+      }
+    });
+  }
+
+  // ADMIN
+  loginadminget(req, res) {
+    res.render('loginadmin');
+  }
+
+  // [GET] /login
+  loginadmin(req, res) {
+    Account.findOne(
+      // { tendangnhap: req.body.tendangnhap, matkhau: req.body.matkhau },
+      { username: req.body.username }, // bắt user name trước
+
+      function (err, user) {
+        if (!err) {
+          if (user == null) {
+            req.flash('error', 'Tên đăng nhập không đúng!'); //nếu bắt user ko đúng sẽ trả dòng này
+            res.redirect('/admin/login/');
+          } else {
+            if (bcrypt.compareSync(req.body.password, user.password)) {
+              var sess = req.session;
+              User.findOne(
+                { idAccount: user.id, status: 1 },
+                (err, userInfo) => {
+                  if (!err) {
+                    if (userInfo) {
+                      sess.isAuth = true;
+                      sess.role = user.role;
+                      sess.username = user.username;
+                      sess.accountId = user.id;
+                      sess.userId = userInfo.idUser;
+                      sess.avatar = userInfo.avatar;
+                    } else {
+                      req.flash('error', 'Tài khoản chưa được kích hoạt!'); //nếu bắt user ko đúng sẽ trả dòng này
+                      res.redirect('/admin/login/');
+                    }
+                  } else {
+                    res.status(400).json({ error: 'ERROR!!!' });
+                  }
+                }
+              ).lean();
+              if (sess.back) {
+                res.redirect(sess.back);
+              } else {
+                const array = [];
+                const listNewType = [];
+                New.find((err, data) => {
+                  if (!err) {
+                    for (var i = 0; i < data.length; i++) {
+                      const newTemp = new NewTemp();
+                      newTemp.idNewTemp = data[i].idNew;
+                      newTemp.title = data[i].title;
+                      newTemp.content = data[i].content;
+                      newTemp.authorId = data[i].authorId;
+                      newTemp.authorName = data[i].authorName;
+                      newTemp.authorImage = data[i].authorImage;
+                      newTemp.image = data[i].image;
+                      newTemp.status = data[i].status;
+                      newTemp.countLike = data[i].countLike;
+                      newTemp.countComment = data[i].countComment;
+                      newTemp.createdDate = data[i].createdDate;
+                      newTemp.updatedDate = data[i].updatedDate;
+
+                      NewType.findOne(
+                        { idNewType: data[i].typeId },
+                        (err, newType) => {
+                          if (!err) {
+                            listNewType.push(newType);
+                            newTemp.idNewType = newType.idNewType;
+                            newTemp.nameNewType = newType.name;
+                            newTemp.imageNewType = newType.image;
+                            array.push(newTemp);
+                            if (listNewType.length == data.length) {
+                              res.render('homeadmin', {
+                                array: array,
+                                accountId: req.session.accountId,
+                                username: req.session.username,
+                                role: req.session.role,
+                                userId: req.session.userId,
+                                avatar: req.session.avatar,
+                              });
+                            }
+                          } else {
+                            res.status(400).json({ error: 'ERROR!!!' });
+                          }
+                        }
+                      ).lean();
+                    }
+                  } else {
+                    res.status(400).json({ error: 'ERROR!!!' });
+                  }
+                }).lean();
+              }
+            } else {
+              req.flash('error', 'Mật khẩu không đúng!');
+              res.redirect('/admin/login/');
+            }
+          }
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }
+    );
+  }
+  homeadmin(req, res) {
+    const array = [];
+    const listNewType = [];
+    if (req.session.isAuth) {
+      New.find((err, data) => {
+        if (!err) {
+          for (var i = 0; i < data.length; i++) {
+            const newTemp = new NewTemp();
+            newTemp.idNewTemp = data[i].idNew;
+            newTemp.title = data[i].title;
+            newTemp.content = data[i].content;
+            newTemp.authorId = data[i].authorId;
+            newTemp.authorName = data[i].authorName;
+            newTemp.authorImage = data[i].authorImage;
+            newTemp.image = data[i].image;
+            newTemp.status = data[i].status;
+            newTemp.countLike = data[i].countLike;
+            newTemp.countComment = data[i].countComment;
+            newTemp.createdDate = data[i].createdDate;
+            newTemp.updatedDate = data[i].updatedDate;
+
+            NewType.findOne({ idNewType: data[i].typeId }, (err, newType) => {
+              if (!err) {
+                listNewType.push(newType);
+                newTemp.idNewType = newType.idNewType;
+                newTemp.nameNewType = newType.name;
+                newTemp.imageNewType = newType.image;
+                array.push(newTemp);
+                if (listNewType.length == data.length) {
+                  res.render('homeadmin', {
+                    array: array,
+                    accountId: req.session.accountId,
+                    username: req.session.username,
+                    userId: req.session.userId,
+                    avatar: req.session.avatar,
+                    role: req.session.role,
+                  });
+                }
+              } else {
+                res.status(400).json({ error: 'ERROR!!!' });
+              }
+            }).lean();
+          }
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
+    } else {
+      req.session.back = '/admin/home';
+      res.redirect('/admin/login/');
+    }
+  }
+
+  duyettinadmin(req, res) {
+    const array = [];
+    const listNewType = [];
+    if (req.session.isAuth) {
+      New.updateOne({ idNew: Number(req.params.idNew) }, { status: 1 })
+        .then(() => {
+          req.flash('success', 'Duyệt thành công!');
+          res.redirect('/admin/home');
+        })
+        .catch(err => {
+          console.log('=========err', err);
+        });
+    } else {
+      req.session.back = '/admin/home';
+      res.redirect('/admin/login/');
+    }
+  }
+
+  quanlybinhluan(req, res) {
+    const array = [];
+    const listNewType = [];
+    if (req.session.isAuth) {
+      Comment.find((err, data) => {
+        if (!err) {
+          for (var i = 0; i < data.length; i++) {
+            const commentTemp = new CommentTemp();
+            commentTemp.idCommentTemp = data[i].idComment;
+            commentTemp.userName = data[i].userName;
+            commentTemp.userImage = data[i].userImage;
+            commentTemp.newId = data[i].newId;
+            commentTemp.content = data[i].content;
+            commentTemp.status = data[i].status;
+            commentTemp.createdDate = data[i].createdDate;
+            commentTemp.updatedDate = data[i].updatedDate;
+
+            New.findOne({ idNew: data[i].newId }, (err, news) => {
+              if (!err) {
+                listNewType.push(news);
+                commentTemp.titleNew = news.title;
+                array.push(commentTemp);
+                if (listNewType.length == data.length) {
+                  res.render('quanlybinhluan', {
+                    array: array,
+                    accountId: req.session.accountId,
+                    username: req.session.username,
+                    userId: req.session.userId,
+                    avatar: req.session.avatar,
+                    role: req.session.role,
+                  });
+                }
+              } else {
+                res.status(400).json({ error: 'ERROR!!!' });
+              }
+            }).lean();
+          }
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
+    } else {
+      req.session.back = '/admin/quanlybinhluan';
+      res.redirect('/admin/login/');
+    }
+  }
+
+  duyetbinhluan(req, res) {
+    const array = [];
+    const listNewType = [];
+    if (req.session.isAuth) {
+      Comment.updateOne(
+        { idComment: Number(req.params.idComment) },
+        { status: 1 }
+      )
+        .then(() => {
+          req.flash('success', 'Duyệt thành công!');
+          res.redirect('/admin/quanlybinhluan');
+        })
+        .catch(err => {
+          console.log('=========err', err);
+        });
+    } else {
+      req.session.back = '/admin/quanlybinhluan';
+      res.redirect('/admin/login/');
+    }
+  }
+
+  xemchitiettinadmin(req, res, next) {
+    if (req.session.isAuth) {
+      New.findOne({ idNew: Number(req.params.idNew) }, (err, data) => {
+        if (!err) {
+          Comment.find(
+            { newId: Number(req.params.idNew) },
+            (err, listComment) => {
+              if (!err) {
+                Like.find(
+                  { newId: Number(req.params.idNew) },
+                  (err, listLike) => {
+                    if (!err) {
+                      Like.find(
+                        {
+                          userId: req.session.userId,
+                          newId: Number(req.params.idNew),
+                        },
+                        (err, isLike) => {
+                          if (!err) {
+                            res.render('chitiettinadmin', {
+                              data: data,
+                              accountId: req.session.accountId,
+                              username: req.session.username,
+                              userId: req.session.userId,
+                              avatar: req.session.avatar,
+                              listComment: listComment,
+                              role: req.session.role,
+                              countLike: listLike.length,
+                              countComment: listComment.length,
+                              liked: isLike.length,
+                            });
+                          } else {
+                            res.status(400).json({ error: 'ERROR!!!' });
+                          }
+                        }
+                      ).lean();
+                    } else {
+                      res.status(400).json({ error: 'ERROR!!!' });
+                    }
+                  }
+                ).lean();
+              } else {
+                res.status(400).json({ error: 'ERROR!!!' });
+              }
+            }
+          ).lean();
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
+    } else {
+      req.session.back = '/home';
+      res.redirect('/login/');
+    }
+  }
+
+  quanlychuyenvien(req, res) {
+    const array = [];
+    const listNewType = [];
+    if (req.session.isAuth) {
+      Account.find({ role: 2 }, (err, data) => {
+        if (!err) {
+          for (var i = 0; i < data.length; i++) {
+            const userTempCV = new UserTempCV();
+            userTempCV.idAccount = data[i].id;
+            userTempCV.username = data[i].username;
+            userTempCV.password = data[i].password;
+            userTempCV.role = data[i].role;
+
+            User.findOne({ idAccount: data[i].id }, (err, users) => {
+              if (!err) {
+                listNewType.push(users);
+                userTempCV.idUserTempCV = users.idUser;
+                userTempCV.name = users.name;
+                userTempCV.dateOfBirth = users.dateOfBirth;
+                userTempCV.gender = users.gender;
+                userTempCV.cccd = users.cccd;
+                userTempCV.issuedBy = users.issuedBy;
+                userTempCV.dateOfIssue = users.dateOfIssue;
+                userTempCV.status = users.status;
+                userTempCV.email = users.email;
+                userTempCV.createdAt = users.createdAt;
+                userTempCV.updatedAt = users.updatedAt;
+                array.push(userTempCV);
+                if (listNewType.length == data.length) {
+                  res.render('quanlychuyenvien', {
+                    array: array,
+                    accountId: req.session.accountId,
+                    username: req.session.username,
+                    userId: req.session.userId,
+                    avatar: req.session.avatar,
+                    role: req.session.role,
+                  });
+                }
+              } else {
+                res.status(400).json({ error: 'ERROR!!!' });
+              }
+            }).lean();
+          }
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
+    } else {
+      req.session.back = '/admin/quanlybinhluan';
+      res.redirect('/admin/login/');
+    }
+  }
+
+  xoachuyenvien(req, res) {
+    const array = [];
+    const listNewType = [];
+    if (req.session.isAuth) {
+      User.findOne({ idUser: Number(req.params.idUser) }, (err, data) => {
+        console.log('=========data', data);
+        if (!err) {
+          if (data) {
+            Account.delete({
+              id: data.idAccount,
+            })
+              .then(() => {
+                User.delete({
+                  idUser: Number(req.params.idUser),
+                })
+                  .then(() => {
+                    req.flash('success', 'Xoá thành công!');
+                    res.redirect('/admin/quanlychuyenvien');
+                  })
+                  .catch(err => next(err));
+              })
+              .catch(err => next(err));
+          }
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
+    } else {
+      req.session.back = '/admin/quanlychuyenvien';
+      res.redirect('/admin/login/');
     }
   }
 }

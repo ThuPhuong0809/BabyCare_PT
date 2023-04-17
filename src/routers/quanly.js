@@ -24,8 +24,25 @@ router.get('/dangtin', mainController.taotinthanhvien);
 router.post('/dangtin', mainController.dangtinthanhvien);
 router.get('/danhsachtypenew', mainController.danhsachtypenew);
 router.get('/thichtintuc/:idNew', mainController.thichtintuc);
+router.get('/danhsachtincho', mainController.danhsachtincho);
+
+router.get('/doimatkhau', mainController.loaddoimatkhau);
+router.post('/doimatkhau/:accountId', mainController.doimatkhau);
 
 router.get('/cvtvsk/listchat', mainController.listchatcvtv);
 router.get('/cvtvsk/listchat/:userName', mainController.chitietchat);
 router.post('/cvtvsk/guitinnhan', mainController.guitinnhanCVTV);
+
+router.get('/admin/login', mainController.loginadminget);
+router.post('/admin/login', mainController.loginadmin);
+router.get('/admin/home', mainController.homeadmin);
+router.get('/admin/chitiettintuc/:idNew', mainController.xemchitiettinadmin);
+router.post('/admin/duyettin/:idNew', mainController.duyettinadmin);
+
+router.get('/admin/quanlybinhluan', mainController.quanlybinhluan);
+router.post('/admin/duyetbinhluan/:idComment', mainController.duyetbinhluan);
+
+router.get('/admin/quanlychuyenvien', mainController.quanlychuyenvien);
+router.get('/admin/xoachuyenvien/:idUser', mainController.xoachuyenvien);
+
 module.exports = router;

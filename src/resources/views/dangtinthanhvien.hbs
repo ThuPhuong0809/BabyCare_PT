@@ -12,16 +12,23 @@
                             <div class='div_input_row'>
                                  <input  type="hidden"  name="authorName" value={{username}}
                                                 class="form-control" >
-                                <input  type="hidden"  name="authorId" value={{idUser}}
+                                <input  type="hidden"  name="authorId" value={{userId}}
                                                 class="form-control" >
                                 <input  type="hidden"  name="authorImage" value={{avatar}}
                                             class="form-control" >
-                                <input  type="hidden"  name="status" value=1
+                                <input  type="hidden"  name="status" value=0
                                         class="form-control" >
+                                <input  type="hidden"  name="countLike" value=0
+                                        class="form-control" >
+                                <input  type="hidden"  name="countComment" value=0
+                                        class="form-control" >
+
                                 <div class='div_input_row_item'>
                                     <label>Chọn chủ đề bạn muốn đăng: </label>
-                                    <select class="form-control" id="ChonLinhVuc" name="nameType">
-                                        
+                                    <select class="form-control" id="ChonLinhVuc" name="typeId">
+                                        {{#each data}}
+                                            <option value = {{this.idNewType}}>{{this.name}}</option>
+                                        {{/each}}
                                     </select>
                                 </div>
                                  <div class='div_input_row_item'>
@@ -39,8 +46,6 @@
                                     value=''
                                     rows="15" 
                                     cols="40" ></textarea>
-                                    
-                                
                             </div>
                             
                             
@@ -54,10 +59,10 @@
 
             <div class="list-right">
                 <div class="div_avatar">
-                    <img src='https://bedental.vn/wp-content/uploads/2022/12/f637b0052729d9502ff03abe390fe051.jpg'
+                    <img src={{avatar}}
                         alt='ảnh thẻ header'
                         style='height: 150px;width: 150px;border-radius: 100px;'/>  
-                    <p>thu_phuong</p> 
+                    <p>{{username}}</p> 
                 </div>
 
                  <div class="item_menu_right">
@@ -67,7 +72,7 @@
                     <p>Bài viết</p> 
                 </div>
 
-                 <div class="item_menu_right">
+                 <div class="item_menu_right" href='/danhsachtincho'>
                     <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconNew.png'
                         alt='ảnh thẻ header'
                         style='height: 28px; margin:14px 15px 14px 18px;'/>  

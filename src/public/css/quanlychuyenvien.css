@@ -1,0 +1,97 @@
+.quanlychuyenvien  {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    flex-direction: column;
+}
+
+.quanlychuyenvien .home-menu-main {
+    width: 20.4%;
+    height: 100%;
+}
+.quanlychuyenvien .home-header-main {
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    margin-left: 20.4%;
+} 
+
+.quanlychuyenvien .header_nv{
+    display: flex;
+    width: 80%;
+    height: 60px;
+}
+.quanlychuyenvien .main-home-nv {
+    display: flex;
+    margin-top: 60px;
+    /* height: 1000px; */
+    width: 100%;
+    padding: 10px;
+    flex-direction: column;
+
+}
+
+.quanlychuyenvien .main-home-nv .title_chucnang{
+    display: flex;
+    height: 40px;
+    width: 100%;
+    align-items: center;
+}
+
+.quanlychuyenvien .main-home-nv .title_chucnang p{
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.quanlychuyenvien .main-home-nv .line {
+    height: 1px;
+    background-color: #cccccc;
+    width: 1120px;
+}  
+
+
+.quanlychuyenvien .main-home-nv .active  {
+    width: 1120px;
+}
+
+.quanlychuyenvien .main-home-nv  .active i,
+.quanlychuyenvien .main-home-nv  .active span {
+color: #296088;
+font-weight: 600;
+margin-right: 3px;
+}
+.quanlychuyenvien .main-home-nv  i,
+.quanlychuyenvien .main-home-nv  span {
+color: #667580;
+font-weight: 600;
+margin-right: 3px;
+}
+.quanlychuyenvien .main-home-nv  .tab-content .title-line {
+height: 20px;
+width: 5px;
+background-color: red;
+margin-right: 2px;
+}
+.quanlychuyenvien .main-home-nv  .tab-content h5 {
+color: #296088;
+font-weight: 600;
+}
+.quanlychuyenvien .main-home-nv  .tab-content select {
+background-color: #e3fffb;
+}
+.quanlychuyenvien .main-home-nv  .tab-content ::placeholder {
+color: rgba(102, 117, 128, 0.3);
+}
+.quanlychuyenvien .main-home-nv  .tab-content label {
+color: #667580;
+}
+.quanlychuyenvien .main-home-nv  .tab-content .form-control {
+font-style: italic;
+color: #667580;
+font-weight: 300;
+}
+.quanlychuyenvien .main-home-nv  .tab-content .div-table-list th {
+background-color: #f3f7f9;
+color: #296088;
+}

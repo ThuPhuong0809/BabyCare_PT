@@ -1,0 +1,218 @@
+@charset "UTF-8";
+:root {
+  -text: #06a881;
+  -blue: #4da1e8;
+  -textbold: #333333;
+  -text: #667580;
+  -textblue: #1da1f2;
+  -line: #cccccc;
+  -textred: #ff0000;
+  -headertable: #f3f7f9;
+  -textmiddle: #003f65;
+  -textmiddle022: #0c6fbe;
+  -inputdadien: #e8f0fe;
+}
+.loginadmin {
+  background-color: #DCDFE4;
+  height: 100%;
+  /* background-image: url('http://datkham.kcb.vn/background-login.a55dfdeefbadaa0db071.png'); */
+}
+.loginadmin .img_background_login {
+  display: flex; 
+  justify-content: center;
+  background-color: #DCDFE4;
+}
+
+.mainLogin{
+  display: flex; 
+  height: 710px;
+  justify-content: center;
+  margin-top: 70px;
+  border-radius: 20px;
+  background-color:white;
+}
+
+.mainLoginKH{
+  display: flex; 
+  height: 90%;
+  justify-content: center;
+  width: 98%;
+  padding-top: 10px;
+}
+.mainLoginKH .logo{
+  width: 100%;
+  display: flex; 
+  height: 150px;
+  justify-content: center;
+}
+.mainLoginKH .textLogin{
+  width: 100%;
+  display: flex; 
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+}
+.loginadmin h1 {
+  color: #296088;
+  font-weight: 600;
+}
+.loginadmin .div_input {
+  /* flex-direction: column; */
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+}
+
+.loginadmin .div_input form{
+  flex-direction: column;
+  display: flex;
+  width: 90%;
+  align-items: center;
+  height: 100%;
+}
+.loginadmin .div_input .div_input_row{
+  flex-direction: column;
+  display: flex;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.loginadmin .div_input .div_input_row #btnPassword{
+  border: none;
+  height: 43px;
+  width: 50px;
+  position: absolute;
+  top: 35px;
+  right: 0px;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
+.loginadmin .div_input .div_input_row label{
+  color: #296088;
+  font-size: 18px;
+  font-weight: 550;
+}
+/* .loginadmin .Error, */
+.loginadmin #UserName,
+.loginadmin #Password {
+  width: 100%;
+  height: 43px;
+  border-radius: 6px;
+  border: 1px solid #296088;
+  color: #296088;
+  font-style: italic;
+  font-size: 14px;
+  padding-left: 15px;
+  outline: none;
+}
+.loginadmin .div_btn{
+  width: 100%;
+  flex-direction:row;
+  display: flex;
+  justify-content: space-between;
+}
+.loginadmin .div_btn a{
+  text-decoration: none
+}
+.loginadmin .div_btn p{
+  color: #296088;
+  font-size: 16px;
+}
+.loginadmin .btnDangNhap {
+  width: 100%;
+  height: 48px;
+  background-color: #296088;
+  border: none;
+  color: white;
+  font-size: 22px;
+  font-weight: 600;
+  border-radius: 10px;
+}
+.loginadmin .btnDangKy {
+  width: 100%;
+  height: 48px;
+  background-color: white;
+  border: 1px solid #296088;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.loginadmin .btnDangKy p{
+  margin-top: 15px;
+  color: #296088;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.loginadmin .div_btn_line{
+  margin-top: 20px;
+  width: 100%;
+  flex-direction:row;
+  display: flex;
+  justify-content: space-between;
+}
+.loginadmin .div_btn_line p{
+  color: #296088;
+}
+.loginadmin .div_btn_line .div_line_or{
+  width: 35%;
+  height: 25px;
+  flex-direction:row;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loginadmin .div_btn_line .div_line_or .line_or{
+  width: 100%;
+  height: 2px;
+  background-color: #296088;
+}
+.loginadmin ::placeholder {
+  color: #296088;
+}
+.loginadmin .div_btn_social{
+  width: 100%;
+  height: 43px;
+  border-radius: 6px;
+  border: 2px solid #296088;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginadmin .div_btn_social a{
+  width: 100%;
+  height: 43px; 
+  flex-direction:row;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none
+}
+.loginadmin .div_btn_social a i{
+  color: #296088;
+  font-size: 22px;
+  margin-right: 10px;
+  /* cursor: pointer; */
+}
+.loginadmin .div_btn_social a p{
+  color: #296088;
+  font-size: 16px;
+  margin-top: 15px;
+}
+.loginadmin .fa-google {
+  background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.loginadmin .fa-facebook-square {
+  color: blue;
+  background-color: #fff;
+}

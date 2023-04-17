@@ -1,0 +1,147 @@
+<div class='headeradmin'>
+  <div class='container-header'>
+    <div class='search-bar'>
+      <form action=''>
+        <input
+          type='text'
+          id='searchHeader'
+          name='searchHeader'
+          placeholder='Tìm kiếm...'
+          required=''
+        />
+        <button type='submit'><i
+            class='fa fa-search'
+            aria-hidden='true'
+          ></i></button>
+      </form>
+    </div>
+    <div class='header-left' id='navbarSupportedContent'>
+      <ul class='navbar-nav mr-auto nav-header'>
+        <li
+          class='nav-item dropdown row'
+          style='display: flex;  flex-direction: row;'
+        >
+          <img
+            src={{avatar}}
+            alt='ảnh thẻ header'
+            style='height: 35px;width: 35px;border-radius: 28px;align-self: center;
+                '
+          />
+
+          <a
+            class='nav-link dropdown-toggle'
+            href='#'
+            id='navbarDropdown'
+            role='button'
+            data-toggle='dropdown'
+            aria-haspopup='true'
+            aria-expanded='false'
+            style='margin-right: 30px;'
+          >
+            {{username}}
+          </a>
+          <div class='dropdown-menu'>
+            <button class='dropdown-item js-doi-mat-khau-ql'>Đổi mật khẩu</button>
+            {{! <a class="dropdown-item" href="#">Đổi mật khẩu</a> }}
+            <div class='dropdown-divider'></div>
+            <a
+              class='dropdown-item'
+              href='/admin/login'
+              style='color: red;'
+            >Đăng xuất</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    {{! Model }}
+    <div class='model-header-ql js-model-header-ql'>
+      <div class='container-model'>
+        <div class='icon-close-header-model' style='text-right'>
+          <i
+            class='js-model-close-ql fa fa-window-close'
+            style='color: #078c80;'
+          >
+          </i>
+        </div>
+        <div class='main-doi-mat-khau-header'>
+          <div class='form-login'>
+            <div class='form-group'>
+              <label class='control-label'>Mật khẩu cũ<span
+                  class='required'
+                >(*)</span></label>
+              <input
+                class='input form-control'
+                data-val='true'
+                data-val-required='Nhập mật khẩu cũ'
+                id='Old_Password'
+                name='Old_Password'
+                placeholder='Nhập mật khẩu cũ'
+                type='password'
+              />
+            </div>
+            <div class='form-group'>
+              <label class='control-label'>Mật khẩu mới<span
+                  class='required'
+                >(*)</span></label>
+              <input
+                class='input form-control'
+                data-val='true'
+                data-val-required='Nhập mật khẩu mới'
+                id='New_Password'
+                name='New_Password'
+                placeholder='Nhập mật khẩu mới'
+                type='password'
+              />
+            </div>
+            <div class='form-group'>
+              <label class='control-label'>Xác nhận mật khẩu<span
+                  class='required'
+                >(*)</span></label>
+              <input
+                class='input form-control'
+                data-val='true'
+                data-val-required='Nhập xác nhận mật khẩu mới'
+                id='Confirm_Password'
+                name='Confirm_Password'
+                placeholder='Xác nhận lại mật khẩu'
+                type='password'
+              />
+            </div>
+            <div class='actions'>
+              <button
+                class='btn btn-action pull-right btn-primary'
+                id='btnLuuMatKhau'
+                type='submit'
+              >Lưu</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const btnDoiMatKhau = document.querySelectorAll(".js-doi-mat-khau-ql"); const
+  modelHeader = document.querySelector(".js-model-header-ql"); const
+  btnModelClose = document.querySelector(".js-model-close-ql"); function
+  showDoiMatKhau() { modelHeader.classList.add("open"); } function
+  hideDoiMatKhau() { modelHeader.classList.remove("open"); } for (const
+  btnXemLich of btnDoiMatKhau) { btnXemLich.addEventListener("click",
+  showDoiMatKhau); } btnModelClose.addEventListener('click', hideDoiMatKhau);
+</script>
+<script>
+  $(document).ready(function () { OnChangePassword(); }); function
+  OnChangePassword() { $('#btnLuuMatKhau').click(function () { var old_password
+  = $('input[name="Old_Password"]').val(); var new_password =
+  $('input[name="New_Password"]').val(); var confirm_password =
+  $('input[name="Confirm_Password"]').val(); if (old_password == "" ||
+  new_password == "" || confirm_password == "") { alert("Vui lòng nhập đủ thông
+  tin !"); } else if (new_password.localeCompare(confirm_password)) { alert("Mật
+  khẩu không khớp !"); } else { $.ajax({ url: '/quanly/capnhatmatkhau', type:
+  'post', data: { old_password: old_password, confirm_password: confirm_password
+  }, dataType: 'json', success: function (result) { alert("Cập nhật thành công
+  !"); hideDoiMatKhau(); }, error: function (result) { alert("Mật khẩu cũ không
+  hợp lệ !"); } }); } }); }
+</script>

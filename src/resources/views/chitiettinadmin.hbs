@@ -1,0 +1,89 @@
+<div class="chitiettinadmin">
+        {{>menubaradmin}}
+        <div class="home-header-main">
+            {{>headeradmin}}
+            <div class="main-home-nv">
+                <div class="title_chucnang">
+                    <p>Xem chi tiết tin</p>
+                </div>
+                <div class="line" ></div>
+                <div class="main-home">
+                        <div class="main-body">
+                            <div class="list-left">
+                                <div class="main-list-left">
+                                    <div class="user_create">
+                                        <img
+                                            src={{data.authorImage}}
+                                            alt='ảnh thẻ header'
+                                            style='height: 35px;width: 35px;border-radius: 20px;margin-right: 5px;align-self: center; '/>
+                                        <div class="thongtin_user">
+                                            <b class="name_page" style="font-weight: 600;font-size: 16px;">{{data.authorName}}</b>
+                                            <b class="ngay_create">{{{changeNgay data.createdDate}}}</b>
+                                        </div>    
+                                    </div>
+
+                                    <div class="main_tintuc">
+                                        <p style="" class="title">{{data.title}}</p>
+                                        <p  style="margin-top:-15px" class="sub_main">{{data.content}}</p>
+                                    </div>
+                                    <div class="div_luotxem_cmt">
+                                        {{#if liked }}
+                                            <a class="like" href='/thichtintuc/{{data.idNew}}'> <i class="fas fa-thumbs-up"></i><p>{{countLike}}</p></a>
+                                        {{else}}
+                                            <a class="like" href='/thichtintuc/{{data.idNew}}'> <i class="fa fa-thumbs-o-up"></i><p>{{countLike}}</p></a>
+                                        {{/if}}
+                                        <div class="cmt" style="margin-left: 20px;"> <i class="fa fa-commenting"></i><p>{{countComment}}</p></div>
+                                    </div>
+                                    <div class="div_list_cmt_tintuc">
+                                        {{#if data.status}}
+                                            
+                                        {{else}}
+                                            <form action='/admin/duyettin/{{data.idNew}}' id='form-login' method='POST'>
+                                                <input type='submit' class='button btnDuyetTin' value='Duyệt tin' />
+                                            </form>
+                                         {{/if}}
+                                        {{#each listComment}}
+                                        <div class="main_cmt">
+                                            <div class="item_cmt">
+                                                <img
+                                                src={{this.userImage}}
+                                                alt='ảnh thẻ header'
+                                                style='height: 35px;width: 35px;border-radius: 20px;margin-right: 5px; margin-bottom:12px '/>
+                                                <div class="item_main_cmt">
+                                                    <p class="name_cmt">{{this.userName}}</p>
+                                                    <p>{{this.content}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="actions_cmt">
+                                                
+                                                {{#if this.status}}
+                                                {{else}}
+                                                    <form action='/admin/duyetbinhluan/{{this.idComment}}' id='form-login' method='POST'>
+                                                        <input type='submit' class='button btnDuyetcmt' value='Duyệt'/>
+                                                    </form>
+                                                {{/if}}
+                                                <a href="/admin/xoabinhluan/{{this.idComment}}" class="btn btn-danger" style="margin-left: 10px;height:40px">Xoá</a>                                                
+                                            </div>
+                                        </div>
+                                          
+                                            <p class="time_cmt">{{this.createdDate}}</p>
+                                        {{/each}}
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                        
+                        </div>
+
+                        
+                    </div>
+             
+                
+                
+            </div>
+        </div>
+
+ </div>
+        
+        

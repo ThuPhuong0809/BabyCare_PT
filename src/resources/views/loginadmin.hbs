@@ -1,0 +1,167 @@
+<div class='loginadmin'>
+  <div>
+    {{>header}}
+  </div>
+  <div class='img_background_login'>
+    <img
+      src='https://cnm-lab3.s3.ap-southeast-1.amazonaws.com/hotrosinhvienIUH/bg_login.png'
+    />
+    <img
+      class='img'
+      src='https://cnm-lab3.s3.ap-southeast-1.amazonaws.com/hotrosinhvienIUH/favicon.png'
+    />
+    <div class="mainLogin col-6">
+      <div class="row mainLoginKH">
+        <div class='logo'>
+          <img
+            src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/logo.png'
+            alt='ảnh thẻ header'
+            style='height: 150px;width: 151px;'
+          />
+        </div>
+
+        <div class='textLogin'>
+          <h1>ĐĂNG NHẬP HỆ THỐNG</h1>
+        </div>
+        
+        <div class='div_input'>
+          <form action='/admin/login' id='form-login' method='POST'>
+            <div class='div_input_row'>
+              <label>Tên đăng nhập</label>
+              <input
+                autocomplete='new-password'
+                class='input'
+                id='UserName'
+                name='username'
+                placeholder='Nhập tên tài khoản'
+                required='required'
+                type='text'
+                value=''
+              />
+            </div>
+            <div class='div_input_row' style="position: relative;">
+              <label>Mật khẩu</label>
+              <input
+                autocomplete='new-password'
+                class='input'
+                id='Password'
+                name='password'
+                placeholder='Nhập mật khẩu'
+                required='required'
+                type='password'
+              />
+              <div class="" type="button" id="btnPassword">
+                <i id="iconEye" class="fas fa-eye-slash eye-password" style='font-size:22px;color: #296088;'></i>
+              </div>
+            </div>
+          
+           
+            <div class='Error'>
+              {{#if messages.error}}
+                <p style='color:red'>
+                  {{messages.error}}
+                </p>
+              {{/if}}
+            </div>
+               <div class='Error'>
+              {{#if messages.success}}
+                <input id="change-success" value="success" type="hidden" >
+                </input>
+              {{/if}}
+            </div>
+
+            <div class="div_btn">
+              <a class='' href='/home'>
+                <p>Nhớ đăng nhập</p>
+              </a>
+               <a class='' href='/home'>
+                <p>Quên mật khẩu?</p>
+              </a>
+            </div>
+
+            <div class="div_btn">
+              <input type='submit' class='button btnDangNhap' value='ĐĂNG NHẬP' />
+            </div>
+          </form>
+        </div>
+      </div>
+    
+    </div>
+   
+
+  </div>
+</div>
+
+<script>
+  // step 1
+  const ipnElement = document.querySelector('#Password')
+  const btnElement = document.querySelector('#btnPassword')
+  const iconEye = document.querySelector('#iconEye')
+
+  // step 2
+  btnElement.addEventListener('click', function() {
+    // step 3
+    const currentType = ipnElement.getAttribute('type')
+    // step 4
+    ipnElement.setAttribute(
+      'type',
+      currentType === 'password' ? 'text' : 'password'
+    )
+
+    if(currentType ==="password"){
+      iconEye.classList.replace("fa-eye-slash", "fa-eye");
+    }else{
+      iconEye.classList.replace("fa-eye", "fa-eye-slash");
+    }
+
+   
+  })
+</script>
+
+<script>
+$(document).ready(function () { myFunction(); });
+function myFunction() {
+    if(document.getElementById("change-success").value){
+        customAlert.alert('Đăng nhập để tiếp tục','Đăng ký tài khoản thành công!' )
+    }
+    
+} 
+function CustomAlert(){
+  this.alert = function(message,title){
+    document.body.innerHTML = document.body.innerHTML + '<div id="dialogoverlay"></div><div id="dialogbox" class="slit-in-vertical"><div><div id="dialogboxhead"></div><div id="dialogboxbody"></div><div id="dialogboxfoot"></div></div></div>';
+
+    let dialogoverlay = document.getElementById('dialogoverlay');
+    let dialogbox = document.getElementById('dialogbox');
+    
+    let winH = window.innerHeight;
+    dialogoverlay.style.height = winH+"px";
+    
+    dialogbox.style.top = "100px";
+
+    dialogoverlay.style.display = "block";
+    dialogbox.style.display = "block";
+    
+    document.getElementById('dialogboxhead').style.display = 'block';
+
+    if(typeof title === 'undefined') {
+      document.getElementById('dialogboxhead').style.display = 'none';
+    } else {
+      document.getElementById('dialogboxhead').innerHTML = '<i class="fa fa-exclamation-circle" aria-hidden="true"></i> '+ title;
+    }
+    document.getElementById('dialogboxbody').innerHTML = message;
+    {{!-- document.getElementById('dialogboxfoot').innerHTML = '<button class="pure-material-button-contained active" onclick="customAlert.ok()">OK</button>'; --}}
+  }
+  
+  this.ok = function(){
+    document.getElementById('dialogbox').style.display = "none";
+    document.getElementById('dialogoverlay').style.display = "none";
+  }
+
+  setTimeout(function() {  
+    document.getElementById('dialogbox').style.display = "none";
+    document.getElementById('dialogoverlay').style.display = "none";
+    }, 3000);
+}
+
+let customAlert = new CustomAlert();
+</script>

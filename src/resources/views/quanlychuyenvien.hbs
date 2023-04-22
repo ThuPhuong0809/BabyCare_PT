@@ -4,7 +4,7 @@
             {{>headeradmin}}
             <div class="main-home-nv">
                 <div class="title_chucnang">
-                    <p>Quản lý tin</p>
+                    <p>Quản lý chuyên viên tư vấn</p>
                 </div>
                 <div class="line" ></div>
 
@@ -13,7 +13,8 @@
                                 <div class="card mb-4">
                                     <div class="card-header" style="color: #296088;font-weight: 600;">
                                         <i class="fas fa-table me-1"></i>
-                                        Bảng hiển thị danh sách tin
+                                        Bảng hiển thị danh sách chuyên viên tư vấn
+                                        <a href="/admin/themchuyenvien" class="btn btn-info btnThemChuyenVien">Thêm chuyên viên</a>
                                     </div>
                                     <div class="card-body">
                                         <table class="table table-bordered" id="table_id">
@@ -73,7 +74,7 @@
 $(document).ready(function () { myFunction(); });
 function myFunction() {
     if(document.getElementById("change-success").value){
-        customAlert.alert('Xoá thành công!.' )
+        customAlert.alert('Thành công!.' )
     }
     
 } 

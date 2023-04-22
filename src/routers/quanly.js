@@ -44,5 +44,7 @@ router.post('/admin/duyetbinhluan/:idComment', mainController.duyetbinhluan);
 
 router.get('/admin/quanlychuyenvien', mainController.quanlychuyenvien);
 router.get('/admin/xoachuyenvien/:idUser', mainController.xoachuyenvien);
+router.get('/admin/themchuyenvien', mainController.loadthemchuyenvien);
+router.post('/admin/themchuyenvien', mainController.themchuyenvien);
 
 module.exports = router;

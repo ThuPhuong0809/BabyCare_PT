@@ -64,22 +64,24 @@
                         style='height: 150px;width: 150px;border-radius: 100px;'/>  
                     <p>{{username}}</p> 
                 </div>
-
-                 <div class="item_menu_right">
+                {{#ifCond role '==' 1}}
+                    <div class="item_menu_right">
                     <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconListNew.png'
                         alt='ảnh thẻ header'
                         style='height: 28px; margin:14px 15px 14px 18px;'/>  
                     <p>Bài viết</p> 
-                </div>
+                    </div>
 
-                 <div class="item_menu_right" href='/danhsachtincho'>
-                    <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconNew.png'
-                        alt='ảnh thẻ header'
-                        style='height: 28px; margin:14px 15px 14px 18px;'/>  
-                    <p>Bài viết chờ phê duyệt</p> 
-                </div>
+                    <div class="item_menu_right" href='/home'>
+                        <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconNew.png'
+                            alt='ảnh thẻ header'
+                            style='height: 28px; margin:14px 15px 14px 18px;'/>  
+                        <p>Bài viết chờ phê duyệt</p> 
+                    </div>
+                {{/ifCond}}
+                 
 
-                <a class='item_menu_right_pass' href='/home'>
+                <a class='item_menu_right_pass' href='/doimatkhau'>
                     <p>Đổi mật khẩu</p>
                 </a>
                  

@@ -1318,5 +1318,82 @@ class MainController {
       res.redirect('/admin/login/');
     }
   }
+
+  loadthemchuyenvien(req, res) {
+    if (req.session.isAuth) {
+      res.render('themchuyenvien', {
+        accountId: req.session.accountId,
+        username: req.session.username,
+        userId: req.session.userId,
+        avatar: req.session.avatar,
+        role: req.session.role,
+      }); //có dữ liệu sẽ đưa data vào trang home với data là d/s new tìm đc
+    } else {
+      req.session.back = '/admin/themchuyenvien';
+      res.redirect('/login/');
+    }
+  }
+
+  themchuyenvien(req, res) {
+    const acc = new Account({
+      username: req.body.username,
+      password: req.body.password,
+      role: req.body.role,
+    });
+    if (req.session.isAuth) {
+      console.log('=========params', req.body);
+      console.log('=========acc', acc);
+      Account.findOne({ username: req.body.username }, (err, isAcc) => {
+        if (!err) {
+          if (isAcc) {
+            req.flash('error', 'Tên đăng nhập đã tồn tại!'); //nếu bắt user ko đúng sẽ trả dòng này
+            res.redirect('/admin/themchuyenvien');
+          } else {
+            acc
+              .save()
+              .then(() => {
+                Account.findOne(
+                  { username: req.body.username },
+                  (err, account) => {
+                    if (!err) {
+                      if (account) {
+                        console.log('=========account', account);
+                        const userTV = new User({
+                          name: req.body.name,
+                          dateOfBirth: req.body.dateOfBirth,
+                          gender: req.body.gender,
+                          cccd: req.body.cccd,
+                          issuedBy: req.body.issuedBy,
+                          dateOfIssue: req.body.dateOfIssue,
+                          status: req.body.status,
+                          avatar: req.body.avatar,
+                          idAccount: account.id,
+                        });
+                        console.log('=========userTV', userTV);
+                        userTV
+                          .save()
+                          .then(() => {
+                            req.flash('success', 'Thêm thành công!');
+                            res.redirect('/admin/quanlychuyenvien');
+                          })
+                          .catch(error => {});
+                      }
+                    } else {
+                      res.status(400).json({ error: 'ERROR!!!' });
+                    }
+                  }
+                ).lean();
+              })
+              .catch(error => {});
+          }
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
+    } else {
+      req.session.back = '/admin/quanlychuyenvien';
+      res.redirect('/admin/login/');
+    }
+  }
 }
 module.exports = new MainController();

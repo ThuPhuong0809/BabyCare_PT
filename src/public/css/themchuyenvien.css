@@ -1,0 +1,185 @@
+.themchuyenvien  {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    flex-direction: column;
+}
+
+.themchuyenvien .home-menu-main {
+    width: 20.4%;
+    height: 100%;
+}
+.themchuyenvien .home-header-main {
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    margin-left: 20.4%;
+} 
+
+.themchuyenvien .header_nv{
+    display: flex;
+    width: 80%;
+    height: 60px;
+}
+.themchuyenvien .main-home-nv {
+    display: flex;
+    margin-top: 60px;
+    /* height: 1000px; */
+    width: 100%;
+    padding: 10px;
+    flex-direction: column;
+
+}
+
+.themchuyenvien .main-home-nv .title_chucnang{
+    display: flex;
+    height: 40px;
+    width: 100%;
+    align-items: center;
+}
+
+.themchuyenvien .main-home-nv .title_chucnang p{
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.themchuyenvien .main-home-nv .line {
+    height: 1px;
+    background-color: #cccccc;
+}  
+
+.themchuyenvien .list-left{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    overflow-x:hidden;
+    overflow-y:auto;
+  }
+
+.themchuyenvien .main-list-left{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction:column;
+    padding-top:20px ;
+  }
+  
+  .themchuyenvien .main-list-left .div_input_row{
+    display: flex;
+    flex-direction:column;
+    margin-bottom: 20px;
+  }
+  
+  .themchuyenvien .main-list-left .div_input_row >label{
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000;
+  }
+  
+  .themchuyenvien #TenDangNhap,
+  .themchuyenvien #HoTen,
+  .themchuyenvien #NgaySinh,
+  .themchuyenvien #ChonGioiTinh  {
+  width: 100%;
+  height: 43px;
+  border-radius: 6px;
+  border: 1px solid #296088;
+  color: #296088;
+  font-style: italic;
+  font-size: 14px;
+  padding-left: 15px;
+  outline: none;
+  }
+  .themchuyenvien .raido_gender {
+  display: flex;
+  width: 30%;
+  flex-direction:row;
+  align-items: center;
+  }
+  
+  .themchuyenvien .item_raido_gender {
+  display: flex;
+  width: 100%;
+  flex-direction:row;
+  align-items: center;
+  }
+  
+  .themchuyenvien .item_raido_gender label{
+  margin-top: 5px;
+  margin-left: 10px;
+  }
+  
+  
+  .themchuyenvien .raido_gender {
+  display: flex;
+  width: 30%;
+  flex-direction:row;
+  align-items: center;
+  }
+  
+  
+  .themchuyenvien .div_btn{
+  width: 100%;
+  flex-direction:row;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+  }
+  .themchuyenvien .div_btn a{
+  text-decoration: none
+  }
+  .themchuyenvien .div_btn p{
+  color: #296088;
+  font-size: 16px;
+  }
+  
+  .themchuyenvien .btnChangeThongtin {
+    width: 200px;
+    height: 48px;
+    background-color: #296088;
+    border: none;
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+    border-radius: 10px;
+  }
+  
+  .themchuyenvien .btnLuuTT {
+    background-color: #296088;
+    width: 200px;
+    height: 40px;
+    border: 0;
+    border-radius: 20px;
+    color: white;
+    font-weight: 700;
+    font-size: 24px;
+    margin-top: 10px;
+  }
+  .themchuyenvien .form-add {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+  }
+  .themchuyenvien .btnQuayLai{
+    height: 40px;
+    width: 120px;
+    border: 2px solid #296088;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-size: 22px;
+    font-weight: 500;
+    color: #296088;
+    text-decoration: none;
+  }
+  .themchuyenvien .btnQuayLai i{
+    margin-right: 5px;
+  }

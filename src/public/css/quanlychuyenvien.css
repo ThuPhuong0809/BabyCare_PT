@@ -51,9 +51,6 @@
 }  
 
 
-.quanlychuyenvien .main-home-nv .active  {
-    width: 1120px;
-}
 
 .quanlychuyenvien .main-home-nv  .active i,
 .quanlychuyenvien .main-home-nv  .active span {
@@ -94,4 +91,9 @@ font-weight: 300;
 .quanlychuyenvien .main-home-nv  .tab-content .div-table-list th {
 background-color: #f3f7f9;
 color: #296088;
+}
+
+.quanlychuyenvien .main-home-nv  form .btnThemChuyenVien {
+    font-weight: 500;
+    margin-left: 50px;
 }

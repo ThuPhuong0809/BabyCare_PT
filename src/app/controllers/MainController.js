@@ -501,7 +501,6 @@ class MainController {
     if (req.session.isAuth) {
       User.findOne({ idUser: req.session.userId }, (err, data) => {
         if (!err) {
-          console.log('==================', req.session.userId, data);
           res.render('thongtincanhantv', {
             data: data,
             accountId: req.session.accountId,

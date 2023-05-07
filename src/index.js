@@ -86,6 +86,8 @@ require('aws-sdk/lib/maintenance_mode_message').suppress = true;
 const { v4: uuid } = require('uuid');
 const { error } = require('console');
 const User = require('../src/app/model/User');
+const NewType = require('../src/app/model/NewType');
+const New = require('../src/app/model/New');
 
 const awsConfig = {
   accessKeyId: 'AKIA5HNAI5CXIHX5736U',
@@ -154,6 +156,49 @@ app.post('/images', upload.single('image'), async (req, res) => {
         .catch(err => {
           console.log('=========err', err);
         });
+    }
+  });
+});
+
+app.post('/dangtin', upload.single('image'), async (req, res) => {
+  const { idUser } = req.body;
+  const file = req.file;
+
+  const image = file.originalname.split('.');
+  const fileType = image[image.length - 1];
+  const filePath = `${uuid() + Date.now().toString()}.${fileType}`;
+
+  const params = {
+    Bucket: 'babycaredoan',
+    Key: filePath,
+    Body: file.buffer,
+  };
+
+  s3.upload(params, (error, data) => {
+    if (error) {
+      return res.send('Internal Server Error');
+    } else {
+      const news = new New(req.body);
+      news.authorId = Number(req.body.authorId);
+      news.image = `${CLOUND_FONT_URL}${filePath}`;
+      const idNewType = Number(req.body.typeId);
+      NewType.findOne({ idNewType: idNewType }, (err, newType) => {
+        if (!err) {
+          if (newType) {
+            news.nameType = newType.name;
+            console.log('-----ddd----', news);
+
+            news
+              .save()
+              .then(() => res.redirect('/danhsachtincho'))
+              .catch(error => {
+                console.log('-----errorç----', error);
+              });
+          }
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
     }
   });
 });

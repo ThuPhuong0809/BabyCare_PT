@@ -22,9 +22,10 @@ class MainController {
   // [GET] /home
   home(req, res) {
     const array = [];
+    const arraySort = [];
     const listNewType = [];
     if (req.session.isAuth) {
-      New.find((err, data) => {
+      New.find({ status: 1 }, (err, data) => {
         if (!err) {
           for (var i = 0; i < data.length; i++) {
             const newTemp = new NewTemp();
@@ -48,7 +49,9 @@ class MainController {
                 newTemp.nameNewType = newType.name;
                 newTemp.imageNewType = newType.image;
                 array.push(newTemp);
+                arraySort.push(newTemp);
                 if (listNewType.length == data.length) {
+                  arraySort;
                   res.render('home', {
                     array: array,
                     accountId: req.session.accountId,
@@ -668,8 +671,6 @@ class MainController {
   dangtinthanhvien(req, res) {
     const news = new New(req.body);
     news.authorId = Number(req.body.authorId);
-    console.log('---------', news);
-    console.log('---------', news.authorId);
 
     const idNewType = Number(req.body.typeId);
 
@@ -678,11 +679,10 @@ class MainController {
         if (!err) {
           if (newType) {
             news.nameType = newType.name;
-            console.log('-----ddd----', news);
 
             news
               .save()
-              .then(() => res.redirect('/home'))
+              .then(() => res.redirect('/danhsachtincho'))
               .catch(error => {});
           }
         } else {

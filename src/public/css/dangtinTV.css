@@ -2,6 +2,9 @@
   background-color: #DCDFE4;
   height: 100%;
 }
+.dangtinthanhvien a{
+  text-decoration: none;
+}
 .dangtinthanhvien .main-home {
   height: 100%;
   padding-top: 60px;
@@ -12,7 +15,7 @@
 }
 .dangtinthanhvien .main-home .main-body {
   height: 95%;
-  width: 70%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
   flex-direction:row;
@@ -78,10 +81,21 @@
   flex-direction: row;
   width: 100%;
   margin-bottom: 10px;
+  align-items: center;
+  justify-content: center;
 }
 
 .dangtinthanhvien .main-list-left .div_input_row_item >label{
- width: 30%;
+  width: 30%;
+  font-weight: 700;
+  
+}
+
+.dangtinthanhvien .main-list-left .div_input_row_item span{
+  width: 30%;
+  font-weight: 700;
+  color: red;
+  
 }
 
 

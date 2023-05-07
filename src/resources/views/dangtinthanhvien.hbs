@@ -8,7 +8,7 @@
                 <div class="main-list-left">
                     <label>CHIA SẺ KINH NGIỆM CỦA BẠN</label>
                      <div class="form_gui">
-                        <form action='/dangtin' id='form-login' method='POST'>
+                        <form action='/dangtin' id='form-login' method='POST' enctype="multipart/form-data">
                             <div class='div_input_row'>
                                  <input  type="hidden"  name="authorName" value={{username}}
                                                 class="form-control" >
@@ -32,8 +32,13 @@
                                     </select>
                                 </div>
                                  <div class='div_input_row_item'>
-                                    <label>Tiêu đề tin: </label>
+                                    <label>Tiêu đề tin <span>(*)</span> :</label>
                                     <input  type="text"  name="title" value=''
+                                        class="form-control" >
+                                </div>
+                                 <div class='div_input_row_item'>
+                                    <label>Thêm ảnh vào tin <span>(*)</span> :</label>
+                                    <input  type="file"  name="image" value=''
                                         class="form-control" >
                                 </div>
                                 <textarea autocomplete='new-password'
@@ -65,24 +70,27 @@
                     <p>{{username}}</p> 
                 </div>
                 {{#ifCond role '==' 1}}
-                    <div class="item_menu_right">
-                    <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconListNew.png'
-                        alt='ảnh thẻ header'
-                        style='height: 28px; margin:14px 15px 14px 18px;'/>  
-                    <p>Bài viết</p> 
-                    </div>
+                    <a class="item_menu_right" href='/guitinnhan'>
+                        <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconMessage.png'
+                            alt='ảnh thẻ header'
+                            style='height: 60px;'/>  
+                        <p>Tin nhắn</p> 
+                    </a>
 
-                    <div class="item_menu_right" href='/home'>
+                    <a class="item_menu_right" href='/danhsachtincho'>
                         <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconNew.png'
                             alt='ảnh thẻ header'
                             style='height: 28px; margin:14px 15px 14px 18px;'/>  
                         <p>Bài viết chờ phê duyệt</p> 
-                    </div>
+                    </a>
                 {{/ifCond}}
                  
 
-                <a class='item_menu_right_pass' href='/doimatkhau'>
-                    <p>Đổi mật khẩu</p>
+                <a class='item_menu_right' href='/doimatkhau'>
+                    <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/changePass.png'
+                        alt='ảnh thẻ header'
+                        style='height: 28px; margin:14px 15px 14px 18px;'/>  
+                    <p style='color:red;'>Đổi mật khẩu</p>
                 </a>
                  
                

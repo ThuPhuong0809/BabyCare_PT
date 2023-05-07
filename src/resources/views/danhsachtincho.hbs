@@ -5,55 +5,33 @@
     <div class="main-home">
         <div class="main-body">
             <div class="list-left">
+                <div class="title_tincho">
+                    <span>DANH SÁCH TIN ĐANG CHỜ DUYỆT</span>
+                </div>
                 <div class="main-list-left">
-                   <div id="menu1" class="container tab-pane active div-table-list"><br />
-                        <form action="">
-                            <div class="card mb-4">
-                                <div class="card-header" style="color: #296088;font-weight: 600;">
-                                    <i class="fas fa-table me-1"></i>
-                                    Bảng hiển thị danh sách tin
-                                </div>
-                                <div class="card-body">
-                                    <table class="table table-bordered" id="table_id">
-                                        <thead>
-                                            <tr>
-                                                <th>STT</th>
-                                                <th>Mã tin</th>
-                                                <th>Tiêu đề bài viết</th>
-                                                <th>Chủ đề tin</th>
-                                                <th>Mã tác giả</th>
-                                                <th>Tên tác giả</th>
-                                                <th>Trạng thái</th>
-                                                <th>Số lượng thích</th>
-                                                <th>Số lượng bình luận</th>
-                                                <th>Thao Tác</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                {{#each array}}
-                                            <tr>
-                                                <td>{{sum @index 1}}</td>
-                                                <td>{{this.idNewTemp}}</td>
-                                                <td>{{this.title}}</td>
-                                                <td>{{this.nameType}}</td>
-                                                <td>{{this.authorId}}</td>
-                                                <td>{{this.authorName}}</td>
-                                                {{#ifCond this.status '==' 0}} <td style="color: red;"> Chưa duyệt</td>  {{else}} <td style="color: green;"> Đã duyệt</td>  {{/ifCond}}
-                                                <td>{{this.countLike}}</td>
-                                                <td>{{this.countComment}}</td>
-                                                <td>
-                                                    <a href="/admin/chitiettintuc/{{this.idNewTemp}}" class="btn btn-info">Xem Chi tiết</a>
-                                                    <a href="/admin/xoatin{{this.idNewTemp}}" onclick="return confirm ('Xoá tin {{this.idNewTemp}} ?')" class="btn btn-danger">Xóa tin</a>
-                                                    
-                                                </td>
-                                            </tr>
-                                            {{/each}}
-                                        </tbody>
-                                    </table>
-                                </div>
+                   {{#each array}}
+                    <a class="item_left_new" href='/chitiettintuc/{{this.idNewTemp}}'>
+                        <div class="new_right_info">
+                            <div class="item_left_author">
+                                <img
+                                    src={{this.imageNewType}}
+                                    alt='ảnh thẻ header'
+                                    style='height: 26px;width: 26px;border-radius: 10px;margin-right: 5px;align-self: center; '/>
+                                <b class="name_page">{{this.nameNewType}}</b>
+                                <div class="dot_item"></div>
+                                <b>{{{changeNgay this.createdDate}}}</b>
+                                
                             </div>
-                        </form>
-                    </div>
+                            <div class="item_left_title">
+                                <b class="name_page">{{this.title}}</b>
+                            </div>
+                        </div>
+                        <img
+                            src={{this.image}}
+                            alt='ảnh thẻ header'
+                            style='height: 100px;width: 100px;align-self: center; margin:5px 20px 5px 0;'/>
+                        </a>
+                    {{/each}}
                 </div>
             </div>
 
@@ -62,7 +40,7 @@
                     <img src={{avatar}}
                         alt='ảnh thẻ header'
                         style='height: 150px;width: 150px;border-radius: 100px;'/> 
-                    <p style='font-size: 26px; font-weight: 600;'> ({{username}})</p> 
+                    <p style='font-size: 26px; font-weight: 600;'>{{username}}</p> 
                 </div>
                 <a class="item_menu_right" href='/guitinnhan'>
                     <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconMessage.png'
@@ -71,21 +49,14 @@
                     <p>Tin nhắn</p> 
                 </a>
 
-                 <a class="item_menu_right">
+                 <a class="item_menu_right" href='/dangtin'>
                     <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconListNew.png'
                         alt='ảnh thẻ header'
                         style='height: 28px; margin:14px 15px 14px 18px;'/>  
                     <p>Bài viết</p> 
                 </a>
 
-                 <a class="item_menu_right">
-                    <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconNew.png'
-                        alt='ảnh thẻ header'
-                        style='height: 28px; margin:14px 15px 14px 18px;'/>  
-                    <p>Bài viết chờ phê duyệt</p> 
-                </a>
-
-                <a class='item_menu_right' href='/home'>
+                <a class='item_menu_right' href='/doimatkhau'>
                     <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/changePass.png'
                         alt='ảnh thẻ header'
                         style='height: 28px; margin:14px 15px 14px 18px;'/>  

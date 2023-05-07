@@ -18,8 +18,14 @@
                     </div>
 
                     <div class="main_tintuc">
-                        <p style="" class="title">{{data.title}}</p>
-                        <p  style="margin-top:-15px" class="sub_main">{{data.content}}</p>
+                        <div class="content_main">
+                            <p style="" class="title">{{data.title}}</p>
+                            <p  style="margin-top:-15px" class="sub_main">{{data.content}}</p>
+                        </div>
+                        <img
+                            src={{data.image}}
+                            alt='ảnh thẻ header'
+                            style='width: 28%;margin:10px 0;align-self: center; '/>
                     </div>
 
                     <div class="div_luotxem_cmt">
@@ -75,7 +81,8 @@
 
                     <div class="div_list_cmt_tintuc">
                         {{#each listComment}}
-                            <div class="item_cmt">
+                        <div class="item_cmt">
+                            <div class="item_cmt_right">
                                 <img
                                 src={{this.userImage}}
                                 alt='ảnh thẻ header'
@@ -84,8 +91,15 @@
                                     <p class="name_cmt">{{this.userName}}</p>
                                     <p>{{this.content}}</p>
                                 </div>
+                                
                             </div>
-                            <p class="time_cmt">{{this.createdDate}}</p>
+                            <div class="btn_report">
+                                <a href="/home">Báo cáo</a>
+                                <span class="time_cmt">{{this.createdDate}}</span>
+                            </div>
+                        </div>
+                        
+                        
                          {{/each}}
                     </div>
                     

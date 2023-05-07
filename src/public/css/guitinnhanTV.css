@@ -2,6 +2,9 @@
   background-color: #DCDFE4;
   height: 100%;
 }
+.guitinnhanTV a{
+  text-decoration: none;
+}
 .guitinnhanTV .main-home {
   height: 100%;
   padding-top: 60px;
@@ -12,7 +15,7 @@
 }
 .guitinnhanTV .main-home .main-body {
   height: 95%;
-  width: 70%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
   flex-direction:row;
@@ -25,8 +28,6 @@
   justify-content: center;
   align-items: center;
   background-color: white;
-  overflow-x:hidden;
-  overflow-y:auto;
 }
 
 .guitinnhanTV .list-left label{
@@ -42,14 +43,20 @@
   display: flex;
   flex-direction:column;
   padding-top:20px ;
+  align-items: center;
 }
 
 .guitinnhanTV .main-list-left .list_tinhan{
   height: 70%;
-  width: 100%;
+  width: 90%;
   overflow-x:hidden;
   overflow-y:auto;
   padding-right: 10px;
+  background-color: #F4F6F9;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  scroll-margin-block-end:10px;
 }
 
 .guitinnhanTV .list_tinhan .message{

@@ -6,7 +6,7 @@
         <div class="main-body">
             <div class="list-left">
                 <div class="main-list-left">
-                    <label>TIN NHẮN CỦA BẠN</label>
+                    <label><i class="fa fa-comments" aria-hidden="true"></i>TIN NHẮN CỦA BẠN</label>
                     <div class="list_tinhan">
                           {{#each listData}}
                             {{#if this.type}}
@@ -57,28 +57,32 @@
 
             <div class="list-right">
                 <div class="div_avatar">
-                    <img src='https://bedental.vn/wp-content/uploads/2022/12/f637b0052729d9502ff03abe390fe051.jpg'
+                    <img src={{avatar}}
                         alt='ảnh thẻ header'
                         style='height: 150px;width: 150px;border-radius: 100px;'/>  
-                    <p>thu_phuong</p> 
+                    <p>{{username}}</p> 
                 </div>
-
-                 <div class="item_menu_right">
+                {{#ifCond role '==' 1}}
+                 <a class="item_menu_right" href='/dangtin'>
                     <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconListNew.png'
                         alt='ảnh thẻ header'
                         style='height: 28px; margin:14px 15px 14px 18px;'/>  
                     <p>Bài viết</p> 
-                </div>
+                </a>
 
-                 <div class="item_menu_right">
+                 <a class="item_menu_right" href='/danhsachtincho'>
                     <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconNew.png'
                         alt='ảnh thẻ header'
                         style='height: 28px; margin:14px 15px 14px 18px;'/>  
                     <p>Bài viết chờ phê duyệt</p> 
-                </div>
+                </a>
+                {{/ifCond}}
 
-                <a class='item_menu_right_pass' href='/home'>
-                    <p>Đổi mật khẩu</p>
+                <a class='item_menu_right' href='/doimatkhau'>
+                    <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/changePass.png'
+                        alt='ảnh thẻ header'
+                        style='height: 28px; margin:14px 15px 14px 18px;'/>  
+                    <p style='color:red;'>Đổi mật khẩu</p>
                 </a>
                  
                

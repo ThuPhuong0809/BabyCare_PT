@@ -60,6 +60,16 @@
   margin-top: 5px;
   border-bottom: 1px solid #D9D9D9;
   padding: 0px 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+ }
+ .chitiettintuc .content_main{
+  margin-right: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  text-align:justify
  }
 
  .chitiettintuc .div_luotxem_cmt {
@@ -314,8 +324,28 @@
 
 .chitiettintuc .div_list_cmt_tintuc .item_cmt{
   display: flex;
+  flex-direction:column;
+  padding: 10px;
+}
+
+.chitiettintuc .div_list_cmt_tintuc .item_cmt .item_cmt_right{
+  display: flex;
   flex-direction:row;
   padding: 10px;
+}
+
+.chitiettintuc .div_list_cmt_tintuc .item_cmt .btn_report{
+  display: flex;
+  flex-direction:row;
+  margin-left: 60px;
+  align-items: center;
+}
+
+.chitiettintuc .div_list_cmt_tintuc .item_cmt .btn_report a{
+  font-weight: 500;
+  color: #9B9B9B;
+  font-size: 16px;
+  text-decoration: none;
 }
 
 .chitiettintuc .div_list_cmt_tintuc .item_main_cmt{
@@ -336,8 +366,8 @@
 }
 
 .chitiettintuc .div_list_cmt_tintuc  .time_cmt{
-  font-weight: 450;
+  font-weight: 300;
   color: #9B9B9B;
-  margin-left: 60px;
+  margin-left: 20px;
   font-size: 14px;
 }

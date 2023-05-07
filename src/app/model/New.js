@@ -10,7 +10,7 @@ const New = new Schema(
   {
     idNew: { type: Number },
     title: { type: String, maxLength: 255 },
-    content: { type: String, maxLength: 255 },
+    content: { type: String, maxLength: 3000 },
     authorId: { type: Number },
     authorName: { type: String, maxLength: 255 },
     authorImage: { type: String, maxLength: 255 },

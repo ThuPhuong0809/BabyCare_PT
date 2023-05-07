@@ -21,7 +21,7 @@ router.post('/thembinhluan', mainController.themcmt);
 router.get('/guitinnhan', mainController.viettinnhan);
 router.post('/guitinnhan', mainController.guitinnhan);
 router.get('/dangtin', mainController.taotinthanhvien);
-router.post('/dangtin', mainController.dangtinthanhvien);
+// router.post('/dangtin', mainController.dangtinthanhvien);
 router.get('/danhsachtypenew', mainController.danhsachtypenew);
 router.get('/thichtintuc/:idNew', mainController.thichtintuc);
 router.get('/danhsachtincho', mainController.danhsachtincho);

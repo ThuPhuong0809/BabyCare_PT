@@ -10,7 +10,6 @@ router.get('/register', mainController.loadRegister);
 router.get('/verify/:username', mainController.loadVerification);
 router.post('/verify', mainController.verification);
 router.post('/register', mainController.register);
-// router.get('/chitiettintuc', mainController.chitiettintuc);
 router.get('/thongtincanhan', mainController.thongtincanhanTV);
 router.post(
   '/chinhsuathongtincanhan/:idUser',
@@ -21,10 +20,10 @@ router.post('/thembinhluan', mainController.themcmt);
 router.get('/guitinnhan', mainController.viettinnhan);
 router.post('/guitinnhan', mainController.guitinnhan);
 router.get('/dangtin', mainController.taotinthanhvien);
-// router.post('/dangtin', mainController.dangtinthanhvien);
 router.get('/danhsachtypenew', mainController.danhsachtypenew);
 router.get('/thichtintuc/:idNew', mainController.thichtintuc);
 router.get('/danhsachtincho', mainController.danhsachtincho);
+router.get('/baocaobinhluan/:newId/:idComment', mainController.baocaobinhluan);
 
 router.get('/doimatkhau', mainController.loaddoimatkhau);
 router.post('/doimatkhau/:accountId', mainController.doimatkhau);

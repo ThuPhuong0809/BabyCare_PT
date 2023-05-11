@@ -1,14 +1,13 @@
 .thongtincanhanTV{
   background-color: #DCDFE4;
-  height: 100%;
 }
 .thongtincanhanTV .main-home {
-  height: 100%;
   padding-top: 60px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction:column;
 }
 .thongtincanhanTV .main-home .main-body {
   height: 95%;
@@ -32,6 +31,30 @@
 .thongtincanhanTV .main-list-left{
   height: 100%;
   width: 90%;
+  display: flex;
+  flex-direction:column;
+  padding-top:20px ;
+}
+.thongtincanhanTV .main-list-left form{
+  display: flex;
+  flex-direction:column;
+  height: 100%;
+  width: 100%;
+}
+
+.thongtincanhanTV .main-list-left .form_div{
+  display: flex;
+  flex-direction:row;
+  height: 100%;
+  width: 100%;
+  justify-content: space-between;
+}
+
+
+
+.thongtincanhanTV .main-list-left .form_item{
+  height: 100%;
+  width: 49%;
   display: flex;
   flex-direction:column;
   padding-top:20px ;
@@ -99,12 +122,14 @@ flex-direction:column;
 justify-content: center;
 align-items: center;
 }
+
 .thongtincanhanTV .div_btn a{
-text-decoration: none
+  text-decoration: none
 }
+
 .thongtincanhanTV .div_btn p{
-color: #296088;
-font-size: 16px;
+  color: #296088;
+  font-size: 16px;
 }
 
 .thongtincanhanTV .btnChangeThongtin {
@@ -369,11 +394,20 @@ font-size: 16px;
   font-weight: 600;
 }
 
-.thongtincanhanTV .btnDoiAnh,
-.thongtincanhanTV .btnLuuTT {
+.thongtincanhanTV .btnDoiAnh {
   background-color: #296088;
   width: 100px;
   height: 38px;
+  border: 0;
+  border-radius: 20px;
+  color: white;
+  font-weight: 600;
+}
+
+.thongtincanhanTV .btnLuuTT {
+  background-color: #296088;
+  width: 300px;
+  height: 45px;
   border: 0;
   border-radius: 20px;
   color: white;
@@ -629,4 +663,89 @@ font-size: 16px;
   padding:10px; 
   text-align:right; 
 }
+
+
+.thongtincanhanTV .main-home .poster {
+  height: 95%;
+  width: 90%;
+  display: flex;
+  margin: 5px 0;
+  align-self: center;
+}
+
+.thongtincanhanTV .main-home .footer {
+  display: flex;
+  width: 100%;
+  background-color: white;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.thongtincanhanTV .footer .item_footer{
+  display: flex;
+  height: 100%;
+  width: 15%;
+  padding:10px 0px 10px 30px;
+  flex-direction: column;
+}
+
+.thongtincanhanTV .footer .item_footer .title{
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.thongtincanhanTV .footer .item_footer .item{
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #878790;
+}
+
+.thongtincanhanTV .footer .item_footer .item{
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #878790;
+}
+
+.thongtincanhanTV .footer .item_footer .thanhtoan{
+ margin-bottom: 30px;
+}
+
+.thongtincanhanTV .footer .item_footer .ketnoi{
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+ }
+
+ .thongtincanhanTV .footer_address{
+  width: 100%;
+  background-color: white;
+  border-top: 1px solid #d9d9d9;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 0;
+  justify-content: center;
+ }
+ .thongtincanhanTV .footer_address .footer_address_info{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+ }
+
+ .thongtincanhanTV .footer_address .title{
+  margin-bottom: 10px;
+ }
+
+ .thongtincanhanTV .footer_address span{
+  color: #878790;
+  font-weight: 400;
+  font-size: 14px;
+ }
+
 /*#endregion Alert*/

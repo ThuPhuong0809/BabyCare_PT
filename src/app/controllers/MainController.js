@@ -23,7 +23,13 @@ class MainController {
   home(req, res) {
     const array = [];
     const arraySort = [];
+    const arraySortNew = [];
     const listNewType = [];
+
+    const listLikeReads = [];
+    const listCommentReads = [];
+    const liked = false;
+    const commented = false;
     if (req.session.isAuth) {
       New.find({ status: 1 }, (err, data) => {
         if (!err) {
@@ -51,9 +57,76 @@ class MainController {
                 array.push(newTemp);
                 arraySort.push(newTemp);
                 if (listNewType.length == data.length) {
-                  arraySort;
+                  arraySort.sort(function (a, b) {
+                    return b.countLike - a.countLike;
+                  });
+                  if (arraySort.length > 5) {
+                    for (var i = 0; i < 5; i++) {
+                      arraySortNew.push(arraySort[i]);
+                    }
+                  } else {
+                    for (var i = 0; i < arraySort.length; i++) {
+                      arraySortNew.push(arraySort[i]);
+                    }
+                  }
+                  array.sort(function (a, b) {
+                    return b.createdDate - a.createdDate;
+                  });
+
+                  New.find(
+                    { authorId: Number(req.session.userId) },
+                    (err, listNew) => {
+                      if (!err) {
+                        if (listNew.length > 0) {
+                          for (var i = 0; i < listNew.length; i++) {
+                            Like.find(
+                              { newId: Number(listNew[i].idNew), isRead: 1 },
+                              (err, listLikeRead) => {
+                                if (!err) {
+                                  if (listLikeRead.length > 0) {
+                                  }
+                                } else {
+                                  res.status(400).json({ error: 'ERROR!!!' });
+                                }
+                              }
+                            ).lean();
+
+                            Comment.find(
+                              { newId: Number(listNew[i].idNew), isRead: 1 },
+                              (err, listCommentRead) => {
+                                if (!err) {
+                                  if (listCommentRead.length > 0) {
+                                    for (
+                                      var i = 0;
+                                      i < listCommentRead.length;
+                                      i++
+                                    ) {
+                                      listCommentReads.push(listCommentRead[i]);
+                                      console.log(
+                                        '----listCommentReads11',
+                                        listCommentReads
+                                      );
+                                    }
+                                  }
+                                } else {
+                                  res.status(400).json({ error: 'ERROR!!!' });
+                                }
+                              }
+                            ).lean();
+                          }
+                        }
+                      } else {
+                        res.status(400).json({ error: 'ERROR!!!' });
+                      }
+                    }
+                  ).lean();
+
                   res.render('home', {
+                    listCommentReads: listCommentReads,
+                    countCommentRead: 3,
+                    // listCommentReads.length + listLikeReads.length,
                     array: array,
+                    arraySortNew: arraySortNew,
                     accountId: req.session.accountId,
                     username: req.session.username,
                     userId: req.session.userId,
@@ -71,66 +144,120 @@ class MainController {
         }
       }).lean();
     } else {
-      req.session.back = '/home';
-      res.redirect('/login/');
+      New.find({ status: 1 }, (err, data) => {
+        if (!err) {
+          for (var i = 0; i < data.length; i++) {
+            const newTemp = new NewTemp();
+            newTemp.idNewTemp = data[i].idNew;
+            newTemp.title = data[i].title;
+            newTemp.content = data[i].content;
+            newTemp.authorId = data[i].authorId;
+            newTemp.authorName = data[i].authorName;
+            newTemp.authorImage = data[i].authorImage;
+            newTemp.image = data[i].image;
+            newTemp.status = data[i].status;
+            newTemp.countLike = data[i].countLike;
+            newTemp.countComment = data[i].countComment;
+            newTemp.createdDate = data[i].createdDate;
+            newTemp.updatedDate = data[i].updatedDate;
+
+            NewType.findOne({ idNewType: data[i].typeId }, (err, newType) => {
+              if (!err) {
+                listNewType.push(newType);
+                newTemp.idNewType = newType.idNewType;
+                newTemp.nameNewType = newType.name;
+                newTemp.imageNewType = newType.image;
+                array.push(newTemp);
+                arraySort.push(newTemp);
+                if (listNewType.length == data.length) {
+                  arraySort.sort(function (a, b) {
+                    return b.countLike - a.countLike;
+                  });
+                  if (arraySort.length > 5) {
+                    for (var i = 0; i < 5; i++) {
+                      arraySortNew.push(arraySort[i]);
+                    }
+                  } else {
+                    for (var i = 0; i < arraySort.length; i++) {
+                      arraySortNew.push(arraySort[i]);
+                    }
+                  }
+                  array.sort(function (a, b) {
+                    return b.createdDate - a.createdDate;
+                  });
+
+                  res.render('home', {
+                    array: array,
+                    arraySortNew: arraySortNew,
+                    accountId: req.session.accountId,
+                    username: req.session.username,
+                    userId: req.session.userId,
+                    avatar: req.session.avatar,
+                    role: req.session.role,
+                  });
+                }
+              } else {
+                res.status(400).json({ error: 'ERROR!!!' });
+              }
+            }).lean();
+          }
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
     }
   }
 
   // [PUT] /chitiettintuc/:id
   chitiettintuc(req, res, next) {
-    if (req.session.isAuth) {
-      New.findOne({ idNew: Number(req.params.idNew) }, (err, data) => {
-        if (!err) {
-          Comment.find(
-            { newId: Number(req.params.idNew) },
-            (err, listComment) => {
-              if (!err) {
-                Like.find(
-                  { newId: Number(req.params.idNew) },
-                  (err, listLike) => {
-                    if (!err) {
-                      Like.find(
-                        {
-                          userId: req.session.userId,
-                          newId: Number(req.params.idNew),
-                        },
-                        (err, isLike) => {
-                          if (!err) {
-                            res.render('chitiettintuc', {
-                              data: data,
-                              accountId: req.session.accountId,
-                              username: req.session.username,
-                              userId: req.session.userId,
-                              avatar: req.session.avatar,
-                              listComment: listComment,
-                              role: req.session.role,
-                              countLike: listLike.length,
-                              countComment: listComment.length,
-                              liked: isLike.length,
-                            });
-                          } else {
-                            res.status(400).json({ error: 'ERROR!!!' });
-                          }
+    New.findOne({ idNew: Number(req.params.idNew) }, (err, data) => {
+      if (!err) {
+        Comment.find(
+          { newId: Number(req.params.idNew), status: 1 },
+          (err, listComment) => {
+            if (!err) {
+              Like.find(
+                { newId: Number(req.params.idNew) },
+                (err, listLike) => {
+                  if (!err) {
+                    Like.find(
+                      {
+                        userId: req.session.userId,
+                        newId: Number(req.params.idNew),
+                      },
+                      (err, isLike) => {
+                        if (!err) {
+                          res.render('chitiettintuc', {
+                            data: data,
+                            accountId: req.session.accountId,
+                            username: req.session.username,
+                            userId: req.session.userId,
+                            avatar: req.session.avatar,
+                            listComment: listComment,
+                            role: req.session.role,
+                            countLike: listLike.length,
+                            countComment: listComment.length,
+                            liked: isLike.length,
+                          });
+                        } else {
+                          res.status(400).json({ error: 'ERROR!!!' });
                         }
-                      ).lean();
-                    } else {
-                      res.status(400).json({ error: 'ERROR!!!' });
-                    }
+                      }
+                    ).lean();
+                  } else {
+                    res.status(400).json({ error: 'ERROR!!!' });
                   }
-                ).lean();
-              } else {
-                res.status(400).json({ error: 'ERROR!!!' });
-              }
+                }
+              ).lean();
+            } else {
+              res.status(400).json({ error: 'ERROR!!!' });
             }
-          ).lean();
-        } else {
-          res.status(400).json({ error: 'ERROR!!!' });
-        }
-      }).lean();
-    } else {
-      req.session.back = '/home';
-      res.redirect('/login/');
-    }
+          }
+        ).lean();
+      } else {
+        res.status(400).json({ error: 'ERROR!!!' });
+      }
+    }).lean();
   }
 
   themcmt(req, res) {
@@ -142,7 +269,7 @@ class MainController {
       Comment.find({ newId: idNew }, (err, listComment) => {
         console.log('listComment', listComment.length);
         if (!err) {
-          New.findOne({ idNew: idNew }, (err, data) => {
+          New.findOne({ idNew: idNew, status: 1 }, (err, data) => {
             console.log('data', data);
             if (!err) {
               if (data) {
@@ -176,6 +303,7 @@ class MainController {
     const like = new Like();
     like.userId = req.session.userId;
     like.newId = req.params.idNew;
+    like.isRead = 1;
     const idNew = parseInt(req.params.idNew);
 
     Like.find({ userId: req.session.userId, newId: idNew }, (err, isLike) => {
@@ -276,7 +404,7 @@ class MainController {
         }
       }).lean();
     } else {
-      req.session.back = '/guitinnhan';
+      req.session.back = '/home';
       res.redirect('/login/');
     }
   }
@@ -284,12 +412,22 @@ class MainController {
   guitinnhan(req, res) {
     const chat = new Chat(req.body);
     const listChat = new ListChat(req.body);
+    listChat.chatLatest = req.body.message;
     const idNew = parseInt(req.body.newId);
     if (req.session.isAuth) {
       ListChat.find({ userName: req.body.userName }, (err, data) => {
         if (!err) {
           if (data.length == 0) {
             listChat.save().catch(error => {});
+          } else {
+            ListChat.updateOne(
+              { userName: req.body.userName },
+              { timeChatLatest: new Date(), chatLatest: req.body.message }
+            )
+              .then(() => {})
+              .catch(err => {
+                console.log('=========err', err);
+              });
           }
         } else {
           res.status(400).json({ error: 'ERROR!!!' });
@@ -300,7 +438,7 @@ class MainController {
         .then(() => res.redirect('/guitinnhan'))
         .catch(error => {});
     } else {
-      req.session.back = '/guitinnhan';
+      req.session.back = '/home';
       res.redirect('/login/');
     }
   }
@@ -586,43 +724,55 @@ class MainController {
     if (req.session.isAuth) {
       New.find({ authorId: req.session.userId, status: 0 }, (err, data) => {
         if (!err) {
-          for (var i = 0; i < data.length; i++) {
-            const newTemp = new NewTemp();
-            newTemp.idNewTemp = data[i].idNew;
-            newTemp.title = data[i].title;
-            newTemp.content = data[i].content;
-            newTemp.authorId = data[i].authorId;
-            newTemp.authorName = data[i].authorName;
-            newTemp.authorImage = data[i].authorImage;
-            newTemp.image = data[i].image;
-            newTemp.status = data[i].status;
-            newTemp.countLike = data[i].countLike;
-            newTemp.countComment = data[i].countComment;
-            newTemp.createdDate = data[i].createdDate;
-            newTemp.updatedDate = data[i].updatedDate;
+          if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+              const newTemp = new NewTemp();
+              newTemp.idNewTemp = data[i].idNew;
+              newTemp.title = data[i].title;
+              newTemp.content = data[i].content;
+              newTemp.authorId = data[i].authorId;
+              newTemp.authorName = data[i].authorName;
+              newTemp.authorImage = data[i].authorImage;
+              newTemp.image = data[i].image;
+              newTemp.status = data[i].status;
+              newTemp.countLike = data[i].countLike;
+              newTemp.countComment = data[i].countComment;
+              newTemp.createdDate = data[i].createdDate;
+              newTemp.updatedDate = data[i].updatedDate;
 
-            NewType.findOne({ idNewType: data[i].typeId }, (err, newType) => {
-              if (!err) {
-                listNewType.push(newType);
-                newTemp.idNewType = newType.idNewType;
-                newTemp.nameNewType = newType.name;
-                newTemp.imageNewType = newType.image;
-                array.push(newTemp);
-                if (listNewType.length == data.length) {
-                  console.log('=========danhsachtincho', array);
-                  res.render('danhsachtincho', {
-                    array: array,
-                    accountId: req.session.accountId,
-                    username: req.session.username,
-                    userId: req.session.userId,
-                    avatar: req.session.avatar,
-                    role: req.session.role,
-                  });
+              NewType.findOne({ idNewType: data[i].typeId }, (err, newType) => {
+                if (!err) {
+                  listNewType.push(newType);
+                  newTemp.idNewType = newType.idNewType;
+                  newTemp.nameNewType = newType.name;
+                  newTemp.imageNewType = newType.image;
+                  array.push(newTemp);
+                  if (listNewType.length == data.length) {
+                    console.log('=========danhsachtincho', array);
+                    res.render('danhsachtincho', {
+                      array: array,
+                      accountId: req.session.accountId,
+                      username: req.session.username,
+                      userId: req.session.userId,
+                      avatar: req.session.avatar,
+                      role: req.session.role,
+                    });
+                  }
+                } else {
+                  res.status(400).json({ error: 'ERROR!!!' });
                 }
-              } else {
-                res.status(400).json({ error: 'ERROR!!!' });
-              }
-            }).lean();
+              }).lean();
+            }
+          } else {
+            res.render('danhsachtincho', {
+              arrayNone: 1,
+              array: array,
+              accountId: req.session.accountId,
+              username: req.session.username,
+              userId: req.session.userId,
+              avatar: req.session.avatar,
+              role: req.session.role,
+            });
           }
         } else {
           res.status(400).json({ error: 'ERROR!!!' });
@@ -663,7 +813,7 @@ class MainController {
         }
       });
     } else {
-      req.session.back = '/dangtin';
+      req.session.back = '/home';
       res.redirect('/login/');
     }
   }
@@ -738,8 +888,10 @@ class MainController {
                 res.redirect(sess.back);
               } else {
                 const array = [];
+                const arraySort = [];
+                const arraySortNew = [];
                 const listNewType = [];
-                New.find((err, data) => {
+                New.find({ status: 1 }, (err, data) => {
                   if (!err) {
                     for (var i = 0; i < data.length; i++) {
                       const newTemp = new NewTemp();
@@ -765,9 +917,26 @@ class MainController {
                             newTemp.nameNewType = newType.name;
                             newTemp.imageNewType = newType.image;
                             array.push(newTemp);
+                            arraySort.push(newTemp);
                             if (listNewType.length == data.length) {
+                              arraySort.sort(function (a, b) {
+                                return b.countLike - a.countLike;
+                              });
+                              if (arraySort.length > 5) {
+                                for (var i = 0; i < 5; i++) {
+                                  arraySortNew.push(arraySort[i]);
+                                }
+                              } else {
+                                for (var i = 0; i < arraySort.length; i++) {
+                                  arraySortNew.push(arraySort[i]);
+                                }
+                              }
+                              array.sort(function (a, b) {
+                                return b.createdDate - a.createdDate;
+                              });
                               res.render('home', {
                                 array: array,
+                                arraySortNew: arraySortNew,
                                 accountId: req.session.accountId,
                                 username: req.session.username,
                                 role: req.session.role,
@@ -802,6 +971,11 @@ class MainController {
   listchatcvtv(req, res) {
     if (req.session.isAuth) {
       ListChat.find((err, data) => {
+        if (data.length > 0) {
+          data.sort(function (a, b) {
+            return b.timeChatLatest - a.timeChatLatest;
+          });
+        }
         if (!err) {
           res.render('listchatcvtv', {
             data: data,
@@ -817,7 +991,7 @@ class MainController {
         }
       }).lean();
     } else {
-      req.session.back = '/listchatcvtv';
+      req.session.back = '/home';
       res.redirect('/login/');
     }
   }
@@ -826,18 +1000,33 @@ class MainController {
     if (req.session.isAuth) {
       ListChat.find((err, data) => {
         if (!err) {
+          if (data.length > 0) {
+            data.sort(function (a, b) {
+              return b.timeChatLatest - a.timeChatLatest;
+            });
+          }
+
           Chat.find({ userName: req.params.userName }, (err, listChat) => {
             if (!err) {
-              res.render('chitietchat', {
-                data: data,
-                accountId: req.session.accountId,
-                username: req.session.username,
-                userId: req.session.userId,
-                avatar: req.session.avatar,
-                role: req.session.role,
-                userNameNow: req.params.userName,
-                listChat: listChat,
-              });
+              ListChat.findOne(
+                { userName: req.params.userName },
+                (err, chatNow) => {
+                  if (!err) {
+                    res.render('chitietchat', {
+                      data: data,
+                      accountId: req.session.accountId,
+                      username: req.session.username,
+                      userId: req.session.userId,
+                      avatar: req.session.avatar,
+                      role: req.session.role,
+                      chatNow: chatNow,
+                      listChat: listChat,
+                    });
+                  } else {
+                    res.status(400).json({ error: 'ERROR!!!' });
+                  }
+                }
+              ).lean();
             } else {
               res.status(400).json({ error: 'ERROR!!!' });
             }
@@ -847,7 +1036,7 @@ class MainController {
         }
       }).lean();
     } else {
-      req.session.back = '/chitietchat';
+      req.session.back = '/home';
       res.redirect('/login/');
     }
   }
@@ -866,6 +1055,28 @@ class MainController {
     }
   }
 
+  baocaobinhluan(req, res) {
+    if (req.session.isAuth) {
+      console.log('-----------req.idComment', req.params.idComment);
+      console.log('-----------req.newId', req.params.newId);
+      var newId = Number(req.params.newId);
+      Comment.updateOne(
+        { idComment: Number(req.params.idComment) },
+        { status: 0 }
+      )
+        .then(() => {
+          req.flash('success', 'Báo cáo thành công thành công!');
+          res.redirect(`/chitiettintuc/${newId}`);
+        })
+        .catch(err => {
+          req.flash('error', 'Lỗi! Vui lòng kiểm tra thông tin nhập!');
+        });
+    } else {
+      req.session.back = '/home';
+      res.redirect('/login/');
+    }
+  }
+
   loaddoimatkhau(req, res) {
     if (req.session.isAuth) {
       res.render('doimatkhau', {
@@ -876,7 +1087,7 @@ class MainController {
         role: req.session.role,
       }); //có dữ liệu sẽ đưa data vào trang home với data là d/s new tìm đc
     } else {
-      req.session.back = '/doimatkhau';
+      req.session.back = '/home';
       res.redirect('/login/');
     }
   }
@@ -942,6 +1153,8 @@ class MainController {
 
   // [GET] /login
   loginadmin(req, res) {
+    var countNewChuaDuyet = 0;
+    var countCommentChuaDuyet = 0;
     Account.findOne(
       // { tendangnhap: req.body.tendangnhap, matkhau: req.body.matkhau },
       { username: req.body.username }, // bắt user name trước
@@ -979,6 +1192,25 @@ class MainController {
               } else {
                 const array = [];
                 const listNewType = [];
+                New.find({ status: 0 }, (err, listChuaDuyet) => {
+                  if (!err) {
+                    countNewChuaDuyet = listChuaDuyet.length;
+                    console.log('-------', countNewChuaDuyet);
+                  } else {
+                    res.status(400).json({ error: 'ERROR!!!' });
+                  }
+                }).lean();
+                Comment.find({ status: 0 }, (err, listCmtChuaDuyet) => {
+                  if (!err) {
+                    countCommentChuaDuyet = listCmtChuaDuyet.length;
+                    console.log(
+                      '-------countCommentChuaDuyet',
+                      countCommentChuaDuyet
+                    );
+                  } else {
+                    res.status(400).json({ error: 'ERROR!!!' });
+                  }
+                }).lean();
                 New.find((err, data) => {
                   if (!err) {
                     for (var i = 0; i < data.length; i++) {
@@ -1005,6 +1237,11 @@ class MainController {
                             newTemp.nameNewType = newType.name;
                             newTemp.imageNewType = newType.image;
                             array.push(newTemp);
+                            if (array.length > 0) {
+                              array.sort(function (a, b) {
+                                return b.createdDate - a.createdDate;
+                              });
+                            }
                             if (listNewType.length == data.length) {
                               res.render('homeadmin', {
                                 array: array,
@@ -1013,6 +1250,10 @@ class MainController {
                                 role: req.session.role,
                                 userId: req.session.userId,
                                 avatar: req.session.avatar,
+                                countNewChuaDuyet: countNewChuaDuyet,
+                                countCommentChuaDuyet: countCommentChuaDuyet,
+                                countNoti:
+                                  countNewChuaDuyet + countCommentChuaDuyet,
                               });
                             }
                           } else {
@@ -1040,7 +1281,26 @@ class MainController {
   homeadmin(req, res) {
     const array = [];
     const listNewType = [];
+    var countNewChuaDuyet = 0;
+    var countCommentChuaDuyet = 0;
     if (req.session.isAuth) {
+      New.find({ status: 0 }, (err, listChuaDuyet) => {
+        if (!err) {
+          countNewChuaDuyet = listChuaDuyet.length;
+          console.log('-------', countNewChuaDuyet);
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
+      Comment.find({ status: 0 }, (err, listCmtChuaDuyet) => {
+        if (!err) {
+          countCommentChuaDuyet = listCmtChuaDuyet.length;
+          console.log('-------countCommentChuaDuyet', countCommentChuaDuyet);
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
+
       New.find((err, data) => {
         if (!err) {
           for (var i = 0; i < data.length; i++) {
@@ -1065,6 +1325,11 @@ class MainController {
                 newTemp.nameNewType = newType.name;
                 newTemp.imageNewType = newType.image;
                 array.push(newTemp);
+                if (array.length > 0) {
+                  array.sort(function (a, b) {
+                    return b.createdDate - a.createdDate;
+                  });
+                }
                 if (listNewType.length == data.length) {
                   res.render('homeadmin', {
                     array: array,
@@ -1073,6 +1338,9 @@ class MainController {
                     userId: req.session.userId,
                     avatar: req.session.avatar,
                     role: req.session.role,
+                    countNewChuaDuyet: countNewChuaDuyet,
+                    countCommentChuaDuyet: countCommentChuaDuyet,
+                    countNoti: countNewChuaDuyet + countCommentChuaDuyet,
                   });
                 }
               } else {
@@ -1111,7 +1379,25 @@ class MainController {
   quanlybinhluan(req, res) {
     const array = [];
     const listNewType = [];
+    var countNewChuaDuyet = 0;
+    var countCommentChuaDuyet = 0;
     if (req.session.isAuth) {
+      New.find({ status: 0 }, (err, listChuaDuyet) => {
+        if (!err) {
+          countNewChuaDuyet = listChuaDuyet.length;
+          console.log('-------', countNewChuaDuyet);
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
+      Comment.find({ status: 0 }, (err, listCmtChuaDuyet) => {
+        if (!err) {
+          countCommentChuaDuyet = listCmtChuaDuyet.length;
+          console.log('-------countCommentChuaDuyet', countCommentChuaDuyet);
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
       Comment.find((err, data) => {
         if (!err) {
           for (var i = 0; i < data.length; i++) {
@@ -1130,6 +1416,14 @@ class MainController {
                 listNewType.push(news);
                 commentTemp.titleNew = news.title;
                 array.push(commentTemp);
+                if (array.length > 0) {
+                  array.sort(function (a, b) {
+                    return b.createdDate - a.createdDate;
+                  });
+                  array.sort(function (a, b) {
+                    return a.status - b.status;
+                  });
+                }
                 if (listNewType.length == data.length) {
                   res.render('quanlybinhluan', {
                     array: array,
@@ -1138,6 +1432,9 @@ class MainController {
                     userId: req.session.userId,
                     avatar: req.session.avatar,
                     role: req.session.role,
+                    countNewChuaDuyet: countNewChuaDuyet,
+                    countCommentChuaDuyet: countCommentChuaDuyet,
+                    countNoti: countNewChuaDuyet + countCommentChuaDuyet,
                   });
                 }
               } else {
@@ -1177,7 +1474,25 @@ class MainController {
   }
 
   xemchitiettinadmin(req, res, next) {
+    var countNewChuaDuyet = 0;
+    var countCommentChuaDuyet = 0;
     if (req.session.isAuth) {
+      New.find({ status: 0 }, (err, listChuaDuyet) => {
+        if (!err) {
+          countNewChuaDuyet = listChuaDuyet.length;
+          console.log('-------', countNewChuaDuyet);
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
+      Comment.find({ status: 0 }, (err, listCmtChuaDuyet) => {
+        if (!err) {
+          countCommentChuaDuyet = listCmtChuaDuyet.length;
+          console.log('-------countCommentChuaDuyet', countCommentChuaDuyet);
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
       New.findOne({ idNew: Number(req.params.idNew) }, (err, data) => {
         if (!err) {
           Comment.find(
@@ -1206,6 +1521,10 @@ class MainController {
                               countLike: listLike.length,
                               countComment: listComment.length,
                               liked: isLike.length,
+                              countNewChuaDuyet: countNewChuaDuyet,
+                              countCommentChuaDuyet: countCommentChuaDuyet,
+                              countNoti:
+                                countNewChuaDuyet + countCommentChuaDuyet,
                             });
                           } else {
                             res.status(400).json({ error: 'ERROR!!!' });
@@ -1235,7 +1554,25 @@ class MainController {
   quanlychuyenvien(req, res) {
     const array = [];
     const listNewType = [];
+    var countNewChuaDuyet = 0;
+    var countCommentChuaDuyet = 0;
     if (req.session.isAuth) {
+      New.find({ status: 0 }, (err, listChuaDuyet) => {
+        if (!err) {
+          countNewChuaDuyet = listChuaDuyet.length;
+          console.log('-------', countNewChuaDuyet);
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
+      Comment.find({ status: 0 }, (err, listCmtChuaDuyet) => {
+        if (!err) {
+          countCommentChuaDuyet = listCmtChuaDuyet.length;
+          console.log('-------countCommentChuaDuyet', countCommentChuaDuyet);
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
       Account.find({ role: 2 }, (err, data) => {
         if (!err) {
           for (var i = 0; i < data.length; i++) {
@@ -1268,6 +1605,9 @@ class MainController {
                     userId: req.session.userId,
                     avatar: req.session.avatar,
                     role: req.session.role,
+                    countNewChuaDuyet: countNewChuaDuyet,
+                    countCommentChuaDuyet: countCommentChuaDuyet,
+                    countNoti: countNewChuaDuyet + countCommentChuaDuyet,
                   });
                 }
               } else {
@@ -1319,17 +1659,38 @@ class MainController {
   }
 
   loadthemchuyenvien(req, res) {
+    var countNewChuaDuyet = 0;
+    var countCommentChuaDuyet = 0;
     if (req.session.isAuth) {
-      res.render('themchuyenvien', {
-        accountId: req.session.accountId,
-        username: req.session.username,
-        userId: req.session.userId,
-        avatar: req.session.avatar,
-        role: req.session.role,
-      }); //có dữ liệu sẽ đưa data vào trang home với data là d/s new tìm đc
+      New.find({ status: 0 }, (err, listChuaDuyet) => {
+        if (!err) {
+          countNewChuaDuyet = listChuaDuyet.length;
+          console.log('-------', countNewChuaDuyet);
+          Comment.find({ status: 0 }, (err, listCmtChuaDuyet) => {
+            if (!err) {
+              countCommentChuaDuyet = listCmtChuaDuyet.length;
+
+              res.render('themchuyenvien', {
+                accountId: req.session.accountId,
+                username: req.session.username,
+                userId: req.session.userId,
+                avatar: req.session.avatar,
+                role: req.session.role,
+                countNewChuaDuyet: countNewChuaDuyet,
+                countCommentChuaDuyet: countCommentChuaDuyet,
+                countNoti: countNewChuaDuyet + countCommentChuaDuyet,
+              }); //có dữ liệu sẽ đưa data vào trang home với data là d/s new tìm đc
+            } else {
+              res.status(400).json({ error: 'ERROR!!!' });
+            }
+          }).lean();
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
     } else {
-      req.session.back = '/admin/themchuyenvien';
-      res.redirect('/login/');
+      req.session.back = '/admin/home';
+      res.redirect('/admin/login/');
     }
   }
 

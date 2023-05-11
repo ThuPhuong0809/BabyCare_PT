@@ -9,6 +9,9 @@ const ListChat = new Schema(
   {
     idListChat: { type: Number },
     userName: { type: String, maxLength: 255 },
+    userImage: { type: String, maxLength: 255 },
+    chatLatest: { type: String, maxLength: 255 },
+    timeChatLatest: { type: Date, default: Date.now },
     createdDate: { type: Date, default: Date.now },
   },
   {
@@ -18,7 +21,7 @@ const ListChat = new Schema(
 
 // Add plugin
 mongoose.plugin(slug);
-ListChat.plugin(AutoIncrement, { inc_field: 'ListChat' });
+ListChat.plugin(AutoIncrement, { inc_field: 'idListChat' });
 ListChat.plugin(mongooseDelete, { deletedAt: true, overrideMethods: 'all' });
 
 module.exports = mongoose.model('ListChat', ListChat);

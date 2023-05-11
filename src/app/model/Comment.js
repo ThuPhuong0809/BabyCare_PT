@@ -17,7 +17,8 @@ const Comment = new Schema(
     newId: { type: Number },
     content: { type: String, maxLength: 255 },
     status: { type: Number },
-    createdDate: { type: String, default: 'Hôm nay' },
+    isRead: { type: Number },
+    createdDate: { type: Date, default: Date.now },
     updatedDate: { type: Date, default: Date.now },
   },
   {

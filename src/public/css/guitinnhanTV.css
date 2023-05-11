@@ -1,20 +1,19 @@
 .guitinnhanTV{
   background-color: #DCDFE4;
-  height: 100%;
 }
 .guitinnhanTV a{
   text-decoration: none;
 }
 .guitinnhanTV .main-home {
-  height: 100%;
   padding-top: 60px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 .guitinnhanTV .main-home .main-body {
-  height: 95%;
+  height: 650px;
   width: 90%;
   display: flex;
   justify-content: space-between;
@@ -39,7 +38,7 @@
 
 .guitinnhanTV .main-list-left{
   height: 100%;
-  width: 96%;
+  width: 94%;
   display: flex;
   flex-direction:column;
   padding-top:20px ;
@@ -47,8 +46,10 @@
 }
 
 .guitinnhanTV .main-list-left .list_tinhan{
-  height: 70%;
-  width: 90%;
+  display: flex;
+  flex-direction: column;
+  height: 55%;
+  width: 94%;
   overflow-x:hidden;
   overflow-y:auto;
   padding-right: 10px;
@@ -56,7 +57,7 @@
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 10px;
-  scroll-margin-block-end:10px;
+  scroll-snap-align: none end;
 }
 
 .guitinnhanTV .list_tinhan .message{
@@ -435,3 +436,87 @@ font-size: 16px;
   font-size: 16px;
   transform: rotate(35deg);
 }
+
+
+.guitinnhanTV .main-home .poster {
+  height: 95%;
+  width: 90%;
+  display: flex;
+  margin: 5px 0;
+  align-self: center;
+}
+
+.guitinnhanTV .main-home .footer {
+  display: flex;
+  width: 100%;
+  background-color: white;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.guitinnhanTV .footer .item_footer{
+  display: flex;
+  height: 100%;
+  width: 15%;
+  padding:10px 0px 10px 30px;
+  flex-direction: column;
+}
+
+.guitinnhanTV .footer .item_footer .title{
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.guitinnhanTV .footer .item_footer .item{
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #878790;
+}
+
+.guitinnhanTV .footer .item_footer .item{
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #878790;
+}
+
+.guitinnhanTV .footer .item_footer .thanhtoan{
+ margin-bottom: 30px;
+}
+
+.guitinnhanTV .footer .item_footer .ketnoi{
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+ }
+
+ .guitinnhanTV .footer_address{
+  width: 100%;
+  background-color: white;
+  border-top: 1px solid #d9d9d9;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 0;
+  justify-content: center;
+ }
+ .guitinnhanTV .footer_address .footer_address_info{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+ }
+
+ .guitinnhanTV .footer_address .title{
+  margin-bottom: 10px;
+ }
+
+ .guitinnhanTV .footer_address span{
+  color: #878790;
+  font-weight: 400;
+  font-size: 14px;
+ }

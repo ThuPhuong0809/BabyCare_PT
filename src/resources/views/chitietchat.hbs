@@ -3,13 +3,16 @@
         {{>header}}
     </div>
     <div class="main-home">
+        <div class="poster">
+            <img
+                src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/test/poster_trangchu.jpeg'
+                alt='ảnh thẻ header'
+                style='height: 100px;width: 100%;align-self: center;'
+            />
+        </div>
         <div class="main-body">
             <div class="list-left">
                 <div class="header_search_list_chat">
-                    <a class='nav-link' href=''>
-                        <p> <i class='fa fa-navicon'></i></p>
-                    </a>
-
                     <div class='row search-chat'>
                         <form action=''>
                         <input
@@ -29,25 +32,21 @@
                 </div>
                 <div class="main_list_chat">
                    {{#each data}}
-                        {{!-- {{#ifCond userNameNow '===' userNameNow}}
-                            <a class="item_list_chat" href='/cvtvsk/listchat/{{data.userName}}' style="background-color: aqua;">
-                                <img
-                                src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
-                                alt='ảnh thẻ header'
-                                style='height: 40px;width: 40px;border-radius: 30px;'
-                                />
-                                <p>{{data.userName}}</p>
-                            </a>
-                        {{else}} --}}
-                             <a class="item_list_chat" href='/cvtvsk/listchat/{{this.userName}}'>
-                                <img
-                                src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
-                                alt='ảnh thẻ header'
-                                style='height: 40px;width: 40px;border-radius: 30px;'
-                                />
-                                <p>{{this.userName}}</p>
-                            </a>
-                        {{!-- {{/ifCond}} --}}
+                        <a class="item_list_chat" href='/cvtvsk/listchat/{{this.userName}}'>
+                            <img
+                            src={{this.userImage}}
+                            alt='ảnh thẻ header'
+                            style='height: 50px;width: 50px;border-radius: 30px;'
+                            />
+                            <div class="info_item">
+                                <span style="font-weight: 700; font-size: 20px;">{{this.userName}}</span>
+                                <div class="info_item_time">
+                                    <span style="font-weight: 400; color:#296088">{{this.chatLatest}}</span>
+                                    <span style="color: black;font-size: 14px;">{{changeNgay this.timeChatLatest}} {{getTime this.timeChatLatest}}</span>
+                                </div>
+                                
+                            </div>
+                        </a>
                     {{/each}}
                      
                 </div>
@@ -56,11 +55,11 @@
             <div class="list-right">
                 <div class="header_chat">
                      <img
-                        src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/iconChat.png'
+                        src={{chatNow.userImage}}
                         alt='ảnh thẻ header'
                         style='height: 40px;width: 40px;border-radius: 30px;  margin-right: 10px;'
                         />
-                    <p>{{userNameNow}}</p>
+                    <p>{{chatNow.userName}}</p>
                 </div>
                 <div class="list_tinhan">
                         {{#each listChat}}
@@ -68,12 +67,14 @@
                                     <div class="message recieved" >
                                         <div class="content">
                                             <p>{{this.message}}</p>
+                                            <p style="font-size: 12px;">{{changeNgay this.createdDate}} {{getTime this.createdDate}}</p>
                                         </div>
                                     </div>
                             {{else}}
                                     <div class= "message sended" >
                                         <div class="content">
                                             <p>{{this.message}}</p>
+                                            <p style="font-size: 12px;">{{changeNgay this.createdDate}} {{getTime this.createdDate}}</p>
                                         </div>
                                     </div>
                             {{/if}}
@@ -83,8 +84,10 @@
                 <div class="form_gui">
                         <form action='/cvtvsk/guitinnhan' id='' method='POST'>
                             <div class='div_input_row'>
-                                 <input  type="hidden"  name="userName" value={{userNameNow}}
+                                 <input  type="hidden"  name="userName" value={{chatNow.userName}}
                                                 class="form-control" >
+                                  <input  type="hidden"  name="userImage" value={{chatNow.userImage}}
+                                    class="form-control" >
                                 <input  type="hidden"  name="type" value=false
                                         class="form-control" >
                                 <textarea autocomplete='new-password'
@@ -95,7 +98,7 @@
                                     required='required'
                                     type='text'
                                     value=''
-                                    rows="5" 
+                                    rows="4" 
                                     cols="40" ></textarea>
                             </div>
                             
@@ -108,6 +111,62 @@
                
             </div>
         </div>
+        <div class="footer">
+            <div class="item_footer" style="width: 18%;">
+                 <span class="title">Về BabyCare</span>
+                 <span class="item">Hotline: (+84) 028 3911 8430.</span>
+                 <span class="item">Giới thiệu BabyCare</span>
+                 <span class="item">Gửi yêu cầu hỗ trợ</span>
+            </div>
+             <div class="item_footer">
+                 <span class="title">Cộng đồng</span>
+                 <span class="item">Làm Mẹ</span>
+                 <span class="item">Kinh Nghiệm Hay</span>
+                 <span class="item">Giải Trí</span>
+                 <span class="item">Sức Khoẻ</span>
+                 <span class="item">Phong Cách Sống</span>
+                 <span class="item">Làm đẹp</span>
+            </div>
+             <div class="item_footer" style="">
+                 <span class="title">Lưu ý người dùng</span>
+                 <span class="item">Câu Hỏi Thường Gặp</span>
+                 <span class="item">Chính Sách Riêng Tư</span>
+                 <span class="item">Điều Khoản Sử Dụng</span>
+                 <span class="item">Qui Định Diễn Đàn</span>
+                 
+
+            </div>
+             <div class="item_footer">
+                 <span class="title">Kết nối với chúng tôi</span>
+                <div class="ketnoi">
+                    <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/test/facebook.png' 
+                        alt="banner" class="img-reponsive" style="height: 40px;  width: 40px; margin-right:10px">
+                    <span class="">Facebook</span>
+                </div>
+                <div class="ketnoi">
+                    <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/test/youtube.png' 
+                        alt="banner" class="img-reponsive" style="height: 40px;  width: 40px; margin-right:10px">
+                    <span class="">Youtube</span>
+                </div>
+                   <div class="ketnoi">
+                    <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/test/zalo.png' 
+                        alt="banner" class="img-reponsive" style="height: 40px;  width: 40px; margin-right:10px">
+                    <span class="">Zalo</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="footer_address">
+            <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/logo.png'
+                        alt="banner" class="img-reponsive" style="height: 100px;  width: 100px; margin-right:20px">
+            <div class="footer_address_info">
+                <span class="">Công Ty Cổ Phần BabyCare</span>
+                <span class="">Trụ sở: 12 Nguyễn Văn Bảo, Phường 04, Quận Gò Vấp, TP.Hồ Chí Minh.</span>
+                <span class="">Điện thoại: (+84) 028 3911 8430 - 093 305 9191.</span>
+                <span class="">Email:cskh@babycare.vn</span>
+                <span class="">GPTLMXH số 356/GP-BTTTT do Bộ Thông tin và Truyền Thông cấp thay đổi lần 2 ngày 15/07/2022. </span>
+            </div>
+        </div> 
 
         
     </div>

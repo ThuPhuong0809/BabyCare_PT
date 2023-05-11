@@ -34,6 +34,14 @@ app.engine(
     helpers: {
       sum: (a, b) => a + b,
       changeNgay: datee => new Intl.DateTimeFormat('en-AU').format(datee),
+      getTime: datee => {
+        var h = datee.getHours();
+        var m = datee.getMinutes();
+        if (h <= 9) h = '0' + h;
+        if (m <= 9) m = '0' + m;
+        var time = '' + h + ':' + m;
+        return time;
+      },
       // noidung: thongtinMH =>
       //   mahoa.AES.encrypt(String(thongtinMH), 'diep123').toString(),
       ifCond: (v1, operator, v2, options) => {

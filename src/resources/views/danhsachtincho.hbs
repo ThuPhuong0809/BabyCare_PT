@@ -3,6 +3,13 @@
         {{>header}}
     </div>
     <div class="main-home">
+        <div class="poster">
+            <img
+                src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/test/poster_trangchu.jpeg'
+                alt='ảnh thẻ header'
+                style='height: 100px;width: 100%;align-self: center;'
+            />
+        </div>
         <div class="main-body">
             <div class="list-left">
                 <div class="title_tincho">
@@ -32,6 +39,11 @@
                             style='height: 100px;width: 100px;align-self: center; margin:5px 20px 5px 0;'/>
                         </a>
                     {{/each}}
+                     {{#ifCond arrayNone '==' 1}}
+                        <div style="display:flex;  width: 100%;align-items: center;justify-content: center;">
+                            <span style="color:red">Bạn chưa có bài viết nào đang chờ duyệt!</span>
+                        </div>
+                    {{/ifCond}}
                 </div>
             </div>
 
@@ -62,6 +74,11 @@
                         style='height: 28px; margin:14px 15px 14px 18px;'/>  
                     <p style='color:red;'>Đổi mật khẩu</p>
                 </a>
+                 <img
+                    src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/poster_right.jpeg'
+                    alt='ảnh thẻ header'
+                    style='height: 280px;width: 100%;align-self: center; margin-top:10px'
+                />
            
             <div class='Error'>
               {{#if messages.success}}
@@ -72,7 +89,63 @@
                 
             </div>
 
-        </div>        
+        </div>   
+        <div class="footer">
+            <div class="item_footer" style="width: 18%;">
+                 <span class="title">Về BabyCare</span>
+                 <span class="item">Hotline: (+84) 028 3911 8430.</span>
+                 <span class="item">Giới thiệu BabyCare</span>
+                 <span class="item">Gửi yêu cầu hỗ trợ</span>
+            </div>
+             <div class="item_footer">
+                 <span class="title">Cộng đồng</span>
+                 <span class="item">Làm Mẹ</span>
+                 <span class="item">Kinh Nghiệm Hay</span>
+                 <span class="item">Giải Trí</span>
+                 <span class="item">Sức Khoẻ</span>
+                 <span class="item">Phong Cách Sống</span>
+                 <span class="item">Làm đẹp</span>
+            </div>
+             <div class="item_footer" style="">
+                 <span class="title">Lưu ý người dùng</span>
+                 <span class="item">Câu Hỏi Thường Gặp</span>
+                 <span class="item">Chính Sách Riêng Tư</span>
+                 <span class="item">Điều Khoản Sử Dụng</span>
+                 <span class="item">Qui Định Diễn Đàn</span>
+                 
+
+            </div>
+             <div class="item_footer">
+                 <span class="title">Kết nối với chúng tôi</span>
+                <div class="ketnoi">
+                    <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/test/facebook.png' 
+                        alt="banner" class="img-reponsive" style="height: 40px;  width: 40px; margin-right:10px">
+                    <span class="">Facebook</span>
+                </div>
+                <div class="ketnoi">
+                    <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/test/youtube.png' 
+                        alt="banner" class="img-reponsive" style="height: 40px;  width: 40px; margin-right:10px">
+                    <span class="">Youtube</span>
+                </div>
+                   <div class="ketnoi">
+                    <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/test/zalo.png' 
+                        alt="banner" class="img-reponsive" style="height: 40px;  width: 40px; margin-right:10px">
+                    <span class="">Zalo</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="footer_address">
+            <img src='https://babycaredoan.s3.ap-southeast-1.amazonaws.com/logo.png'
+                        alt="banner" class="img-reponsive" style="height: 100px;  width: 100px; margin-right:20px">
+            <div class="footer_address_info">
+                <span class="">Công Ty Cổ Phần BabyCare</span>
+                <span class="">Trụ sở: 12 Nguyễn Văn Bảo, Phường 04, Quận Gò Vấp, TP.Hồ Chí Minh.</span>
+                <span class="">Điện thoại: (+84) 028 3911 8430 - 093 305 9191.</span>
+                <span class="">Email:cskh@babycare.vn</span>
+                <span class="">GPTLMXH số 356/GP-BTTTT do Bộ Thông tin và Truyền Thông cấp thay đổi lần 2 ngày 15/07/2022. </span>
+            </div>
+        </div>      
     </div>
  </div>
         

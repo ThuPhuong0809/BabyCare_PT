@@ -37,7 +37,7 @@
                                                     <td>{{sum @index 1}}</td>
                                                     <td>{{this.idNewTemp}}</td>
                                                     <td>{{this.title}}</td>
-                                                    <td>{{this.nameType}}</td>
+                                                    <td>{{{changeNgay this.createdDate}}}</td>
                                                     <td>{{this.authorId}}</td>
                                                     <td>{{this.authorName}}</td>
                                                     {{#ifCond this.status '==' 0}} <td style="color: red;"> Chưa duyệt</td>  {{else}} <td style="color: green;"> Đã duyệt</td>  {{/ifCond}}

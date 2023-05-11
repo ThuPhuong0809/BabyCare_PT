@@ -48,9 +48,16 @@
       id='navbarSupportedContent'
     >
       <div class='header-left'>
-
         <ul class='row navbar-nav mr-auto nav-header'>
           <div class='btnTinTucMain'></div>
+            {{#if role }}
+            {{else}}
+              <li class='nav-item active' style='margin-right: 15px;'>
+                <a class='nav-link' href='/login'>
+                  <p>Đăng nhập</p>
+                </a>
+              </li>
+            {{/if}}
           <li class='nav-item active' style='margin-right: 15px;'>
             <a class='nav-link' href='/dangtin'>
               <p> <i class='fa fa-pencil'></i></p>
@@ -58,9 +65,38 @@
             </a>
           </li>
           <li class='nav-item active' style='margin-right: 15px;'>
-            <a class='nav-link'>
+            <a  class='nav-link '
+                href='#'
+                id='navbarDropdown'
+                role='button'
+                data-toggle='dropdown'
+                aria-haspopup='true'
+                aria-expanded='false'
+                style="position: relative;"
+              >
+              {{#if countCommentRead}}
+                <div class='numberCart'>
+                  <span>{{countCommentRead}}</span>
+                </div>
+              {{/if}}
               <p> <i class='fa fa-bell-o'></i></p>
               <span class='sr-only'>(current)</span>
+              <div class='dropdown-menu'>
+                  <span class='dropdown-item' href='/cvtvsk/listchat'>
+                    Thông báo</span>
+                  <div class='dropdown-divider'></div>
+                   <a class='dropdown-item' href='/thongtincanhan'>Thông tin cá
+                    nhân</a>
+                    <div class='dropdown-divider'></div>
+                  {{!-- <button class='dropdown-item js-doi-mat-khau-ql'>Đổi mật khẩu</button> --}}
+                  <a class="dropdown-item" href="/doimatkhau">Đổi mật khẩu</a> 
+                  <div class='dropdown-divider'></div>
+                  <a
+                    class='dropdown-item'
+                    style='color: red;'
+                    href='/login'
+                  >Đăng xuất</a>
+                </div>
             </a>
           </li>
 

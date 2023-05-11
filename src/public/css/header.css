@@ -150,6 +150,23 @@
   font-weight: 450;
 }
 
+.header .numberCart{
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  position:absolute;
+  top:0px;
+  right: 0px;
+  background-color: red;
+  border-radius: 20px;
+  border: 1px solid white;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .model-header-ql.open {
   display: flex;
 }
@@ -213,3 +230,4 @@
 .menubar .nav-item :hover {
   color: #06a881;
 }
+

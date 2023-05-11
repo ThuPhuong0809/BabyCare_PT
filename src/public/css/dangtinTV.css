@@ -1,17 +1,16 @@
 .dangtinthanhvien{
   background-color: #DCDFE4;
-  height: 100%;
 }
 .dangtinthanhvien a{
   text-decoration: none;
 }
 .dangtinthanhvien .main-home {
-  height: 100%;
   padding-top: 60px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 .dangtinthanhvien .main-home .main-body {
   height: 95%;
@@ -408,3 +407,86 @@ font-size: 16px;
   font-size: 16px;
   transform: rotate(35deg);
 }
+
+.dangtinthanhvien .main-home .poster {
+  height: 95%;
+  width: 90%;
+  display: flex;
+  margin: 5px 0;
+  align-self: center;
+}
+
+.dangtinthanhvien .main-home .footer {
+  display: flex;
+  width: 100%;
+  background-color: white;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.dangtinthanhvien .footer .item_footer{
+  display: flex;
+  height: 100%;
+  width: 15%;
+  padding:10px 0px 10px 30px;
+  flex-direction: column;
+}
+
+.dangtinthanhvien .footer .item_footer .title{
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.dangtinthanhvien .footer .item_footer .item{
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #878790;
+}
+
+.dangtinthanhvien .footer .item_footer .item{
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #878790;
+}
+
+.dangtinthanhvien .footer .item_footer .thanhtoan{
+ margin-bottom: 30px;
+}
+
+.dangtinthanhvien .footer .item_footer .ketnoi{
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+ }
+
+ .dangtinthanhvien .footer_address{
+  width: 100%;
+  background-color: white;
+  border-top: 1px solid #d9d9d9;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 0;
+  justify-content: center;
+ }
+ .dangtinthanhvien .footer_address .footer_address_info{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+ }
+
+ .dangtinthanhvien .footer_address .title{
+  margin-bottom: 10px;
+ }
+
+ .dangtinthanhvien .footer_address span{
+  color: #878790;
+  font-weight: 400;
+  font-size: 14px;
+ }

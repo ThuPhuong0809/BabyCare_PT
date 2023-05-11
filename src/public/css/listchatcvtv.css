@@ -1,17 +1,16 @@
 .listchatCVTVSK{
   background-color: #DCDFE4;
-  height: 100%;
 }
 .listchatCVTVSK .main-home {
-  height: 100%;
   padding-top: 60px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction:column;
 }
 .listchatCVTVSK .main-home .main-body {
-  height: 95%;
+  height: 700px;
   width: 80%;
   display: flex;
   justify-content: space-between;
@@ -37,6 +36,7 @@
   align-items: center;
   align-content: center;
   padding-top: 12px;
+  border-bottom: 1px solid #d9d9d9;
 }
 
 .listchatCVTVSK .header_search_list_chat a{
@@ -106,7 +106,7 @@
 }
 
 .listchatCVTVSK .main_list_chat .item_list_chat{
-  height: 60px;
+  height: 80px;
   width: 100%;
   display: flex;
   flex-direction:row;
@@ -115,8 +115,21 @@
   text-decoration: none;
 }
 
+.listchatCVTVSK .main_list_chat .info_item{
+  width: 80%;
+  display: flex;
+  flex-direction:column;
+  margin-left: 10px;
+}
+
+.listchatCVTVSK .main_list_chat .info_item_time{
+  width: 100%;
+  display: flex;
+  flex-direction:row;
+  justify-content: space-between;
+}
+
 .listchatCVTVSK .main_list_chat .item_list_chat p{
-  /* color: #ffffff; */
   font-size: 16px;
   font-weight: 550;
   margin-top: 15px;
@@ -133,3 +146,85 @@
   background-color: #DCDFE4;
 
 }
+.listchatCVTVSK .main-home .poster {
+  height: 95%;
+  width: 80%;
+  display: flex;
+  margin: 5px 0;
+  align-self: center;
+}
+
+.listchatCVTVSK .main-home .footer {
+  display: flex;
+  width: 100%;
+  background-color: white;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.listchatCVTVSK .footer .item_footer{
+  display: flex;
+  height: 100%;
+  width: 15%;
+  padding:10px 0px 10px 30px;
+  flex-direction: column;
+}
+
+.listchatCVTVSK .footer .item_footer .title{
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.listchatCVTVSK .footer .item_footer .item{
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #878790;
+}
+
+.listchatCVTVSK .footer .item_footer .item{
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #878790;
+}
+
+.listchatCVTVSK .footer .item_footer .thanhtoan{
+ margin-bottom: 30px;
+}
+
+.listchatCVTVSK .footer .item_footer .ketnoi{
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+ }
+
+ .listchatCVTVSK .footer_address{
+  width: 100%;
+  background-color: white;
+  border-top: 1px solid #d9d9d9;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 0;
+  justify-content: center;
+ }
+ .listchatCVTVSK .footer_address .footer_address_info{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+ }
+
+ .listchatCVTVSK .footer_address .title{
+  margin-bottom: 10px;
+ }
+
+ .listchatCVTVSK .footer_address span{
+  color: #878790;
+  font-weight: 400;
+  font-size: 14px;
+ }

@@ -8,9 +8,9 @@ async function connect() {
       useFindAndModify: false,
       useCreateIndex: true,
     });
-    console.log('connect successfuly!!!');
+    console.log('Kết nối MongoDB thành công!!!');
   } catch (e) {
-    console.log('connect failure!!!');
+    console.log('Kết nối MongoDB thất bại!!!');
   }
 }
 

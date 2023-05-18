@@ -1,5 +1,5 @@
 const readXlsxFile = require('read-excel-file/node');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs'); // mã hoá mật khẩu, giúp bảo mật
 const Account = require('../model/Account');
 const New = require('../model/New');
 const User = require('../model/User');
@@ -56,9 +56,10 @@ class MainController {
                 newTemp.imageNewType = newType.image;
                 array.push(newTemp);
                 arraySort.push(newTemp);
+
                 if (listNewType.length == data.length) {
                   arraySort.sort(function (a, b) {
-                    return b.countLike - a.countLike;
+                    return b.countLike - a.countLike; // sắp xếp theo lượng like
                   });
                   if (arraySort.length > 5) {
                     for (var i = 0; i < 5; i++) {
@@ -662,45 +663,6 @@ class MainController {
 
   // [GET] /register
   chinhsuathongtincanhan(req, res) {
-    function CustomAlert() {
-      this.alert = function (message, title) {
-        document.body.innerHTML =
-          document.body.innerHTML +
-          '<div id="dialogoverlay"></div><div id="dialogbox" class="slit-in-vertical"><div><div id="dialogboxhead"></div><div id="dialogboxbody"></div><div id="dialogboxfoot"></div></div></div>';
-
-        let dialogoverlay = document.getElementById('dialogoverlay');
-        let dialogbox = document.getElementById('dialogbox');
-
-        let winH = window.innerHeight;
-        dialogoverlay.style.height = winH + 'px';
-
-        dialogbox.style.top = '100px';
-
-        dialogoverlay.style.display = 'block';
-        dialogbox.style.display = 'block';
-
-        document.getElementById('dialogboxhead').style.display = 'block';
-
-        if (typeof title === 'undefined') {
-          document.getElementById('dialogboxhead').style.display = 'none';
-        } else {
-          document.getElementById('dialogboxhead').innerHTML =
-            '<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ' +
-            title;
-        }
-        document.getElementById('dialogboxbody').innerHTML = message;
-        document.getElementById('dialogboxfoot').innerHTML =
-          '<button class="pure-material-button-contained active" onclick="customAlert.ok()">OK</button>';
-      };
-
-      this.ok = function () {
-        document.getElementById('dialogbox').style.display = 'none';
-        document.getElementById('dialogoverlay').style.display = 'none';
-      };
-    }
-
-    let customAlert = new CustomAlert();
-
     if (req.session.isAuth) {
       req.body.idUser = Number(req.params.idUser);
       console.log('req.body', req.body);
@@ -819,6 +781,7 @@ class MainController {
   }
 
   dangtinthanhvien(req, res) {
+    //Tiêu đề không được để trống
     const news = new New(req.body);
     news.authorId = Number(req.body.authorId);
 
@@ -922,6 +885,7 @@ class MainController {
                               arraySort.sort(function (a, b) {
                                 return b.countLike - a.countLike;
                               });
+
                               if (arraySort.length > 5) {
                                 for (var i = 0; i < 5; i++) {
                                   arraySortNew.push(arraySort[i]);
@@ -931,9 +895,11 @@ class MainController {
                                   arraySortNew.push(arraySort[i]);
                                 }
                               }
+
                               array.sort(function (a, b) {
                                 return b.createdDate - a.createdDate;
                               });
+
                               res.render('home', {
                                 array: array,
                                 arraySortNew: arraySortNew,
@@ -1093,8 +1059,10 @@ class MainController {
   }
 
   doimatkhau(req, res) {
+    //find ,findOne, update, updateOne, delete, save
     Account.findOne({ id: Number(req.params.accountId) }, function (err, acc) {
       if (!err) {
+        // lỗi
         if (acc) {
           if (bcrypt.compareSync(req.body.oldpassword, acc.password)) {
             if (req.body.newpassword.length < 8) {
@@ -1752,6 +1720,38 @@ class MainController {
       }).lean();
     } else {
       req.session.back = '/admin/quanlychuyenvien';
+      res.redirect('/admin/login/');
+    }
+  }
+
+  xoatinadmin(req, res) {
+    if (req.session.isAuth) {
+      New.delete({
+        idNew: Number(req.params.idNew),
+      })
+        .then(() => {
+          req.flash('successdeletenew', 'Xoá thành công!');
+          res.redirect('/admin/home');
+        })
+        .catch(err => next(err));
+    } else {
+      req.session.back = '/admin/home';
+      res.redirect('/admin/login/');
+    }
+  }
+
+  xoacmtadmin(req, res) {
+    if (req.session.isAuth) {
+      Comment.delete({
+        idComment: Number(req.params.idComment),
+      })
+        .then(() => {
+          req.flash('successdeletecomment', 'Xoá thành công!');
+          res.redirect('/admin/quanlybinhluan');
+        })
+        .catch(err => next(err));
+    } else {
+      req.session.back = '/admin/quanlybinhluan';
       res.redirect('/admin/login/');
     }
   }

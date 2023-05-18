@@ -45,5 +45,7 @@ router.get('/admin/quanlychuyenvien', mainController.quanlychuyenvien);
 router.get('/admin/xoachuyenvien/:idUser', mainController.xoachuyenvien);
 router.get('/admin/themchuyenvien', mainController.loadthemchuyenvien);
 router.post('/admin/themchuyenvien', mainController.themchuyenvien);
+router.get('/admin/xoatin/:idNew', mainController.xoatinadmin);
+router.get('/admin/xoabinhluan/:idComment', mainController.xoacmtadmin);
 
 module.exports = router;

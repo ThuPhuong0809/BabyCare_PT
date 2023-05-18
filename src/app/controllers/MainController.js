@@ -665,15 +665,27 @@ class MainController {
   chinhsuathongtincanhan(req, res) {
     if (req.session.isAuth) {
       req.body.idUser = Number(req.params.idUser);
-      console.log('req.body', req.body);
-      User.updateOne({ idUser: Number(req.params.idUser) }, req.body)
-        .then(() => {
-          req.flash('success', 'Chỉnh sửa thông tin cá nhân thành công!');
-          res.redirect('/thongtincanhan');
-        })
-        .catch(err => {
-          req.flash('error', 'Lỗi! Vui lòng kiểm tra thông tin nhập!');
-        });
+      console.log('req.body', req.body.dateOfBirth);
+      var date1 = new Date(); // current date
+      var date2 = new Date(req.body.dateOfBirth); // mm/dd/yyyy format
+      var date3 = new Date(req.body.dateOfIssue); // mm/dd/yyyy format
+
+      if (date2.getTime() - date1.getTime() >= 0) {
+        req.flash('error', 'Ngày sinh phải lớn hơn ngày hiện tại!');
+        res.redirect('/thongtincanhan');
+      } else if (date3.getTime() - date1.getTime() >= 0) {
+        req.flash('error', 'Ngày cấp phải lớn hơn ngày hiện tại!');
+        res.redirect('/thongtincanhan');
+      } else {
+        User.updateOne({ idUser: Number(req.params.idUser) }, req.body)
+          .then(() => {
+            req.flash('success', 'Chỉnh sửa thông tin cá nhân thành công!');
+            res.redirect('/thongtincanhan');
+          })
+          .catch(err => {
+            req.flash('error', 'Lỗi! Vui lòng kiểm tra thông tin nhập!');
+          });
+      }
     } else {
       req.session.back = '/home';
       res.redirect('/login/');
@@ -1040,6 +1052,250 @@ class MainController {
     } else {
       req.session.back = '/home';
       res.redirect('/login/');
+    }
+  }
+
+  timkiemtin(req, res) {
+    const array = [];
+    const arraySortNew = [];
+    const listNewType = [];
+
+    const listLikeReads = [];
+    const listCommentReads = [];
+    const liked = false;
+    const commented = false;
+    console.log('-------', req.body.content);
+
+    if (req.session.isAuth) {
+      New.find({ status: 1 }, (err, arraySort) => {
+        if (!err) {
+          arraySort.sort(function (a, b) {
+            return b.countLike - a.countLike;
+          });
+          if (arraySort.length > 5) {
+            for (var i = 0; i < 5; i++) {
+              arraySortNew.push(arraySort[i]);
+            }
+          } else {
+            for (var i = 0; i < arraySort.length; i++) {
+              arraySortNew.push(arraySort[i]);
+            }
+          }
+          New.find({ title: req.body.content, status: 1 }, (err, data) => {
+            if (!err) {
+              if (data.length > 0) {
+                console.log('listNew---', data);
+                for (var i = 0; i < data.length; i++) {
+                  const newTemp = new NewTemp();
+                  newTemp.idNewTemp = data[i].idNew;
+                  newTemp.title = data[i].title;
+                  newTemp.content = data[i].content;
+                  newTemp.authorId = data[i].authorId;
+                  newTemp.authorName = data[i].authorName;
+                  newTemp.authorImage = data[i].authorImage;
+                  newTemp.image = data[i].image;
+                  newTemp.status = data[i].status;
+                  newTemp.countLike = data[i].countLike;
+                  newTemp.countComment = data[i].countComment;
+                  newTemp.createdDate = data[i].createdDate;
+                  newTemp.updatedDate = data[i].updatedDate;
+
+                  NewType.findOne(
+                    { idNewType: data[i].typeId },
+                    (err, newType) => {
+                      if (!err) {
+                        listNewType.push(newType);
+                        newTemp.idNewType = newType.idNewType;
+                        newTemp.nameNewType = newType.name;
+                        newTemp.imageNewType = newType.image;
+                        array.push(newTemp);
+                        arraySort.push(newTemp);
+
+                        if (listNewType.length == data.length) {
+                          array.sort(function (a, b) {
+                            return b.createdDate - a.createdDate;
+                          });
+
+                          New.find(
+                            { authorId: Number(req.session.userId) },
+                            (err, listNew) => {
+                              if (!err) {
+                                if (listNew.length > 0) {
+                                  for (var i = 0; i < listNew.length; i++) {
+                                    Like.find(
+                                      {
+                                        newId: Number(listNew[i].idNew),
+                                        isRead: 1,
+                                      },
+                                      (err, listLikeRead) => {
+                                        if (!err) {
+                                          if (listLikeRead.length > 0) {
+                                          }
+                                        } else {
+                                          res
+                                            .status(400)
+                                            .json({ error: 'ERROR!!!' });
+                                        }
+                                      }
+                                    ).lean();
+
+                                    Comment.find(
+                                      {
+                                        newId: Number(listNew[i].idNew),
+                                        isRead: 1,
+                                      },
+                                      (err, listCommentRead) => {
+                                        if (!err) {
+                                          if (listCommentRead.length > 0) {
+                                            for (
+                                              var i = 0;
+                                              i < listCommentRead.length;
+                                              i++
+                                            ) {
+                                              listCommentReads.push(
+                                                listCommentRead[i]
+                                              );
+                                              console.log(
+                                                '----listCommentReads11',
+                                                listCommentReads
+                                              );
+                                            }
+                                          }
+                                        } else {
+                                          res
+                                            .status(400)
+                                            .json({ error: 'ERROR!!!' });
+                                        }
+                                      }
+                                    ).lean();
+                                  }
+                                }
+                              } else {
+                                res.status(400).json({ error: 'ERROR!!!' });
+                              }
+                            }
+                          ).lean();
+
+                          res.render('home', {
+                            listCommentReads: listCommentReads,
+                            countCommentRead: 3,
+                            // listCommentReads.length + listLikeReads.length,
+                            array: array,
+                            arraySortNew: arraySortNew,
+                            accountId: req.session.accountId,
+                            username: req.session.username,
+                            userId: req.session.userId,
+                            avatar: req.session.avatar,
+                            role: req.session.role,
+                          });
+                        }
+                      } else {
+                        res.status(400).json({ error: 'ERROR!!!' });
+                      }
+                    }
+                  ).lean();
+                }
+              } else {
+                res.render('home', {
+                  countCommentRead: 3,
+                  array: array,
+                  isNull: true,
+                  arraySortNew: arraySortNew,
+                  accountId: req.session.accountId,
+                  username: req.session.username,
+                  userId: req.session.userId,
+                  avatar: req.session.avatar,
+                  role: req.session.role,
+                });
+              }
+            } else {
+              res.status(400).json({ error: 'ERROR!!!' });
+            }
+          }).lean();
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
+    } else {
+      New.find({ status: 1 }, (err, arraySort) => {
+        if (!err) {
+          arraySort.sort(function (a, b) {
+            return b.countLike - a.countLike;
+          });
+          if (arraySort.length > 5) {
+            for (var i = 0; i < 5; i++) {
+              arraySortNew.push(arraySort[i]);
+            }
+          } else {
+            for (var i = 0; i < arraySort.length; i++) {
+              arraySortNew.push(arraySort[i]);
+            }
+          }
+          New.find({ title: req.body.content, status: 1 }, (err, data) => {
+            if (!err) {
+              if (data.length > 0) {
+                console.log('listNew---', data);
+                for (var i = 0; i < data.length; i++) {
+                  const newTemp = new NewTemp();
+                  newTemp.idNewTemp = data[i].idNew;
+                  newTemp.title = data[i].title;
+                  newTemp.content = data[i].content;
+                  newTemp.authorId = data[i].authorId;
+                  newTemp.authorName = data[i].authorName;
+                  newTemp.authorImage = data[i].authorImage;
+                  newTemp.image = data[i].image;
+                  newTemp.status = data[i].status;
+                  newTemp.countLike = data[i].countLike;
+                  newTemp.countComment = data[i].countComment;
+                  newTemp.createdDate = data[i].createdDate;
+                  newTemp.updatedDate = data[i].updatedDate;
+
+                  NewType.findOne(
+                    { idNewType: data[i].typeId },
+                    (err, newType) => {
+                      if (!err) {
+                        listNewType.push(newType);
+                        newTemp.idNewType = newType.idNewType;
+                        newTemp.nameNewType = newType.name;
+                        newTemp.imageNewType = newType.image;
+                        array.push(newTemp);
+                        arraySort.push(newTemp);
+
+                        if (listNewType.length == data.length) {
+                          array.sort(function (a, b) {
+                            return b.createdDate - a.createdDate;
+                          });
+
+                          res.render('home', {
+                            listCommentReads: listCommentReads,
+                            countCommentRead: 3,
+                            // listCommentReads.length + listLikeReads.length,
+                            array: array,
+                            arraySortNew: arraySortNew,
+                          });
+                        }
+                      } else {
+                        res.status(400).json({ error: 'ERROR!!!' });
+                      }
+                    }
+                  ).lean();
+                }
+              } else {
+                res.render('home', {
+                  countCommentRead: 3,
+                  array: array,
+                  isNull: true,
+                  arraySortNew: arraySortNew,
+                });
+              }
+            } else {
+              res.status(400).json({ error: 'ERROR!!!' });
+            }
+          }).lean();
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
     }
   }
 

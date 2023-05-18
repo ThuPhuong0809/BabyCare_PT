@@ -14,22 +14,25 @@
 }
 .login {
   background-color: #DCDFE4;
-  height: 100%;
   /* background-image: url('http://datkham.kcb.vn/background-login.a55dfdeefbadaa0db071.png'); */
 }
 .login .img_background_login {
   display: flex; 
   justify-content: center;
   background-color: #DCDFE4;
+  align-items: center;
+  flex-direction: column;
+
 }
 
 .mainLogin{
   display: flex; 
-  height: 710px;
+  width: 100%;
   justify-content: center;
   margin-top: 70px;
   border-radius: 20px;
   background-color:white;
+
 }
 
 .mainLoginKH{
@@ -216,3 +219,77 @@
   color: blue;
   background-color: #fff;
 }
+.login .footer {
+  display: flex;
+  width: 100%;
+  background-color: white;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.login .footer .item_footer{
+  display: flex;
+  height: 100%;
+  width: 15%;
+  padding:10px 0px 10px 30px;
+  flex-direction: column;
+}
+
+.login .footer .item_footer .title{
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.login .footer .item_footer .item{
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #878790;
+}
+
+.login .footer .item_footer .item{
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #878790;
+}
+
+.login .footer .item_footer .thanhtoan{
+ margin-bottom: 30px;
+}
+
+.login .footer .item_footer .ketnoi{
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+ }
+
+ .login .footer_address{
+  width: 100%;
+  background-color: white;
+  border-top: 1px solid #d9d9d9;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 0;
+  justify-content: center;
+ }
+ .login .footer_address .footer_address_info{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+ }
+
+ .login .footer_address .title{
+  margin-bottom: 10px;
+ }
+
+ .login .footer_address span{
+  color: #878790;
+  font-weight: 400;
+  font-size: 14px;
+ }

@@ -116,6 +116,13 @@
                                 </div>
                             </div>
                         </div>
+                         <div class='Error'>
+                        {{#if messages.error}}
+                            <p style='color:red'>
+                            {{messages.error}}
+                            </p>
+                        {{/if}}
+                        </div>
                         <div class="div_btn">
                             <input type='submit' class='btnLuuTT' value='Lưu' />
                         </div>

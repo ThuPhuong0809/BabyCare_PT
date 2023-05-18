@@ -14,12 +14,15 @@
         <div class="main-body">
             <div class="list-left">
                 <div class="div-status">
-                     <img
+                    {{#if avatar}}
+                        <img
                         src={{avatar}}
                         alt='ảnh thẻ header'
                         style='height: 40px;width: 40px;border-radius: 40px;align-self: center;
                             '
                     />
+                    {{/if}}
+
                     <a class='btnDangKy' href='/dangtin'>
                         <p>Chia sẻ kinh nghiệm của bạn</p>
                     </a>
@@ -55,6 +58,10 @@
                             style='height: 100px;width: 100px;align-self: center; margin:5px 20px 5px 0;'/>
                         </a>
                     {{/each}}
+
+                    {{#if isNull}}
+                        <span class="isNull">Không có bài viết trùng khớp!</span>
+                    {{/if}}
                 </div>
             </div>
             <div class="list-right">

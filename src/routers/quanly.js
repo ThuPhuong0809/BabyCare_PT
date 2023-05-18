@@ -25,6 +25,8 @@ router.get('/thichtintuc/:idNew', mainController.thichtintuc);
 router.get('/danhsachtincho', mainController.danhsachtincho);
 router.get('/baocaobinhluan/:newId/:idComment', mainController.baocaobinhluan);
 
+router.post('/timkiemtin', mainController.timkiemtin);
+
 router.get('/doimatkhau', mainController.loaddoimatkhau);
 router.post('/doimatkhau/:accountId', mainController.doimatkhau);
 

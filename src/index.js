@@ -5,6 +5,7 @@ const route = require('./routers');
 var session = require('express-session');
 var flash = require('express-flash');
 const db = require('./config/db');
+const socket = require('socket.io');
 const {
   allowInsecurePrototypeAccess,
 } = require('@handlebars/allow-prototype-access');
@@ -226,4 +227,29 @@ route(app);
 
 app.listen(port, () => {
   console.log(`Listening on port http://localhost:${port}/login`);
+});
+
+const server = app.listen(process.env.PORT, () =>
+  console.log(`Server started on ${process.env.PORT}`)
+);
+const io = socket(server, {
+  cors: {
+    origin: 'http://localhost:3000',
+    credentials: true,
+  },
+});
+
+global.onlineUsers = new Map();
+io.on('connection', socket => {
+  global.chatSocket = socket;
+  socket.on('add-user', userId => {
+    onlineUsers.set(userId, socket.id);
+  });
+
+  socket.on('send-msg', data => {
+    const sendUserSocket = onlineUsers.get(data.to);
+    if (sendUserSocket) {
+      socket.to(sendUserSocket).emit('msg-recieve', data.msg);
+    }
+  });
 });

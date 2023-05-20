@@ -96,8 +96,8 @@
                                 <div class='div_input_row'>
                                     <label>Giới tính</label>
                                     <select class="form-control" id="ChonGioiTinh" name="gender">
-                                        <option value="Nữ">Nữ</option>
-                                        <option value="Nam">Nam</option>
+                                        <option   {{#ifCond data.gender '==' 'Nữ'}} selected="selected" {{/ifCond}} value="Nữ">Nữ</option>
+                                        <option {{#ifCond data.gender '==' 'Nam'}} selected="selected" {{/ifCond}} value="Nam">Nam</option>
                                     </select>
                                     
                                 </div>

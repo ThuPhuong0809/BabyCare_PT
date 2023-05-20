@@ -9,21 +9,21 @@
                 <div class="line" ></div>
 
                 <div id="menu1" class="container tab-pane active div-table-list"><br />
-                            <form action="">
+                            <form action="" >
                                 <div class="card mb-4">
                                     <div class="card-header" style="color: #296088;font-weight: 600;">
                                         <i class="fas fa-table me-1"></i>
                                         Bảng hiển thị danh sách bình luận
                                     </div>
                                     <div class="card-body">
-                                        <table class="table table-bordered" id="table_id">
+                                        <table class="table table-bordered" id="table_id" style="font-size: 15px;">
                                             <thead>
                                                 <tr>
                                                     <th>STT</th>
                                                     <th>Mã bình luận</th>
                                                     <th>Nội dung bình luận</th>
-                                                    <th>Mã tin</th>
                                                     <th>Tiêu đề tin</th>
+                                                    <th>Ngày bình luận</th>
                                                     <th>Tên tác giả</th>
                                                     <th>Trạng thái</th>
                                                     <th>Thao Tác</th>
@@ -35,13 +35,13 @@
                                                     <td>{{sum @index 1}}</td>
                                                     <td>{{this.idCommentTemp}}</td>
                                                     <td>{{this.content}}</td>
-                                                    <td>{{this.newId}}</td>
-                                                    <td>{{this.titleNew}}</td>
+                                                    <td>{{this.newId}} - {{this.titleNew}}</td>
+                                                    <td>{{{changeNgay this.createdDate}}}</td>
                                                     <td>{{this.userName}}</td>
                                                     {{#ifCond this.status '==' 0}} <td style="color: red;"> Chưa duyệt</td>  {{else}} <td style="color: green;"> Đã duyệt</td>  {{/ifCond}}
-                                                    <td>
-                                                       <a href="/admin/chitiettintuc/{{this.newId}}" class="btn btn-info">Xem Chi tiết</a>
-                                                        <a href="/admin/xoabinhluan/{{this.idCommentTemp}}" onclick="return confirm ('Xoá bình luận {{this.content}} ?')" class="btn btn-danger">Xóa bình luận</a>
+                                                    <td  style="width: 190px;">
+                                                       <a href="/admin/chitiettintuc/{{this.newId}}" class="btn btn-info" style="margin-right: 10px;">Xem Chi tiết</a>
+                                                        <a href="/admin/xoabinhluan/{{this.idCommentTemp}}" onclick="return confirm ('Xoá bình luận {{this.content}} ?')" class="btn btn-danger">Xóa</a>
                                                        
                                                     </td>
                                                 </tr>

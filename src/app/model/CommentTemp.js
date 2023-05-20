@@ -18,8 +18,8 @@ const CommentTemp = new Schema(
     titleNew: { type: String, maxLength: 255 },
     content: { type: String, maxLength: 255 },
     status: { type: Number },
-    createdDate: { type: String, default: 'Hôm nay' },
-    updatedDate: { type: Date, default: Date.now },
+    createdDate: { type: Date },
+    updatedDate: { type: Date },
   },
   {
     timestamps: true,

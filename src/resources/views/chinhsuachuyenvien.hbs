@@ -1,0 +1,216 @@
+<div class="chinhsuachuyenvien">
+        {{>menubaradmin}}
+        <div class="home-header-main">
+            {{>headeradmin}}
+            <div class="main-home-nv">
+                <div class="title_chucnang">
+                    <p>Chỉnh sửa chuyên viên tư vấn <span style="font-style: italic; color:#296088">{{data.name}}</span></p>
+                </div>
+                <div class="line" ></div>
+                <div class="list-left">
+                  <div class="main_body ">
+                    <div class="body_thongtin">
+                        <div class="div_info">
+                            <img
+                                src={{data.avatar}}
+                                class="avatar_info"
+                                />
+                            <span>{{data.name}}</span>
+                        </div>
+                    </div>
+                    <div class="main-list-left">
+                      <form action='/admin/chinhsuachuyenvien/{{data.idUserTempCV}}' id='form-login' method='POST'>
+                          <input  type="hidden"  name="role" value= 2
+                              class="form-control" >
+                          <input  type="hidden"  name="password" value="12345678"
+                              class="form-control" >
+                        <div class="form-add">
+                          <div class="col-6">
+                            <div class='div_input_row'>
+                              <label>Tên đăng nhập</label>
+                              <input
+                                  autocomplete='new-password'
+                                  class='input'
+                                  id='TenDangNhap'
+                                  placeholder='Nhập tên tài khoản'
+                                  required='required'
+                                  type='text'
+                                  name='username'
+                                  value='{{data.username}}'
+                                  style="background-color: #C9C9C9;"
+                                  readonly
+                              />
+                            </div>
+                            <div class='div_input_row'>
+                                <label>Họ và tên</label>
+                                <input
+                                    autocomplete='new-password'
+                                    class='input'
+                                    id='HoTen'
+                                    name='name'
+                                    placeholder='Nhập họ và tên'
+                                    required='required'
+                                    type='text'
+                                    value="{{data.name}}"
+                                />
+                            </div>
+
+                            <div class='div_input_row'>
+                                <label>Ngày sinh</label>
+                                <input
+                                    autocomplete='new-password'
+                                    class='input'
+                                    id='NgaySinh'
+                                    name='dateOfBirth'
+                                    placeholder='Nhập ngày sinh'
+                                    required='required'
+                                    type='date'
+                                    value="{{data.dateOfBirth}}"
+                                />
+                            </div>
+
+                            <div class='div_input_row'>
+                                <label>Giới tính</label>
+                                <select class="form-control" id="ChonGioiTinh" name="gender">
+                                    <option {{#ifCond data.gender '==' 'Nữ'}} selected="selected" {{/ifCond}} value="Nữ">Nữ</option>
+                                    <option {{#ifCond data.gender '==' 'Nam'}} selected="selected" {{/ifCond}} value="Nam">Nam</option>
+                                </select>
+                                
+                            </div>
+                          </div>
+                          
+                          <div class="col-6">
+                            <div class='div_input_row'>
+                              <label>CMND/CCCD</label>
+                              <input
+                                  autocomplete='new-password'
+                                  class='input'
+                                  id='TenDangNhap'
+                                  name='cccd'
+                                  placeholder='Nhập CMND/CCCD'
+                                  required='required'
+                                  type='text'
+                                  value="{{data.cccd}}"
+                              />
+                            </div>
+                            <div class='div_input_row'>
+                                <label>Ngày cấp</label>
+                                <input
+                                    autocomplete='new-password'
+                                    class='input'
+                                    id='HoTen'
+                                    name='dateOfIssue'
+                                    placeholder='Nhập ngày cấp'
+                                    required='required'
+                                    type='date'
+                                    value="{{ data.dateOfIssue}}"
+                                />
+                            </div>
+
+                            <div class='div_input_row'>
+                                <label>Nơi cấp</label>
+                                <input
+                                    autocomplete='new-password'
+                                    class='input'
+                                    id='NgaySinh'
+                                    name='issuedBy'
+                                    placeholder='Nhập nơi cấp'
+                                    required='required'
+                                    type='text'
+                                    value="{{data.issuedBy}}"
+                                />
+                            </div>
+                            <div class='div_input_row'>
+                                <label>Trạng thái</label>
+                                <select class="form-control" id="ChonGioiTinh" name="status">
+                                    <option value=1>Hoạt động</option>
+                                    <option value=0>Tạm ngưng</option>
+                                </select>
+                            </div>
+
+                          </div>
+                        </div>
+                            <div class='Error'>
+                              {{#if messages.error}}
+                                <p style='color:red'>
+                                  {{messages.error}}
+                                </p>
+                              {{/if}}
+                            </div>
+                              <div class='Error'>
+                              {{#if messages.success}}
+                                <input id="change-success" value="success" type="hidden" >
+                                </input>
+                              {{/if}}
+                            </div>
+                          <div class="div_btn">
+                              <input type='submit' class='btnLuuTT' value='CHỈNH SỬA' />
+                          </div>
+
+                      </form>
+                    </div>
+
+                  </div>
+                  
+                </div>
+                  
+            </div>
+               <div class='Error'>
+                {{#if messages.success}}
+                  <input id="change-success" value="success" type="hidden" >
+                  </input>
+                {{/if}}
+              </div>
+        </div>
+
+ </div>
+        
+  
+<script>
+$(document).ready(function () { myFunction(); });
+function myFunction() {
+    if(document.getElementById("change-success").value){
+        customAlertCVTV.alert('Chỉnh sửa thông tin thành công!.' )
+    }
+    
+} 
+function CustomAlert(){
+  this.alert = function(message,title){
+    document.body.innerHTML = document.body.innerHTML + '<div id="dialogoverlay"></div><div id="dialogbox" class="slit-in-vertical"><div><div id="dialogboxhead"></div><div id="dialogboxbody"></div><div id="dialogboxfoot"></div></div></div>';
+
+    let dialogoverlay = document.getElementById('dialogoverlay');
+    let dialogbox = document.getElementById('dialogbox');
+    
+    let winH = window.innerHeight;
+    dialogoverlay.style.height = winH+"px";
+    
+    dialogbox.style.top = "100px";
+
+    dialogoverlay.style.display = "block";
+    dialogbox.style.display = "block";
+    
+    document.getElementById('dialogboxhead').style.display = 'block';
+
+    if(typeof title === 'undefined') {
+      document.getElementById('dialogboxhead').style.display = 'none';
+    } else {
+      document.getElementById('dialogboxhead').innerHTML = '<i class="fa fa-exclamation-circle" aria-hidden="true"></i> '+ title;
+    }
+    document.getElementById('dialogboxbody').innerHTML = message;
+    {{!-- document.getElementById('dialogboxfoot').innerHTML = '<button class="pure-material-button-contained active" onclick="customAlert.ok()">OK</button>'; --}}
+  }
+  
+  this.ok = function(){
+    document.getElementById('dialogbox').style.display = "none";
+    document.getElementById('dialogoverlay').style.display = "none";
+  }
+
+  setTimeout(function() {  
+    document.getElementById('dialogbox').style.display = "none";
+    document.getElementById('dialogoverlay').style.display = "none";
+    }, 3000);
+}
+
+let customAlertCVTV = new CustomAlert();
+</script>
+        

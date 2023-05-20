@@ -1563,6 +1563,9 @@ class MainController {
                   array.sort(function (a, b) {
                     return b.createdDate - a.createdDate;
                   });
+                  array.sort(function (a, b) {
+                    return a.status - b.status;
+                  });
                 }
                 if (listNewType.length == data.length) {
                   res.render('homeadmin', {
@@ -1894,6 +1897,113 @@ class MainController {
     }
   }
 
+  // [GET] /register
+  loadchinhsuachuyenvien(req, res) {
+    const data = [];
+    var countNewChuaDuyet = 0;
+    var countCommentChuaDuyet = 0;
+    if (req.session.isAuth) {
+      New.find({ status: 0 }, (err, listChuaDuyet) => {
+        if (!err) {
+          countNewChuaDuyet = listChuaDuyet.length;
+          console.log('-------', countNewChuaDuyet);
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
+      Comment.find({ status: 0 }, (err, listCmtChuaDuyet) => {
+        if (!err) {
+          countCommentChuaDuyet = listCmtChuaDuyet.length;
+          console.log('-------countCommentChuaDuyet', countCommentChuaDuyet);
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
+      User.findOne({ idUser: Number(req.params.idUser) }, (err, users) => {
+        if (!err) {
+          const userTempCV = new UserTempCV();
+          userTempCV.idUserTempCV = users.idUser;
+          userTempCV.name = users.name;
+          userTempCV.dateOfBirth = users.dateOfBirth;
+          userTempCV.gender = users.gender;
+          userTempCV.cccd = users.cccd;
+          userTempCV.issuedBy = users.issuedBy;
+          userTempCV.dateOfIssue = users.dateOfIssue;
+          userTempCV.status = users.status;
+          userTempCV.avatar = users.avatar;
+          userTempCV.email = users.email;
+          userTempCV.createdAt = users.createdAt;
+          userTempCV.updatedAt = users.updatedAt;
+          Account.findOne({ id: Number(users.idAccount) }, (err, acc) => {
+            if (!err) {
+              userTempCV.idAccount = acc.id;
+              userTempCV.username = acc.username;
+              userTempCV.password = acc.password;
+              userTempCV.role = acc.role;
+              data.push(userTempCV);
+              res.render('chinhsuachuyenvien', {
+                data: data[0],
+                accountId: req.session.accountId,
+                username: req.session.username,
+                userId: req.session.userId,
+                avatar: req.session.avatar,
+                role: req.session.role,
+                countNewChuaDuyet: countNewChuaDuyet,
+                countCommentChuaDuyet: countCommentChuaDuyet,
+                countNoti: countNewChuaDuyet + countCommentChuaDuyet,
+              });
+            } else {
+              res.status(400).json({ error: 'ERROR!!!' });
+            }
+          }).lean();
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
+    } else {
+      req.session.back = 'admin/home';
+      res.redirect('admin/login/');
+    }
+  }
+
+  chinhsuachuyenvien(req, res) {
+    const array = [];
+    const listNewType = [];
+    if (req.session.isAuth) {
+      req.body.idUser = Number(req.params.idUser);
+      console.log('req.body', req.body.dateOfBirth);
+      var date1 = new Date(); // current date
+      var date2 = new Date(req.body.dateOfBirth); // mm/dd/yyyy format
+      var date3 = new Date(req.body.dateOfIssue); // mm/dd/yyyy format
+
+      if (req.body.name.length < 6) {
+        req.flash('error', 'Họ và tên quá ngắn!');
+        res.redirect(`/admin/chinhsuachuyenvien/${req.body.idUser}`);
+      } else if (date2.getTime() - date1.getTime() >= 0) {
+        req.flash('error', 'Ngày sinh phải lớn hơn ngày hiện tại!');
+        res.redirect(`/admin/chinhsuachuyenvien/${req.body.idUser}`);
+      } else if (date3.getTime() - date1.getTime() >= 0) {
+        req.flash('error', 'Ngày cấp phải lớn hơn ngày hiện tại!');
+        res.redirect(`/admin/chinhsuachuyenvien/${req.body.idUser}`);
+      } else if (req.body.cccd.length < 9) {
+        req.flash('error', 'CCMND/CCCD phải từ 9 số trở lên!');
+        res.redirect(`/admin/chinhsuachuyenvien/${req.body.idUser}`);
+      } else {
+        User.updateOne({ idUser: Number(req.params.idUser) }, req.body)
+          .then(() => {
+            req.flash('success', 'Chỉnh sửa thông tin cá nhân thành công!');
+            res.redirect(`/admin/chinhsuachuyenvien/${req.body.idUser}`);
+          })
+          .catch(err => {
+            req.flash('error', 'Lỗi! Vui lòng kiểm tra thông tin nhập!');
+          });
+      }
+    } else {
+      req.session.back = '/admin/quanlychuyenvien';
+      res.redirect('/admin/login/');
+    }
+  }
+
   loadthemchuyenvien(req, res) {
     var countNewChuaDuyet = 0;
     var countCommentChuaDuyet = 0;
@@ -1937,50 +2047,69 @@ class MainController {
       role: req.body.role,
     });
     if (req.session.isAuth) {
-      console.log('=========params', req.body);
-      console.log('=========acc', acc);
       Account.findOne({ username: req.body.username }, (err, isAcc) => {
         if (!err) {
           if (isAcc) {
             req.flash('error', 'Tên đăng nhập đã tồn tại!'); //nếu bắt user ko đúng sẽ trả dòng này
             res.redirect('/admin/themchuyenvien');
           } else {
-            acc
-              .save()
-              .then(() => {
-                Account.findOne(
-                  { username: req.body.username },
-                  (err, account) => {
-                    if (!err) {
-                      if (account) {
-                        console.log('=========account', account);
-                        const userTV = new User({
-                          name: req.body.name,
-                          dateOfBirth: req.body.dateOfBirth,
-                          gender: req.body.gender,
-                          cccd: req.body.cccd,
-                          issuedBy: req.body.issuedBy,
-                          dateOfIssue: req.body.dateOfIssue,
-                          status: req.body.status,
-                          avatar: req.body.avatar,
-                          idAccount: account.id,
-                        });
-                        console.log('=========userTV', userTV);
-                        userTV
-                          .save()
-                          .then(() => {
-                            req.flash('success', 'Thêm thành công!');
-                            res.redirect('/admin/quanlychuyenvien');
-                          })
-                          .catch(error => {});
+            var date1 = new Date(); // current date
+            var date2 = new Date(req.body.dateOfBirth); // mm/dd/yyyy format
+            var date3 = new Date(req.body.dateOfIssue); // mm/dd/yyyy format
+
+            if (req.body.username.length < 6) {
+              req.flash('error', 'Tên đăng nhập phải trên 6 ký tự!');
+              res.redirect('/admin/themchuyenvien');
+            } else if (req.body.cccd.length < 9) {
+              req.flash('error', 'CCMND/CCCD phải từ 9 số trở lên!');
+              res.redirect('/admin/themchuyenvien');
+            } else if (req.body.name.length < 6) {
+              req.flash('error', 'Họ và tên quá ngắn!');
+              res.redirect('/admin/themchuyenvien');
+            } else if (date2.getTime() - date1.getTime() >= 0) {
+              req.flash('error', 'Ngày sinh phải lớn hơn ngày hiện tại!');
+              res.redirect('/admin/themchuyenvien');
+            } else if (date3.getTime() - date1.getTime() >= 0) {
+              req.flash('error', 'Ngày cấp phải lớn hơn ngày hiện tại!');
+              res.redirect('/admin/themchuyenvien');
+            } else {
+              acc
+                .save()
+                .then(() => {
+                  Account.findOne(
+                    { username: req.body.username },
+                    (err, account) => {
+                      if (!err) {
+                        if (account) {
+                          console.log('=========account', account);
+                          const userTV = new User({
+                            name: req.body.name,
+                            dateOfBirth: req.body.dateOfBirth,
+                            gender: req.body.gender,
+                            cccd: req.body.cccd,
+                            issuedBy: req.body.issuedBy,
+                            dateOfIssue: req.body.dateOfIssue,
+                            status: req.body.status,
+                            avatar: req.body.avatar,
+                            idAccount: account.id,
+                          });
+                          console.log('=========userTV', userTV);
+                          userTV
+                            .save()
+                            .then(() => {
+                              req.flash('success', 'Thêm thành công!');
+                              res.redirect('/admin/quanlychuyenvien');
+                            })
+                            .catch(error => {});
+                        }
+                      } else {
+                        res.status(400).json({ error: 'ERROR!!!' });
                       }
-                    } else {
-                      res.status(400).json({ error: 'ERROR!!!' });
                     }
-                  }
-                ).lean();
-              })
-              .catch(error => {});
+                  ).lean();
+                })
+                .catch(error => {});
+            }
           }
         } else {
           res.status(400).json({ error: 'ERROR!!!' });

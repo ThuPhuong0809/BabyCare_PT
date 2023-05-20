@@ -11,7 +11,7 @@
                 <div id="menu1" class="container tab-pane active div-table-list"><br />
                             <form action="">
                                 <div class="card mb-4">
-                                    <div class="card-header" style="color: #296088;font-weight: 600;">
+                                    <div class="card-header" style="color: #296088;font-weight: 600;" style="font-size: 15px;">
                                         <i class="fas fa-table me-1"></i>
                                         Bảng hiển thị danh sách tin
                                     </div>
@@ -22,7 +22,7 @@
                                                     <th>STT</th>
                                                     <th>Mã tin</th>
                                                     <th>Tiêu đề bài viết</th>
-                                                    <th>Chủ đề tin</th>
+                                                    <th>Ngày đăng</th>
                                                     <th>Mã tác giả</th>
                                                     <th>Tên tác giả</th>
                                                     <th>Trạng thái</th>
@@ -43,10 +43,9 @@
                                                     {{#ifCond this.status '==' 0}} <td style="color: red;"> Chưa duyệt</td>  {{else}} <td style="color: green;"> Đã duyệt</td>  {{/ifCond}}
                                                     <td>{{this.countLike}}</td>
                                                     <td>{{this.countComment}}</td>
-                                                    <td>
-                                                       <a href="/admin/chitiettintuc/{{this.idNewTemp}}" class="btn btn-info">Xem Chi tiết</a>
-                                                        <a href="/admin/xoatin/{{this.idNewTemp}}" onclick="return confirm ('Xoá tin {{this.title}} ?')" class="btn btn-danger">Xóa tin</a>
-                                                       
+                                                    <td style="width: 190px;">
+                                                      <a href="/admin/chitiettintuc/{{this.idNewTemp}}" class="btn btn-info" style="margin-right: 10px;">Xem Chi tiết</a>
+                                                      <a href="/admin/xoatin/{{this.idNewTemp}}" onclick="return confirm ('Xoá tin {{this.title}} ?')" class="btn btn-danger">Xóa</a>
                                                     </td>
                                                 </tr>
                                                 {{/each}}

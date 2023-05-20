@@ -94,12 +94,14 @@
   color: #296088;
   font-weight: 600;
   margin-top: 10px;
-  margin-left: 10px;
+  margin-left: 5px;
  }
+
 
  .chitiettintuc .div_luotxem_cmt .luotxem,
  .chitiettintuc .div_luotxem_cmt .like,
  .chitiettintuc .div_luotxem_cmt .cmt,
+ .chitiettintuc .div_luotxem_cmt .share,
  .chitiettintuc .div_luotxem_cmt{
   display: flex;
   flex-direction:row;
@@ -107,11 +109,20 @@
 
  .chitiettintuc .div_luotxem_cmt .like,
  .chitiettintuc .div_luotxem_cmt .cmt,
+ .chitiettintuc .div_luotxem_cmt .share,
  .chitiettintuc .div_luotxem_cmt .luotxem{
   margin-right: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+ }
+
+ .chitiettintuc .div_luotxem_cmt .share{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  margin-top: 3px;
  }
 
  .chitiettintuc .div_luotxem_cmt .like{

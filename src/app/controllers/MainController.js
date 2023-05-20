@@ -228,6 +228,9 @@ class MainController {
                       },
                       (err, isLike) => {
                         if (!err) {
+                          listComment.sort(function (a, b) {
+                            return b.createdDate - a.createdDate;
+                          });
                           res.render('chitiettintuc', {
                             data: data,
                             accountId: req.session.accountId,
@@ -454,7 +457,7 @@ class MainController {
     console.log('========log', req.body);
     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (username.length < 6) {
-      req.flash('error', 'Tên đăng nhập quá ngắn!');
+      req.flash('error', 'Tên đăng nhập phải trên 6 ký tự!');
       res.redirect('/register');
     } else {
       Account.findOne({ username: username }, (err, data) => {
@@ -670,11 +673,17 @@ class MainController {
       var date2 = new Date(req.body.dateOfBirth); // mm/dd/yyyy format
       var date3 = new Date(req.body.dateOfIssue); // mm/dd/yyyy format
 
-      if (date2.getTime() - date1.getTime() >= 0) {
+      if (req.body.name.length < 6) {
+        req.flash('error', 'Họ và tên quá ngắn!');
+        res.redirect('/thongtincanhan');
+      } else if (date2.getTime() - date1.getTime() >= 0) {
         req.flash('error', 'Ngày sinh phải lớn hơn ngày hiện tại!');
         res.redirect('/thongtincanhan');
       } else if (date3.getTime() - date1.getTime() >= 0) {
         req.flash('error', 'Ngày cấp phải lớn hơn ngày hiện tại!');
+        res.redirect('/thongtincanhan');
+      } else if (req.body.cccd.length < 9) {
+        req.flash('error', 'CCMND/CCCD phải từ 9 số trở lên!');
         res.redirect('/thongtincanhan');
       } else {
         User.updateOne({ idUser: Number(req.params.idUser) }, req.body)
@@ -1502,6 +1511,7 @@ class MainController {
       }
     );
   }
+
   homeadmin(req, res) {
     const array = [];
     const listNewType = [];
@@ -1640,6 +1650,7 @@ class MainController {
                 listNewType.push(news);
                 commentTemp.titleNew = news.title;
                 array.push(commentTemp);
+
                 if (array.length > 0) {
                   array.sort(function (a, b) {
                     return b.createdDate - a.createdDate;
@@ -1648,6 +1659,7 @@ class MainController {
                     return a.status - b.status;
                   });
                 }
+
                 if (listNewType.length == data.length) {
                   res.render('quanlybinhluan', {
                     array: array,

@@ -33,11 +33,14 @@
                                 <b class="name_page">{{this.title}}</b>
                             </div>
                         </div>
+                        {{#if this.image}}
                         <img
                             src={{this.image}}
                             alt='ảnh thẻ header'
                             style='height: 100px;width: 100px;align-self: center; margin:5px 20px 5px 0;'/>
-                        </a>
+                         {{/if}}
+                    </a>
+                        
                     {{/each}}
                      {{#ifCond arrayNone '==' 1}}
                         <div style="display:flex;  width: 100%;align-items: center;justify-content: center;">

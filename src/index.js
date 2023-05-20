@@ -172,44 +172,65 @@ app.post('/images', upload.single('image'), async (req, res) => {
 app.post('/dangtin', upload.single('image'), async (req, res) => {
   const { idUser } = req.body;
   const file = req.file;
+  if (file) {
+    const image = file.originalname.split('.');
+    const fileType = image[image.length - 1];
+    const filePath = `${uuid() + Date.now().toString()}.${fileType}`;
 
-  const image = file.originalname.split('.');
-  const fileType = image[image.length - 1];
-  const filePath = `${uuid() + Date.now().toString()}.${fileType}`;
+    const params = {
+      Bucket: 'babycaredoan',
+      Key: filePath,
+      Body: file.buffer,
+    };
 
-  const params = {
-    Bucket: 'babycaredoan',
-    Key: filePath,
-    Body: file.buffer,
-  };
+    s3.upload(params, (error, data) => {
+      if (error) {
+        return res.send('Internal Server Error');
+      } else {
+        const news = new New(req.body);
+        news.authorId = Number(req.body.authorId);
+        news.image = `${CLOUND_FONT_URL}${filePath}`;
+        const idNewType = Number(req.body.typeId);
+        NewType.findOne({ idNewType: idNewType }, (err, newType) => {
+          if (!err) {
+            if (newType) {
+              news.nameType = newType.name;
+              console.log('-----ddd----', news);
 
-  s3.upload(params, (error, data) => {
-    if (error) {
-      return res.send('Internal Server Error');
-    } else {
-      const news = new New(req.body);
-      news.authorId = Number(req.body.authorId);
-      news.image = `${CLOUND_FONT_URL}${filePath}`;
-      const idNewType = Number(req.body.typeId);
-      NewType.findOne({ idNewType: idNewType }, (err, newType) => {
-        if (!err) {
-          if (newType) {
-            news.nameType = newType.name;
-            console.log('-----ddd----', news);
-
-            news
-              .save()
-              .then(() => res.redirect('/danhsachtincho'))
-              .catch(error => {
-                console.log('-----errorç----', error);
-              });
+              news
+                .save()
+                .then(() => res.redirect('/danhsachtincho'))
+                .catch(error => {
+                  console.log('-----error----', error);
+                });
+            }
+          } else {
+            res.status(400).json({ error: 'ERROR!!!' });
           }
-        } else {
-          res.status(400).json({ error: 'ERROR!!!' });
+        }).lean();
+      }
+    });
+  } else {
+    const news = new New(req.body);
+    news.authorId = Number(req.body.authorId);
+    news.image = '';
+    const idNewType = Number(req.body.typeId);
+    NewType.findOne({ idNewType: idNewType }, (err, newType) => {
+      if (!err) {
+        if (newType) {
+          news.nameType = newType.name;
+          news
+            .save()
+            .then(() => res.redirect('/danhsachtincho'))
+            .catch(error => {
+              console.log('-----error----', error);
+            });
         }
-      }).lean();
-    }
-  });
+      } else {
+        res.status(400).json({ error: 'ERROR!!!' });
+      }
+    }).lean();
+  }
 });
 
 // const data = require('./database/db.config');

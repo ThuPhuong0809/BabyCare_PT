@@ -52,10 +52,13 @@
                                 <b style="margin-left: 10px;">{{this.countLike}}  lượt thích</b>
                             </div>
                         </div>
-                        <img
-                            src={{this.image}}
-                            alt='ảnh thẻ header'
-                            style='height: 100px;width: 100px;align-self: center; margin:5px 20px 5px 0;'/>
+                        {{#if this.image}}
+                            <img
+                                src={{this.image}}
+                                alt='ảnh thẻ header'
+                                style='height: 100px;width: 100px;align-self: center; margin:5px 20px 5px 0;'/>
+                        {{/if}}
+                        
                         </a>
                     {{/each}}
 

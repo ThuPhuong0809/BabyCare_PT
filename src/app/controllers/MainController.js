@@ -85,28 +85,66 @@ class MainController {
                               (err, listLikeRead) => {
                                 if (!err) {
                                   if (listLikeRead.length > 0) {
-                                  }
-                                } else {
-                                  res.status(400).json({ error: 'ERROR!!!' });
-                                }
-                              }
-                            ).lean();
-
-                            Comment.find(
-                              { newId: Number(listNew[i].idNew), isRead: 1 },
-                              (err, listCommentRead) => {
-                                if (!err) {
-                                  if (listCommentRead.length > 0) {
                                     for (
                                       var i = 0;
-                                      i < listCommentRead.length;
+                                      i < listLikeRead.length;
                                       i++
                                     ) {
-                                      listCommentReads.push(listCommentRead[i]);
-                                      console.log(
-                                        '----listCommentReads11',
-                                        listCommentReads
-                                      );
+                                      listLikeReads.push(listLikeRead[i]);
+                                      if (i == listLikeReads.length - 1) {
+                                        Comment.find(
+                                          {
+                                            newId: Number(listNew[i].idNew),
+                                            isRead: 1,
+                                          },
+                                          (err, listCommentRead) => {
+                                            if (!err) {
+                                              if (listCommentRead.length > 0) {
+                                                for (
+                                                  var i = 0;
+                                                  i < listCommentRead.length;
+                                                  i++
+                                                ) {
+                                                  listCommentReads.push(
+                                                    listCommentRead[i]
+                                                  );
+
+                                                  if (
+                                                    i ==
+                                                    listCommentRead.length - 1
+                                                  ) {
+                                                    res.render('home', {
+                                                      listCommentReads:
+                                                        listCommentReads,
+                                                      countCommentRead:
+                                                        listCommentReads.length +
+                                                        listLikeReads.length,
+                                                      listLikeReads:
+                                                        listLikeReads,
+                                                      array: array,
+                                                      arraySortNew:
+                                                        arraySortNew,
+                                                      accountId:
+                                                        req.session.accountId,
+                                                      username:
+                                                        req.session.username,
+                                                      userId:
+                                                        req.session.userId,
+                                                      avatar:
+                                                        req.session.avatar,
+                                                      role: req.session.role,
+                                                    });
+                                                  }
+                                                }
+                                              }
+                                            } else {
+                                              res
+                                                .status(400)
+                                                .json({ error: 'ERROR!!!' });
+                                            }
+                                          }
+                                        ).lean();
+                                      }
                                     }
                                   }
                                 } else {
@@ -121,19 +159,6 @@ class MainController {
                       }
                     }
                   ).lean();
-
-                  res.render('home', {
-                    listCommentReads: listCommentReads,
-                    countCommentRead: 3,
-                    // listCommentReads.length + listLikeReads.length,
-                    array: array,
-                    arraySortNew: arraySortNew,
-                    accountId: req.session.accountId,
-                    username: req.session.username,
-                    userId: req.session.userId,
-                    avatar: req.session.avatar,
-                    role: req.session.role,
-                  });
                 }
               } else {
                 res.status(400).json({ error: 'ERROR!!!' });
@@ -211,6 +236,8 @@ class MainController {
 
   // [PUT] /chitiettintuc/:id
   chitiettintuc(req, res, next) {
+    const listLikeReads = [];
+    const listCommentReads = [];
     New.findOne({ idNew: Number(req.params.idNew) }, (err, data) => {
       if (!err) {
         Comment.find(
@@ -231,18 +258,122 @@ class MainController {
                           listComment.sort(function (a, b) {
                             return b.createdDate - a.createdDate;
                           });
-                          res.render('chitiettintuc', {
-                            data: data,
-                            accountId: req.session.accountId,
-                            username: req.session.username,
-                            userId: req.session.userId,
-                            avatar: req.session.avatar,
-                            listComment: listComment,
-                            role: req.session.role,
-                            countLike: listLike.length,
-                            countComment: listComment.length,
-                            liked: isLike.length,
-                          });
+                          New.find(
+                            { authorId: Number(req.session.userId) },
+                            (err, listNew) => {
+                              if (!err) {
+                                if (listNew.length > 0) {
+                                  for (var i = 0; i < listNew.length; i++) {
+                                    Like.find(
+                                      {
+                                        newId: Number(listNew[i].idNew),
+                                        isRead: 1,
+                                      },
+                                      (err, listLikeRead) => {
+                                        if (!err) {
+                                          if (listLikeRead.length > 0) {
+                                            for (
+                                              var i = 0;
+                                              i < listLikeRead.length;
+                                              i++
+                                            ) {
+                                              listLikeReads.push(
+                                                listLikeRead[i]
+                                              );
+                                              if (
+                                                i ==
+                                                listLikeReads.length - 1
+                                              ) {
+                                                Comment.find(
+                                                  {
+                                                    newId: Number(
+                                                      listNew[i].idNew
+                                                    ),
+                                                    isRead: 1,
+                                                  },
+                                                  (err, listCommentRead) => {
+                                                    if (!err) {
+                                                      if (
+                                                        listCommentRead.length >
+                                                        0
+                                                      ) {
+                                                        for (
+                                                          var i = 0;
+                                                          i <
+                                                          listCommentRead.length;
+                                                          i++
+                                                        ) {
+                                                          listCommentReads.push(
+                                                            listCommentRead[i]
+                                                          );
+
+                                                          if (
+                                                            i ==
+                                                            listCommentRead.length -
+                                                              1
+                                                          ) {
+                                                            res.render(
+                                                              'chitiettintuc',
+                                                              {
+                                                                listCommentReads:
+                                                                  listCommentReads,
+                                                                countCommentRead:
+                                                                  listCommentReads.length +
+                                                                  listLikeReads.length,
+                                                                listLikeReads:
+                                                                  listLikeReads,
+                                                                data: data,
+                                                                accountId:
+                                                                  req.session
+                                                                    .accountId,
+                                                                username:
+                                                                  req.session
+                                                                    .username,
+                                                                userId:
+                                                                  req.session
+                                                                    .userId,
+                                                                avatar:
+                                                                  req.session
+                                                                    .avatar,
+                                                                listComment:
+                                                                  listComment,
+                                                                role: req
+                                                                  .session.role,
+                                                                countLike:
+                                                                  listLike.length,
+                                                                countComment:
+                                                                  listComment.length,
+                                                                liked:
+                                                                  isLike.length,
+                                                              }
+                                                            );
+                                                          }
+                                                        }
+                                                      }
+                                                    } else {
+                                                      res.status(400).json({
+                                                        error: 'ERROR!!!',
+                                                      });
+                                                    }
+                                                  }
+                                                ).lean();
+                                              }
+                                            }
+                                          }
+                                        } else {
+                                          res
+                                            .status(400)
+                                            .json({ error: 'ERROR!!!' });
+                                        }
+                                      }
+                                    ).lean();
+                                  }
+                                }
+                              } else {
+                                res.status(400).json({ error: 'ERROR!!!' });
+                              }
+                            }
+                          ).lean();
                         } else {
                           res.status(400).json({ error: 'ERROR!!!' });
                         }
@@ -390,19 +521,82 @@ class MainController {
   }
 
   viettinnhan(req, res) {
+    const listLikeReads = [];
+    const listCommentReads = [];
     if (req.session.isAuth) {
       Chat.find({ userName: req.session.username }, (err, listData) => {
         //lấy tất cả dữ liệu bảng new
         if (!err) {
-          res.render('guitinnhan', {
-            listData: listData,
-            accountId: req.session.accountId,
-            username: req.session.username,
-            userId: req.session.userId,
-            avatar: req.session.avatar,
-            role: req.session.role,
-          }); //có dữ liệu sẽ đưa data vào trang home với data là d/s new tìm đc
-          console.log(listData);
+          New.find({ authorId: Number(req.session.userId) }, (err, listNew) => {
+            if (!err) {
+              if (listNew.length > 0) {
+                for (var i = 0; i < listNew.length; i++) {
+                  Like.find(
+                    {
+                      newId: Number(listNew[i].idNew),
+                      isRead: 1,
+                    },
+                    (err, listLikeRead) => {
+                      if (!err) {
+                        if (listLikeRead.length > 0) {
+                          for (var i = 0; i < listLikeRead.length; i++) {
+                            listLikeReads.push(listLikeRead[i]);
+                            if (i == listLikeReads.length - 1) {
+                              Comment.find(
+                                {
+                                  newId: Number(listNew[i].idNew),
+                                  isRead: 1,
+                                },
+                                (err, listCommentRead) => {
+                                  if (!err) {
+                                    if (listCommentRead.length > 0) {
+                                      for (
+                                        var i = 0;
+                                        i < listCommentRead.length;
+                                        i++
+                                      ) {
+                                        listCommentReads.push(
+                                          listCommentRead[i]
+                                        );
+
+                                        if (i == listCommentRead.length - 1) {
+                                          res.render('guitinnhan', {
+                                            listCommentReads: listCommentReads,
+                                            countCommentRead:
+                                              listCommentReads.length +
+                                              listLikeReads.length,
+                                            listLikeReads: listLikeReads,
+                                            listData: listData,
+                                            accountId: req.session.accountId,
+                                            username: req.session.username,
+                                            userId: req.session.userId,
+                                            avatar: req.session.avatar,
+                                            role: req.session.role,
+                                          });
+                                        }
+                                      }
+                                    }
+                                  } else {
+                                    res.status(400).json({
+                                      error: 'ERROR!!!',
+                                    });
+                                  }
+                                }
+                              ).lean();
+                            }
+                          }
+                        }
+                      } else {
+                        res.status(400).json({ error: 'ERROR!!!' });
+                      }
+                    }
+                  ).lean();
+                }
+              }
+            } else {
+              res.status(400).json({ error: 'ERROR!!!' });
+            }
+          }).lean();
         } else {
           res.status(400).json({ error: 'ERROR!!!' });
         }
@@ -643,17 +837,81 @@ class MainController {
 
   // [GET] /register
   thongtincanhanTV(req, res) {
+    const listLikeReads = [];
+    const listCommentReads = [];
     if (req.session.isAuth) {
       User.findOne({ idUser: req.session.userId }, (err, data) => {
         if (!err) {
-          res.render('thongtincanhantv', {
-            data: data,
-            accountId: req.session.accountId,
-            username: req.session.username,
-            userId: req.session.userId,
-            avatar: req.session.avatar,
-            role: req.session.role,
-          });
+          New.find({ authorId: Number(req.session.userId) }, (err, listNew) => {
+            if (!err) {
+              if (listNew.length > 0) {
+                for (var i = 0; i < listNew.length; i++) {
+                  Like.find(
+                    {
+                      newId: Number(listNew[i].idNew),
+                      isRead: 1,
+                    },
+                    (err, listLikeRead) => {
+                      if (!err) {
+                        if (listLikeRead.length > 0) {
+                          for (var i = 0; i < listLikeRead.length; i++) {
+                            listLikeReads.push(listLikeRead[i]);
+                            if (i == listLikeReads.length - 1) {
+                              Comment.find(
+                                {
+                                  newId: Number(listNew[i].idNew),
+                                  isRead: 1,
+                                },
+                                (err, listCommentRead) => {
+                                  if (!err) {
+                                    if (listCommentRead.length > 0) {
+                                      for (
+                                        var i = 0;
+                                        i < listCommentRead.length;
+                                        i++
+                                      ) {
+                                        listCommentReads.push(
+                                          listCommentRead[i]
+                                        );
+
+                                        if (i == listCommentRead.length - 1) {
+                                          res.render('thongtincanhantv', {
+                                            listCommentReads: listCommentReads,
+                                            countCommentRead:
+                                              listCommentReads.length +
+                                              listLikeReads.length,
+                                            listLikeReads: listLikeReads,
+                                            data: data,
+                                            accountId: req.session.accountId,
+                                            username: req.session.username,
+                                            userId: req.session.userId,
+                                            avatar: req.session.avatar,
+                                            role: req.session.role,
+                                          });
+                                        }
+                                      }
+                                    }
+                                  } else {
+                                    res.status(400).json({
+                                      error: 'ERROR!!!',
+                                    });
+                                  }
+                                }
+                              ).lean();
+                            }
+                          }
+                        }
+                      } else {
+                        res.status(400).json({ error: 'ERROR!!!' });
+                      }
+                    }
+                  ).lean();
+                }
+              }
+            } else {
+              res.status(400).json({ error: 'ERROR!!!' });
+            }
+          }).lean();
         } else {
           res.status(400).json({ error: 'ERROR!!!' });
         }
@@ -704,6 +962,8 @@ class MainController {
   danhsachtincho(req, res) {
     const array = [];
     const listNewType = [];
+    const listLikeReads = [];
+    const listCommentReads = [];
     if (req.session.isAuth) {
       New.find({ authorId: req.session.userId, status: 0 }, (err, data) => {
         if (!err) {
@@ -732,14 +992,100 @@ class MainController {
                   array.push(newTemp);
                   if (listNewType.length == data.length) {
                     console.log('=========danhsachtincho', array);
-                    res.render('danhsachtincho', {
-                      array: array,
-                      accountId: req.session.accountId,
-                      username: req.session.username,
-                      userId: req.session.userId,
-                      avatar: req.session.avatar,
-                      role: req.session.role,
-                    });
+                    New.find(
+                      { authorId: Number(req.session.userId) },
+                      (err, listNew) => {
+                        if (!err) {
+                          if (listNew.length > 0) {
+                            for (var i = 0; i < listNew.length; i++) {
+                              Like.find(
+                                {
+                                  newId: Number(listNew[i].idNew),
+                                  isRead: 1,
+                                },
+                                (err, listLikeRead) => {
+                                  if (!err) {
+                                    if (listLikeRead.length > 0) {
+                                      for (
+                                        var i = 0;
+                                        i < listLikeRead.length;
+                                        i++
+                                      ) {
+                                        listLikeReads.push(listLikeRead[i]);
+                                        if (i == listLikeReads.length - 1) {
+                                          Comment.find(
+                                            {
+                                              newId: Number(listNew[i].idNew),
+                                              isRead: 1,
+                                            },
+                                            (err, listCommentRead) => {
+                                              if (!err) {
+                                                if (
+                                                  listCommentRead.length > 0
+                                                ) {
+                                                  for (
+                                                    var i = 0;
+                                                    i < listCommentRead.length;
+                                                    i++
+                                                  ) {
+                                                    listCommentReads.push(
+                                                      listCommentRead[i]
+                                                    );
+
+                                                    if (
+                                                      i ==
+                                                      listCommentRead.length - 1
+                                                    ) {
+                                                      res.render(
+                                                        'danhsachtincho',
+                                                        {
+                                                          listCommentReads:
+                                                            listCommentReads,
+                                                          countCommentRead:
+                                                            listCommentReads.length +
+                                                            listLikeReads.length,
+                                                          listLikeReads:
+                                                            listLikeReads,
+                                                          array: array,
+                                                          accountId:
+                                                            req.session
+                                                              .accountId,
+                                                          username:
+                                                            req.session
+                                                              .username,
+                                                          userId:
+                                                            req.session.userId,
+                                                          avatar:
+                                                            req.session.avatar,
+                                                          role: req.session
+                                                            .role,
+                                                        }
+                                                      );
+                                                    }
+                                                  }
+                                                }
+                                              } else {
+                                                res.status(400).json({
+                                                  error: 'ERROR!!!',
+                                                });
+                                              }
+                                            }
+                                          ).lean();
+                                        }
+                                      }
+                                    }
+                                  } else {
+                                    res.status(400).json({ error: 'ERROR!!!' });
+                                  }
+                                }
+                              ).lean();
+                            }
+                          }
+                        } else {
+                          res.status(400).json({ error: 'ERROR!!!' });
+                        }
+                      }
+                    ).lean();
                   }
                 } else {
                   res.status(400).json({ error: 'ERROR!!!' });
@@ -747,15 +1093,85 @@ class MainController {
               }).lean();
             }
           } else {
-            res.render('danhsachtincho', {
-              arrayNone: 1,
-              array: array,
-              accountId: req.session.accountId,
-              username: req.session.username,
-              userId: req.session.userId,
-              avatar: req.session.avatar,
-              role: req.session.role,
-            });
+            New.find(
+              { authorId: Number(req.session.userId) },
+              (err, listNew) => {
+                if (!err) {
+                  if (listNew.length > 0) {
+                    for (var i = 0; i < listNew.length; i++) {
+                      Like.find(
+                        {
+                          newId: Number(listNew[i].idNew),
+                          isRead: 1,
+                        },
+                        (err, listLikeRead) => {
+                          if (!err) {
+                            if (listLikeRead.length > 0) {
+                              for (var i = 0; i < listLikeRead.length; i++) {
+                                listLikeReads.push(listLikeRead[i]);
+                                if (i == listLikeReads.length - 1) {
+                                  Comment.find(
+                                    {
+                                      newId: Number(listNew[i].idNew),
+                                      isRead: 1,
+                                    },
+                                    (err, listCommentRead) => {
+                                      if (!err) {
+                                        if (listCommentRead.length > 0) {
+                                          for (
+                                            var i = 0;
+                                            i < listCommentRead.length;
+                                            i++
+                                          ) {
+                                            listCommentReads.push(
+                                              listCommentRead[i]
+                                            );
+
+                                            if (
+                                              i ==
+                                              listCommentRead.length - 1
+                                            ) {
+                                              res.render('danhsachtincho', {
+                                                listCommentReads:
+                                                  listCommentReads,
+                                                countCommentRead:
+                                                  listCommentReads.length +
+                                                  listLikeReads.length,
+                                                listLikeReads: listLikeReads,
+                                                arrayNone: 1,
+                                                array: array,
+                                                accountId:
+                                                  req.session.accountId,
+                                                username: req.session.username,
+                                                userId: req.session.userId,
+                                                avatar: req.session.avatar,
+                                                role: req.session.role,
+                                              });
+                                            }
+                                          }
+                                        }
+                                      } else {
+                                        res.status(400).json({
+                                          error: 'ERROR!!!',
+                                        });
+                                      }
+                                    }
+                                  ).lean();
+                                }
+                              }
+                            }
+                          } else {
+                            res.status(400).json({ error: 'ERROR!!!' });
+                          }
+                        }
+                      ).lean();
+                    }
+                  }
+                } else {
+                  res.status(400).json({ error: 'ERROR!!!' });
+                }
+              }
+            ).lean();
           }
         } else {
           res.status(400).json({ error: 'ERROR!!!' });
@@ -779,18 +1195,82 @@ class MainController {
   }
 
   taotinthanhvien(req, res) {
+    const listLikeReads = [];
+    const listCommentReads = [];
     if (req.session.isAuth) {
       NewType.find((err, data) => {
         if (!err) {
           console.log('=========data', data);
-          res.render('dangtinthanhvien', {
-            data: data,
-            accountId: req.session.accountId,
-            username: req.session.username,
-            userId: req.session.userId,
-            avatar: req.session.avatar,
-            role: req.session.role,
-          });
+          New.find({ authorId: Number(req.session.userId) }, (err, listNew) => {
+            if (!err) {
+              if (listNew.length > 0) {
+                for (var i = 0; i < listNew.length; i++) {
+                  Like.find(
+                    {
+                      newId: Number(listNew[i].idNew),
+                      isRead: 1,
+                    },
+                    (err, listLikeRead) => {
+                      if (!err) {
+                        if (listLikeRead.length > 0) {
+                          for (var i = 0; i < listLikeRead.length; i++) {
+                            listLikeReads.push(listLikeRead[i]);
+                            if (i == listLikeReads.length - 1) {
+                              Comment.find(
+                                {
+                                  newId: Number(listNew[i].idNew),
+                                  isRead: 1,
+                                },
+                                (err, listCommentRead) => {
+                                  if (!err) {
+                                    if (listCommentRead.length > 0) {
+                                      for (
+                                        var i = 0;
+                                        i < listCommentRead.length;
+                                        i++
+                                      ) {
+                                        listCommentReads.push(
+                                          listCommentRead[i]
+                                        );
+
+                                        if (i == listCommentRead.length - 1) {
+                                          res.render('dangtinthanhvien', {
+                                            listCommentReads: listCommentReads,
+                                            countCommentRead:
+                                              listCommentReads.length +
+                                              listLikeReads.length,
+                                            listLikeReads: listLikeReads,
+                                            data: data,
+                                            accountId: req.session.accountId,
+                                            username: req.session.username,
+                                            userId: req.session.userId,
+                                            avatar: req.session.avatar,
+                                            role: req.session.role,
+                                          });
+                                        }
+                                      }
+                                    }
+                                  } else {
+                                    res.status(400).json({
+                                      error: 'ERROR!!!',
+                                    });
+                                  }
+                                }
+                              ).lean();
+                            }
+                          }
+                        }
+                      } else {
+                        res.status(400).json({ error: 'ERROR!!!' });
+                      }
+                    }
+                  ).lean();
+                }
+              }
+            } else {
+              res.status(400).json({ error: 'ERROR!!!' });
+            }
+          }).lean();
         } else {
           res.status(400).json({ error: 'ERROR!!!' });
         }
@@ -836,6 +1316,8 @@ class MainController {
 
   // [GET] /login
   login(req, res) {
+    const listLikeReads = [];
+    const listCommentReads = [];
     Account.findOne(
       // { tendangnhap: req.body.tendangnhap, matkhau: req.body.matkhau },
       { username: req.body.username }, // bắt user name trước
@@ -920,16 +1402,127 @@ class MainController {
                               array.sort(function (a, b) {
                                 return b.createdDate - a.createdDate;
                               });
+                              New.find(
+                                { authorId: Number(req.session.userId) },
+                                (err, listNew) => {
+                                  if (!err) {
+                                    if (listNew.length > 0) {
+                                      for (var i = 0; i < listNew.length; i++) {
+                                        Like.find(
+                                          {
+                                            newId: Number(listNew[i].idNew),
+                                            isRead: 1,
+                                          },
+                                          (err, listLikeRead) => {
+                                            if (!err) {
+                                              if (listLikeRead.length > 0) {
+                                                for (
+                                                  var i = 0;
+                                                  i < listLikeRead.length;
+                                                  i++
+                                                ) {
+                                                  listLikeReads.push(
+                                                    listLikeRead[i]
+                                                  );
+                                                  if (
+                                                    i ==
+                                                    listLikeReads.length - 1
+                                                  ) {
+                                                    Comment.find(
+                                                      {
+                                                        newId: Number(
+                                                          listNew[i].idNew
+                                                        ),
+                                                        isRead: 1,
+                                                      },
+                                                      (
+                                                        err,
+                                                        listCommentRead
+                                                      ) => {
+                                                        if (!err) {
+                                                          if (
+                                                            listCommentRead.length >
+                                                            0
+                                                          ) {
+                                                            for (
+                                                              var i = 0;
+                                                              i <
+                                                              listCommentRead.length;
+                                                              i++
+                                                            ) {
+                                                              listCommentReads.push(
+                                                                listCommentRead[
+                                                                  i
+                                                                ]
+                                                              );
 
-                              res.render('home', {
-                                array: array,
-                                arraySortNew: arraySortNew,
-                                accountId: req.session.accountId,
-                                username: req.session.username,
-                                role: req.session.role,
-                                userId: req.session.userId,
-                                avatar: req.session.avatar,
-                              });
+                                                              if (
+                                                                i ==
+                                                                listCommentRead.length -
+                                                                  1
+                                                              ) {
+                                                                res.render(
+                                                                  'home',
+                                                                  {
+                                                                    listCommentReads:
+                                                                      listCommentReads,
+                                                                    countCommentRead:
+                                                                      listCommentReads.length +
+                                                                      listLikeReads.length,
+                                                                    listLikeReads:
+                                                                      listLikeReads,
+                                                                    array:
+                                                                      array,
+                                                                    arraySortNew:
+                                                                      arraySortNew,
+                                                                    accountId:
+                                                                      req
+                                                                        .session
+                                                                        .accountId,
+                                                                    username:
+                                                                      req
+                                                                        .session
+                                                                        .username,
+                                                                    role: req
+                                                                      .session
+                                                                      .role,
+                                                                    userId:
+                                                                      req
+                                                                        .session
+                                                                        .userId,
+                                                                    avatar:
+                                                                      req
+                                                                        .session
+                                                                        .avatar,
+                                                                  }
+                                                                );
+                                                              }
+                                                            }
+                                                          }
+                                                        } else {
+                                                          res.status(400).json({
+                                                            error: 'ERROR!!!',
+                                                          });
+                                                        }
+                                                      }
+                                                    ).lean();
+                                                  }
+                                                }
+                                              }
+                                            } else {
+                                              res
+                                                .status(400)
+                                                .json({ error: 'ERROR!!!' });
+                                            }
+                                          }
+                                        ).lean();
+                                      }
+                                    }
+                                  } else {
+                                    res.status(400).json({ error: 'ERROR!!!' });
+                                  }
+                                }
+                              ).lean();
                             }
                           } else {
                             res.status(400).json({ error: 'ERROR!!!' });
@@ -1184,19 +1777,119 @@ class MainController {
                               }
                             }
                           ).lean();
+                          New.find(
+                            { authorId: Number(req.session.userId) },
+                            (err, listNew) => {
+                              if (!err) {
+                                if (listNew.length > 0) {
+                                  for (var i = 0; i < listNew.length; i++) {
+                                    Like.find(
+                                      {
+                                        newId: Number(listNew[i].idNew),
+                                        isRead: 1,
+                                      },
+                                      (err, listLikeRead) => {
+                                        if (!err) {
+                                          if (listLikeRead.length > 0) {
+                                            for (
+                                              var i = 0;
+                                              i < listLikeRead.length;
+                                              i++
+                                            ) {
+                                              listLikeReads.push(
+                                                listLikeRead[i]
+                                              );
+                                              if (
+                                                i ==
+                                                listLikeReads.length - 1
+                                              ) {
+                                                Comment.find(
+                                                  {
+                                                    newId: Number(
+                                                      listNew[i].idNew
+                                                    ),
+                                                    isRead: 1,
+                                                  },
+                                                  (err, listCommentRead) => {
+                                                    if (!err) {
+                                                      if (
+                                                        listCommentRead.length >
+                                                        0
+                                                      ) {
+                                                        for (
+                                                          var i = 0;
+                                                          i <
+                                                          listCommentRead.length;
+                                                          i++
+                                                        ) {
+                                                          listCommentReads.push(
+                                                            listCommentRead[i]
+                                                          );
 
-                          res.render('home', {
-                            listCommentReads: listCommentReads,
-                            countCommentRead: 3,
-                            // listCommentReads.length + listLikeReads.length,
-                            array: array,
-                            arraySortNew: arraySortNew,
-                            accountId: req.session.accountId,
-                            username: req.session.username,
-                            userId: req.session.userId,
-                            avatar: req.session.avatar,
-                            role: req.session.role,
-                          });
+                                                          if (
+                                                            i ==
+                                                            listCommentRead.length -
+                                                              1
+                                                          ) {
+                                                            res.render('home', {
+                                                              listCommentReads:
+                                                                listCommentReads,
+                                                              countCommentRead:
+                                                                listCommentReads.length +
+                                                                listLikeReads.length,
+                                                              listLikeReads:
+                                                                listLikeReads,
+                                                              listCommentReads:
+                                                                listCommentReads,
+                                                              countCommentRead: 3,
+                                                              // listCommentReads.length + listLikeReads.length,
+                                                              array: array,
+                                                              arraySortNew:
+                                                                arraySortNew,
+                                                              accountId:
+                                                                req.session
+                                                                  .accountId,
+                                                              username:
+                                                                req.session
+                                                                  .username,
+                                                              userId:
+                                                                req.session
+                                                                  .userId,
+                                                              avatar:
+                                                                req.session
+                                                                  .avatar,
+                                                              role: req.session
+                                                                .role,
+                                                            });
+                                                          }
+                                                        }
+                                                      }
+                                                    } else {
+                                                      res
+                                                        .status(400)
+                                                        .json({
+                                                          error: 'ERROR!!!',
+                                                        });
+                                                    }
+                                                  }
+                                                ).lean();
+                                              }
+                                            }
+                                          }
+                                        } else {
+                                          res
+                                            .status(400)
+                                            .json({ error: 'ERROR!!!' });
+                                        }
+                                      }
+                                    ).lean();
+                                  }
+                                }
+                              } else {
+                                res.status(400).json({ error: 'ERROR!!!' });
+                              }
+                            }
+                          ).lean();
                         }
                       } else {
                         res.status(400).json({ error: 'ERROR!!!' });

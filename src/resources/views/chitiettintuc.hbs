@@ -29,10 +29,12 @@
                             <p style="" class="title">{{data.title}}</p>
                             <p  style="margin-top:-15px" class="sub_main">{{data.content}}</p>
                         </div>
-                        <img
-                            src={{data.image}}
-                            alt='ảnh thẻ header'
-                            style='width: 28%;margin:10px 0;align-self: center; '/>
+                        {{#if data.image }}
+                            <img
+                                src={{data.image}}
+                                alt='ảnh thẻ header'
+                                style='width: 28%;margin:10px 0;align-self: center; '/>
+                        {{/if}}
                     </div>
 
                     <div class="div_luotxem_cmt">

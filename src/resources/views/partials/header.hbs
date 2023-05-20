@@ -82,21 +82,19 @@
               <p> <i class='fa fa-bell-o'></i></p>
               <span class='sr-only'>(current)</span>
               <div class='dropdown-menu'>
-                  <span class='dropdown-item' href='/cvtvsk/listchat'>
-                    Thông báo</span>
-                  <div class='dropdown-divider'></div>
-                   <a class='dropdown-item' href='/thongtincanhan'>Thông tin cá
-                    nhân</a>
+                 {{#each listCommentReads}}
+                  <a class='dropdown-item' href='/chitiettintuc/{{this.newId}}'>
+                  Tài khoản <span style="color: #296088; font-weight:700"> {{this.userName}} </span>đã bình luận bài viết của bạn
+                  </a>
+                   <div class='dropdown-divider'></div>
+                {{/each}}
+                {{#each listLikeReads}}
+                    <a class='dropdown-item' href='/chitiettintuc/{{this.newId}}'>
+                    Tài khoản<span style="color: #296088; font-weight:700"> {{this.userId}} </span> đã thích bài viết của bạn
+                    </a>
                     <div class='dropdown-divider'></div>
-                  {{!-- <button class='dropdown-item js-doi-mat-khau-ql'>Đổi mật khẩu</button> --}}
-                  <a class="dropdown-item" href="/doimatkhau">Đổi mật khẩu</a> 
-                  <div class='dropdown-divider'></div>
-                  <a
-                    class='dropdown-item'
-                    style='color: red;'
-                    href='/login'
-                  >Đăng xuất</a>
-                </div>
+
+                {{/each}}
             </a>
           </li>
 

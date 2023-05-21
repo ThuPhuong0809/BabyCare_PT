@@ -153,6 +153,20 @@ class MainController {
                               }
                             ).lean();
                           }
+                        } else {
+                          res.render('home', {
+                            listCommentReads: listCommentReads,
+                            countCommentRead:
+                              listCommentReads.length + listLikeReads.length,
+                            listLikeReads: listLikeReads,
+                            array: array,
+                            arraySortNew: arraySortNew,
+                            accountId: req.session.accountId,
+                            username: req.session.username,
+                            userId: req.session.userId,
+                            avatar: req.session.avatar,
+                            role: req.session.role,
+                          });
                         }
                       } else {
                         res.status(400).json({ error: 'ERROR!!!' });
@@ -368,6 +382,24 @@ class MainController {
                                       }
                                     ).lean();
                                   }
+                                } else {
+                                  res.render('chitiettintuc', {
+                                    listCommentReads: listCommentReads,
+                                    countCommentRead:
+                                      listCommentReads.length +
+                                      listLikeReads.length,
+                                    listLikeReads: listLikeReads,
+                                    data: data,
+                                    accountId: req.session.accountId,
+                                    username: req.session.username,
+                                    userId: req.session.userId,
+                                    avatar: req.session.avatar,
+                                    listComment: listComment,
+                                    role: req.session.role,
+                                    countLike: listLike.length,
+                                    countComment: listComment.length,
+                                    liked: isLike.length,
+                                  });
                                 }
                               } else {
                                 res.status(400).json({ error: 'ERROR!!!' });
@@ -592,6 +624,19 @@ class MainController {
                     }
                   ).lean();
                 }
+              } else {
+                res.render('guitinnhan', {
+                  listCommentReads: listCommentReads,
+                  countCommentRead:
+                    listCommentReads.length + listLikeReads.length,
+                  listLikeReads: listLikeReads,
+                  listData: listData,
+                  accountId: req.session.accountId,
+                  username: req.session.username,
+                  userId: req.session.userId,
+                  avatar: req.session.avatar,
+                  role: req.session.role,
+                });
               }
             } else {
               res.status(400).json({ error: 'ERROR!!!' });
@@ -907,6 +952,19 @@ class MainController {
                     }
                   ).lean();
                 }
+              } else {
+                res.render('thongtincanhantv', {
+                  listCommentReads: listCommentReads,
+                  countCommentRead:
+                    listCommentReads.length + listLikeReads.length,
+                  listLikeReads: listLikeReads,
+                  data: data,
+                  accountId: req.session.accountId,
+                  username: req.session.username,
+                  userId: req.session.userId,
+                  avatar: req.session.avatar,
+                  role: req.session.role,
+                });
               }
             } else {
               res.status(400).json({ error: 'ERROR!!!' });
@@ -1080,6 +1138,19 @@ class MainController {
                                 }
                               ).lean();
                             }
+                          } else {
+                            res.render('danhsachtincho', {
+                              listCommentReads: listCommentReads,
+                              countCommentRead:
+                                listCommentReads.length + listLikeReads.length,
+                              listLikeReads: listLikeReads,
+                              array: array,
+                              accountId: req.session.accountId,
+                              username: req.session.username,
+                              userId: req.session.userId,
+                              avatar: req.session.avatar,
+                              role: req.session.role,
+                            });
                           }
                         } else {
                           res.status(400).json({ error: 'ERROR!!!' });
@@ -1166,6 +1237,20 @@ class MainController {
                         }
                       ).lean();
                     }
+                  } else {
+                    res.render('danhsachtincho', {
+                      listCommentReads: listCommentReads,
+                      countCommentRead:
+                        listCommentReads.length + listLikeReads.length,
+                      listLikeReads: listLikeReads,
+                      arrayNone: 1,
+                      array: array,
+                      accountId: req.session.accountId,
+                      username: req.session.username,
+                      userId: req.session.userId,
+                      avatar: req.session.avatar,
+                      role: req.session.role,
+                    });
                   }
                 } else {
                   res.status(400).json({ error: 'ERROR!!!' });
@@ -1266,6 +1351,19 @@ class MainController {
                     }
                   ).lean();
                 }
+              } else {
+                res.render('dangtinthanhvien', {
+                  listCommentReads: listCommentReads,
+                  countCommentRead:
+                    listCommentReads.length + listLikeReads.length,
+                  listLikeReads: listLikeReads,
+                  data: data,
+                  accountId: req.session.accountId,
+                  username: req.session.username,
+                  userId: req.session.userId,
+                  avatar: req.session.avatar,
+                  role: req.session.role,
+                });
               }
             } else {
               res.status(400).json({ error: 'ERROR!!!' });
@@ -1517,6 +1615,21 @@ class MainController {
                                           }
                                         ).lean();
                                       }
+                                    } else {
+                                      res.render('home', {
+                                        listCommentReads: listCommentReads,
+                                        countCommentRead:
+                                          listCommentReads.length +
+                                          listLikeReads.length,
+                                        listLikeReads: listLikeReads,
+                                        array: array,
+                                        arraySortNew: arraySortNew,
+                                        accountId: req.session.accountId,
+                                        username: req.session.username,
+                                        role: req.session.role,
+                                        userId: req.session.userId,
+                                        avatar: req.session.avatar,
+                                      });
                                     }
                                   } else {
                                     res.status(400).json({ error: 'ERROR!!!' });
@@ -1865,11 +1978,9 @@ class MainController {
                                                         }
                                                       }
                                                     } else {
-                                                      res
-                                                        .status(400)
-                                                        .json({
-                                                          error: 'ERROR!!!',
-                                                        });
+                                                      res.status(400).json({
+                                                        error: 'ERROR!!!',
+                                                      });
                                                     }
                                                   }
                                                 ).lean();

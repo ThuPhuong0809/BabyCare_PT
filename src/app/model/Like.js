@@ -9,6 +9,7 @@ const Like = new Schema(
   {
     idLike: { type: Number },
     userId: { type: Number },
+    userName: { type: String, maxLength: 255 },
     newId: { type: Number },
     isRead: { type: Number },
     time: { type: Date, default: Date.now },

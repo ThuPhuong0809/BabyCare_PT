@@ -74,9 +74,9 @@ class MainController {
                   array.sort(function (a, b) {
                     return b.createdDate - a.createdDate;
                   });
-// thông báo
+                  // thông báo
                   New.find(
-                    { authorId: Number(req.session.userId) }, //xác định có tk đó có bao nhiêu tin 
+                    { authorId: Number(req.session.userId) }, //xác định có tk đó có bao nhiêu tin
                     (err, listNew) => {
                       if (!err) {
                         if (listNew.length > 0) {
@@ -94,8 +94,12 @@ class MainController {
                                       i < listLikeRead.length;
                                       i++
                                     ) {
-                                      listLikeReads.push(listLikeRead[i]);
-                                      console.log('TESST-------- 11111');
+                                      if (
+                                        listLikeRead[i].userName !=
+                                        req.session.username
+                                      ) {
+                                        listLikeReads.push(listLikeRead[i]);
+                                      }
                                     }
                                   }
                                 } else {
@@ -117,8 +121,14 @@ class MainController {
                                       i < listCommentRead.length;
                                       i++
                                     ) {
-                                      listCommentReads.push(listCommentRead[i]);
-                                      console.log('TESST-------- 22222');
+                                      if (
+                                        listCommentRead[i].userName !=
+                                        req.session.username
+                                      ) {
+                                        listCommentReads.push(
+                                          listCommentRead[i]
+                                        );
+                                      }
                                     }
                                   }
                                 } else {
@@ -132,10 +142,10 @@ class MainController {
 
                           setTimeout(function () {
                             listCommentReads.sort(function (a, b) {
-                              return b.createdDate - a.createdDate; 
+                              return b.createdDate - a.createdDate;
                             });
                             listLikeReads.sort(function (a, b) {
-                              return b.time - a.time; 
+                              return b.time - a.time;
                             });
                             res.render('home', {
                               listCommentReads: listCommentReads,
@@ -290,12 +300,14 @@ class MainController {
                                                 i < listLikeRead.length;
                                                 i++
                                               ) {
-                                                listLikeReads.push(
-                                                  listLikeRead[i]
-                                                );
-                                                console.log(
-                                                  'TESST-------- 11111'
-                                                );
+                                                if (
+                                                  listLikeRead[i].userName !=
+                                                  req.session.username
+                                                ) {
+                                                  listLikeReads.push(
+                                                    listLikeRead[i]
+                                                  );
+                                                }
                                               }
                                             }
                                           } else {
@@ -319,9 +331,14 @@ class MainController {
                                                 i < listCommentRead.length;
                                                 i++
                                               ) {
-                                                listCommentReads.push(
-                                                  listCommentRead[i]
-                                                );
+                                                if (
+                                                  listCommentRead[i].userName !=
+                                                  req.session.username
+                                                ) {
+                                                  listCommentReads.push(
+                                                    listCommentRead[i]
+                                                  );
+                                                }
                                               }
                                             }
                                           } else {
@@ -335,7 +352,7 @@ class MainController {
 
                                     setTimeout(function () {
                                       listCommentReads.sort(function (a, b) {
-                                        return b.createdDate - a.createdDate; 
+                                        return b.createdDate - a.createdDate;
                                       });
                                       listLikeReads.sort(function (a, b) {
                                         return b.time - a.time;
@@ -499,6 +516,7 @@ class MainController {
     like.userId = req.session.userId;
     like.newId = req.params.idNew;
     like.isRead = 1;
+    like.userName = req.session.username;
     const idNew = parseInt(req.params.idNew);
 
     Like.find({ userId: req.session.userId, newId: idNew }, (err, isLike) => {
@@ -600,49 +618,10 @@ class MainController {
                       if (!err) {
                         if (listLikeRead.length > 0) {
                           for (var i = 0; i < listLikeRead.length; i++) {
-                            listLikeReads.push(listLikeRead[i]);
-                            if (i == listLikeReads.length - 1) {
-                              Comment.find(
-                                {
-                                  newId: Number(listNew[i].idNew),
-                                  isRead: 1,
-                                },
-                                (err, listCommentRead) => {
-                                  if (!err) {
-                                    if (listCommentRead.length > 0) {
-                                      for (
-                                        var i = 0;
-                                        i < listCommentRead.length;
-                                        i++
-                                      ) {
-                                        listCommentReads.push(
-                                          listCommentRead[i]
-                                        );
-
-                                        if (i == listCommentRead.length - 1) {
-                                          res.render('guitinnhan', {
-                                            listCommentReads: listCommentReads,
-                                            countCommentRead:
-                                              listCommentReads.length +
-                                              listLikeReads.length,
-                                            listLikeReads: listLikeReads,
-                                            listData: listData,
-                                            accountId: req.session.accountId,
-                                            username: req.session.username,
-                                            userId: req.session.userId,
-                                            avatar: req.session.avatar,
-                                            role: req.session.role,
-                                          });
-                                        }
-                                      }
-                                    }
-                                  } else {
-                                    res.status(400).json({
-                                      error: 'ERROR!!!',
-                                    });
-                                  }
-                                }
-                              ).lean();
+                            if (
+                              listLikeRead[i].userName != req.session.username
+                            ) {
+                              listLikeReads.push(listLikeRead[i]);
                             }
                           }
                         }
@@ -651,7 +630,53 @@ class MainController {
                       }
                     }
                   ).lean();
+
+                  Comment.find(
+                    {
+                      newId: Number(listNew[i].idNew),
+                      isRead: 1,
+                    },
+                    (err, listCommentRead) => {
+                      if (!err) {
+                        if (listCommentRead.length > 0) {
+                          for (var i = 0; i < listCommentRead.length; i++) {
+                            if (
+                              listCommentRead[i].userName !=
+                              req.session.username
+                            ) {
+                              listCommentReads.push(listCommentRead[i]);
+                            }
+                          }
+                        }
+                      } else {
+                        res.status(400).json({
+                          error: 'ERROR!!!',
+                        });
+                      }
+                    }
+                  ).lean();
                 }
+
+                setTimeout(function () {
+                  listCommentReads.sort(function (a, b) {
+                    return b.createdDate - a.createdDate;
+                  });
+                  listLikeReads.sort(function (a, b) {
+                    return b.time - a.time;
+                  });
+                  res.render('guitinnhan', {
+                    listCommentReads: listCommentReads,
+                    countCommentRead:
+                      listCommentReads.length + listLikeReads.length,
+                    listLikeReads: listLikeReads,
+                    listData: listData,
+                    accountId: req.session.accountId,
+                    username: req.session.username,
+                    userId: req.session.userId,
+                    avatar: req.session.avatar,
+                    role: req.session.role,
+                  });
+                }, 500);
               } else {
                 res.render('guitinnhan', {
                   listCommentReads: listCommentReads,
@@ -928,8 +953,11 @@ class MainController {
                       if (!err) {
                         if (listLikeRead.length > 0) {
                           for (var i = 0; i < listLikeRead.length; i++) {
-                            listLikeReads.push(listLikeRead[i]);
-                            console.log('TESST-------- 11111');
+                            if (
+                              listLikeRead[i].userName != req.session.username
+                            ) {
+                              listLikeReads.push(listLikeRead[i]);
+                            }
                           }
                         }
                       } else {
@@ -947,8 +975,12 @@ class MainController {
                       if (!err) {
                         if (listCommentRead.length > 0) {
                           for (var i = 0; i < listCommentRead.length; i++) {
-                            listCommentReads.push(listCommentRead[i]);
-                            console.log('TESST-------- 22222');
+                            if (
+                              listCommentRead[i].userName !=
+                              req.session.username
+                            ) {
+                              listCommentReads.push(listCommentRead[i]);
+                            }
                           }
                         }
                       } else {
@@ -1097,8 +1129,12 @@ class MainController {
                                         i < listLikeRead.length;
                                         i++
                                       ) {
-                                        listLikeReads.push(listLikeRead[i]);
-                                        console.log('TESST-------- 11111');
+                                        if (
+                                          listLikeRead[i].userName !=
+                                          req.session.username
+                                        ) {
+                                          listLikeReads.push(listLikeRead[i]);
+                                        }
                                       }
                                     }
                                   } else {
@@ -1120,10 +1156,14 @@ class MainController {
                                         i < listCommentRead.length;
                                         i++
                                       ) {
-                                        listCommentReads.push(
-                                          listCommentRead[i]
-                                        );
-                                        console.log('TESST-------- 22222');
+                                        if (
+                                          listCommentRead[i].userName !=
+                                          req.session.username
+                                        ) {
+                                          listCommentReads.push(
+                                            listCommentRead[i]
+                                          );
+                                        }
                                       }
                                     }
                                   } else {
@@ -1197,8 +1237,12 @@ class MainController {
                           if (!err) {
                             if (listLikeRead.length > 0) {
                               for (var i = 0; i < listLikeRead.length; i++) {
-                                listLikeReads.push(listLikeRead[i]);
-                                console.log('TESST-------- 11111');
+                                if (
+                                  listLikeRead[i].userName !=
+                                  req.session.username
+                                ) {
+                                  listLikeReads.push(listLikeRead[i]);
+                                }
                               }
                             }
                           } else {
@@ -1216,8 +1260,12 @@ class MainController {
                           if (!err) {
                             if (listCommentRead.length > 0) {
                               for (var i = 0; i < listCommentRead.length; i++) {
-                                listCommentReads.push(listCommentRead[i]);
-                                console.log('TESST-------- 22222');
+                                if (
+                                  listCommentRead[i].userName !=
+                                  req.session.username
+                                ) {
+                                  listCommentReads.push(listCommentRead[i]);
+                                }
                               }
                             }
                           } else {
@@ -1312,8 +1360,11 @@ class MainController {
                       if (!err) {
                         if (listLikeRead.length > 0) {
                           for (var i = 0; i < listLikeRead.length; i++) {
-                            listLikeReads.push(listLikeRead[i]);
-                            console.log('TESST-------- 11111');
+                            if (
+                              listLikeRead[i].userName != req.session.username
+                            ) {
+                              listLikeReads.push(listLikeRead[i]);
+                            }
                           }
                         }
                       } else {
@@ -1331,8 +1382,12 @@ class MainController {
                       if (!err) {
                         if (listCommentRead.length > 0) {
                           for (var i = 0; i < listCommentRead.length; i++) {
-                            listCommentReads.push(listCommentRead[i]);
-                            console.log('TESST-------- 22222');
+                            if (
+                              listCommentRead[i].userName !=
+                              req.session.username
+                            ) {
+                              listCommentReads.push(listCommentRead[i]);
+                            }
                           }
                         }
                       } else {
@@ -1532,12 +1587,14 @@ class MainController {
                                                   i < listLikeRead.length;
                                                   i++
                                                 ) {
-                                                  listLikeReads.push(
-                                                    listLikeRead[i]
-                                                  );
-                                                  console.log(
-                                                    'TESST-------- 11111'
-                                                  );
+                                                  if (
+                                                    listLikeRead[i].userName !=
+                                                    req.session.username
+                                                  ) {
+                                                    listLikeReads.push(
+                                                      listLikeRead[i]
+                                                    );
+                                                  }
                                                 }
                                               }
                                             } else {
@@ -1561,12 +1618,15 @@ class MainController {
                                                   i < listCommentRead.length;
                                                   i++
                                                 ) {
-                                                  listCommentReads.push(
+                                                  if (
                                                     listCommentRead[i]
-                                                  );
-                                                  console.log(
-                                                    'TESST-------- 22222'
-                                                  );
+                                                      .userName !=
+                                                    req.session.username
+                                                  ) {
+                                                    listCommentReads.push(
+                                                      listCommentRead[i]
+                                                    );
+                                                  }
                                                 }
                                               }
                                             } else {
@@ -1672,8 +1732,11 @@ class MainController {
                       if (!err) {
                         if (listLikeRead.length > 0) {
                           for (var i = 0; i < listLikeRead.length; i++) {
-                            listLikeReads.push(listLikeRead[i]);
-                            console.log('TESST-------- 11111');
+                            if (
+                              listLikeRead[i].userName != req.session.username
+                            ) {
+                              listLikeReads.push(listLikeRead[i]);
+                            }
                           }
                         }
                       } else {
@@ -1691,8 +1754,12 @@ class MainController {
                       if (!err) {
                         if (listCommentRead.length > 0) {
                           for (var i = 0; i < listCommentRead.length; i++) {
-                            listCommentReads.push(listCommentRead[i]);
-                            console.log('TESST-------- 22222');
+                            if (
+                              listCommentRead[i].userName !=
+                              req.session.username
+                            ) {
+                              listCommentReads.push(listCommentRead[i]);
+                            }
                           }
                         }
                       } else {
@@ -1755,6 +1822,10 @@ class MainController {
   }
 
   chitietchat(req, res, next) {
+    const listLikeReads = [];
+    const listCommentReads = [];
+    const liked = false;
+    const commented = false;
     if (req.session.isAuth) {
       ListChat.find((err, data) => {
         if (!err) {
@@ -1789,8 +1860,12 @@ class MainController {
                                         i < listLikeRead.length;
                                         i++
                                       ) {
-                                        listLikeReads.push(listLikeRead[i]);
-                                        console.log('TESST-------- 11111');
+                                        if (
+                                          listLikeRead[i].userName !=
+                                          req.session.username
+                                        ) {
+                                          listLikeReads.push(listLikeRead[i]);
+                                        }
                                       }
                                     }
                                   } else {
@@ -1812,10 +1887,14 @@ class MainController {
                                         i < listCommentRead.length;
                                         i++
                                       ) {
-                                        listCommentReads.push(
-                                          listCommentRead[i]
-                                        );
-                                        console.log('TESST-------- 22222');
+                                        if (
+                                          listCommentRead[i].userName !=
+                                          req.session.username
+                                        ) {
+                                          listCommentReads.push(
+                                            listCommentRead[i]
+                                          );
+                                        }
                                       }
                                     }
                                   } else {
@@ -1997,12 +2076,14 @@ class MainController {
                                               i < listLikeRead.length;
                                               i++
                                             ) {
-                                              listLikeReads.push(
-                                                listLikeRead[i]
-                                              );
-                                              console.log(
-                                                'TESST-------- 11111'
-                                              );
+                                              if (
+                                                listLikeRead[i].userName !=
+                                                req.session.username
+                                              ) {
+                                                listLikeReads.push(
+                                                  listLikeRead[i]
+                                                );
+                                              }
                                             }
                                           }
                                         } else {
@@ -2026,12 +2107,14 @@ class MainController {
                                               i < listCommentRead.length;
                                               i++
                                             ) {
-                                              listCommentReads.push(
-                                                listCommentRead[i]
-                                              );
-                                              console.log(
-                                                'TESST-------- 22222'
-                                              );
+                                              if (
+                                                listCommentRead[i].userName !=
+                                                req.session.username
+                                              ) {
+                                                listCommentReads.push(
+                                                  listCommentRead[i]
+                                                );
+                                              }
                                             }
                                           }
                                         } else {

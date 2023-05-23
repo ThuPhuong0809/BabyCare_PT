@@ -44,6 +44,7 @@ app.engine(
         return time;
       },
       ifCond: (v1, operator, v2, options) => {
+        handlebars: allowInsecurePrototypeAccess(Handlebars);
         switch (operator) {
           case '==':
             return v1 == v2 ? options.fn(this) : options.inverse(this);

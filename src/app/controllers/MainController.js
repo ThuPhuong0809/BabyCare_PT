@@ -76,7 +76,7 @@ class MainController {
                   });
 // thông báo
                   New.find(
-                    { authorId: Number(req.session.userId) },
+                    { authorId: Number(req.session.userId) }, //xác định có tk đó có bao nhiêu tin 
                     (err, listNew) => {
                       if (!err) {
                         if (listNew.length > 0) {
@@ -335,10 +335,10 @@ class MainController {
 
                                     setTimeout(function () {
                                       listCommentReads.sort(function (a, b) {
-                                        return b.createdDate - a.createdDate; // sắp xếp theo lượng like
+                                        return b.createdDate - a.createdDate; 
                                       });
                                       listLikeReads.sort(function (a, b) {
-                                        return b.time - a.time; // sắp xếp theo lượng like
+                                        return b.time - a.time;
                                       });
                                       res.render('chitiettintuc', {
                                         listCommentReads: listCommentReads,

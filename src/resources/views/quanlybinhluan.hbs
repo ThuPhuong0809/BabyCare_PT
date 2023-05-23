@@ -8,8 +8,8 @@
                 </div>
                 <div class="line" ></div>
 
-                <div id="menu1" class="container tab-pane active div-table-list"><br />
-                            <form action="" >
+                <div id="menu1" class="container tab-pane active div-table-list" ><br />
+                            <form action="" style="z-index: -100;position:absolute;">
                                 <div class="card mb-4">
                                     <div class="card-header" style="color: #296088;font-weight: 600;">
                                         <i class="fas fa-table me-1"></i>
@@ -39,7 +39,7 @@
                                                     <td>{{{changeNgay this.createdDate}}}</td>
                                                     <td>{{this.userName}}</td>
                                                     {{#ifCond this.status '==' 0}} <td style="color: red;"> Chưa duyệt</td>  {{else}} <td style="color: green;"> Đã duyệt</td>  {{/ifCond}}
-                                                    <td  style="width: 190px;">
+                                                    <td  style="width: 220px;">
                                                        <a href="/admin/chitiettintuc/{{this.newId}}" class="btn btn-info" style="margin-right: 10px;">Xem Chi tiết</a>
                                                         <a href="/admin/xoabinhluan/{{this.idCommentTemp}}" onclick="return confirm ('Xoá bình luận {{this.content}} ?')" class="btn btn-danger">Xóa</a>
                                                        

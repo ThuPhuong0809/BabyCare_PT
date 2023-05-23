@@ -17,7 +17,7 @@
                                         <a href="/admin/themchuyenvien" class="btn btn-info btnThemChuyenVien">Thêm chuyên viên</a>
                                     </div>
                                     <div class="card-body">
-                                        <table class="table table-bordered" id="table_id" style="font-size: 15px; width: 1500px;">
+                                        <table class="table table-bordered" id="table_id" style="font-size: 15px; width: 1200px;">
                                             <thead>
                                                 <tr>
                                                     <th>STT</th>
@@ -44,8 +44,8 @@
                                                      <td>{{this.dateOfIssue}}</td>
                                                     <td>{{this.issuedBy}}</td>
                                                     <td>{{#ifCond this.status '==' 0}} Tạm ngưng  {{else}} Hoạt động  {{/ifCond}}</td>
-                                                    <td style="width: 200px;">
-                                                        <a href="/admin/chinhsuachuyenvien/{{this.idUserTempCV}}"  class="btn btn-info" style="margin-right: 10px;">Chỉnh sửa</a>
+                                                    <td >
+                                                        {{!-- <a href="/admin/chinhsuachuyenvien/{{this.idUserTempCV}}"  class="btn btn-info" style="margin-right: 10px;">Chỉnh sửa</a> --}}
                                                         <a href="/admin/xoachuyenvien/{{this.idUserTempCV}}" onclick="return confirm ('Xoá chuyên viên {{this.name}} ?')" class="btn btn-danger" >Xóa</a>
                                                     </td>
                                                 </tr>

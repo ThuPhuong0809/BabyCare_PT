@@ -43,8 +43,6 @@ app.engine(
         var time = '' + h + ':' + m;
         return time;
       },
-      // noidung: thongtinMH =>
-      //   mahoa.AES.encrypt(String(thongtinMH), 'diep123').toString(),
       ifCond: (v1, operator, v2, options) => {
         switch (operator) {
           case '==':

@@ -93,7 +93,7 @@ background-color: #f3f7f9;
 color: #296088;
 }
 
-.quanlychuyenvien .main-home-nv  form .btnThemChuyenVien {
+.quanlychuyenvien .main-home-nv .btnThemChuyenVien {
     font-weight: 500;
-    margin-left: 50px;
+    margin-bottom:20px;
 }

@@ -131,6 +131,12 @@ class MainController {
                           }
 
                           setTimeout(function () {
+                            listCommentReads.sort(function (a, b) {
+                              return b.createdDate - a.createdDate; // sắp xếp theo lượng like
+                            });
+                            listLikeReads.sort(function (a, b) {
+                              return b.time - a.time; // sắp xếp theo lượng like
+                            });
                             res.render('home', {
                               listCommentReads: listCommentReads,
                               countCommentRead:
@@ -328,6 +334,12 @@ class MainController {
                                     }
 
                                     setTimeout(function () {
+                                      listCommentReads.sort(function (a, b) {
+                                        return b.createdDate - a.createdDate; // sắp xếp theo lượng like
+                                      });
+                                      listLikeReads.sort(function (a, b) {
+                                        return b.time - a.time; // sắp xếp theo lượng like
+                                      });
                                       res.render('chitiettintuc', {
                                         listCommentReads: listCommentReads,
                                         countCommentRead:
@@ -949,6 +961,12 @@ class MainController {
                 }
 
                 setTimeout(function () {
+                  listCommentReads.sort(function (a, b) {
+                    return b.createdDate - a.createdDate; // sắp xếp theo lượng like
+                  });
+                  listLikeReads.sort(function (a, b) {
+                    return b.time - a.time; // sắp xếp theo lượng like
+                  });
                   res.render('thongtincanhantv', {
                     listCommentReads: listCommentReads,
                     countCommentRead:
@@ -1118,6 +1136,12 @@ class MainController {
                             }
 
                             setTimeout(function () {
+                              listCommentReads.sort(function (a, b) {
+                                return b.createdDate - a.createdDate; // sắp xếp theo lượng like
+                              });
+                              listLikeReads.sort(function (a, b) {
+                                return b.time - a.time; // sắp xếp theo lượng like
+                              });
                               res.render('danhsachtincho', {
                                 listCommentReads: listCommentReads,
                                 countCommentRead:
@@ -1206,6 +1230,12 @@ class MainController {
                     }
 
                     setTimeout(function () {
+                      listCommentReads.sort(function (a, b) {
+                        return b.createdDate - a.createdDate; // sắp xếp theo lượng like
+                      });
+                      listLikeReads.sort(function (a, b) {
+                        return b.time - a.time; // sắp xếp theo lượng like
+                      });
                       res.render('danhsachtincho', {
                         listCommentReads: listCommentReads,
                         countCommentRead:
@@ -1315,6 +1345,12 @@ class MainController {
                 }
 
                 setTimeout(function () {
+                  listCommentReads.sort(function (a, b) {
+                    return b.createdDate - a.createdDate; // sắp xếp theo lượng like
+                  });
+                  listLikeReads.sort(function (a, b) {
+                    return b.time - a.time; // sắp xếp theo lượng like
+                  });
                   res.render('dangtinthanhvien', {
                     listCommentReads: listCommentReads,
                     countCommentRead:
@@ -1543,6 +1579,12 @@ class MainController {
                                       }
 
                                       setTimeout(function () {
+                                        listCommentReads.sort(function (a, b) {
+                                          return b.createdDate - a.createdDate; // sắp xếp theo lượng like
+                                        });
+                                        listLikeReads.sort(function (a, b) {
+                                          return b.time - a.time; // sắp xếp theo lượng like
+                                        });
                                         res.render('home', {
                                           listCommentReads: listCommentReads,
                                           countCommentRead:
@@ -1605,6 +1647,10 @@ class MainController {
 
   // [GET] /register
   listchatcvtv(req, res) {
+    const listLikeReads = [];
+    const listCommentReads = [];
+    const liked = false;
+    const commented = false;
     if (req.session.isAuth) {
       ListChat.find((err, data) => {
         if (data.length > 0) {
@@ -1659,8 +1705,18 @@ class MainController {
                 }
 
                 setTimeout(function () {
+                  listCommentReads.sort(function (a, b) {
+                    return b.createdDate - a.createdDate; // sắp xếp theo lượng like
+                  });
+                  listLikeReads.sort(function (a, b) {
+                    return b.time - a.time; // sắp xếp theo lượng like
+                  });
                   res.render('listchatcvtv', {
                     data: data,
+                    listCommentReads: listCommentReads,
+                    countCommentRead:
+                      listCommentReads.length + listLikeReads.length,
+                    listLikeReads: listLikeReads,
                     accountId: req.session.accountId,
                     username: req.session.username,
                     userId: req.session.userId,
@@ -1670,6 +1726,10 @@ class MainController {
                 }, 500);
               } else {
                 res.render('listchatcvtv', {
+                  listCommentReads: listCommentReads,
+                  countCommentRead:
+                    listCommentReads.length + listLikeReads.length,
+                  listLikeReads: listLikeReads,
                   data: data,
                   accountId: req.session.accountId,
                   username: req.session.username,
@@ -1768,6 +1828,12 @@ class MainController {
                             }
 
                             setTimeout(function () {
+                              listCommentReads.sort(function (a, b) {
+                                return b.createdDate - a.createdDate; // sắp xếp theo lượng like
+                              });
+                              listLikeReads.sort(function (a, b) {
+                                return b.time - a.time; // sắp xếp theo lượng like
+                              });
                               res.render('chitietchat', {
                                 data: data,
                                 accountId: req.session.accountId,
@@ -1978,6 +2044,12 @@ class MainController {
                                   }
 
                                   setTimeout(function () {
+                                    listCommentReads.sort(function (a, b) {
+                                      return b.createdDate - a.createdDate; // sắp xếp theo lượng like
+                                    });
+                                    listLikeReads.sort(function (a, b) {
+                                      return b.time - a.time; // sắp xếp theo lượng like
+                                    });
                                     res.render('home', {
                                       listCommentReads: listCommentReads,
                                       countCommentRead:

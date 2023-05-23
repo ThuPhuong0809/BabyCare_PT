@@ -392,7 +392,7 @@ class MainController {
     }
   }
 
-  // [GET] /quanlybacsi
+  // [GET] /
   quanlybenhnhan(req, res) {
     if (req.session.isAuth) {
       BenhNhan.find((err, data) => {

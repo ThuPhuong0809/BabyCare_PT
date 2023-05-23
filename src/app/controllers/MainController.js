@@ -74,7 +74,7 @@ class MainController {
                   array.sort(function (a, b) {
                     return b.createdDate - a.createdDate;
                   });
-
+// thông báo
                   New.find(
                     { authorId: Number(req.session.userId) },
                     (err, listNew) => {
@@ -132,10 +132,10 @@ class MainController {
 
                           setTimeout(function () {
                             listCommentReads.sort(function (a, b) {
-                              return b.createdDate - a.createdDate; // sắp xếp theo lượng like
+                              return b.createdDate - a.createdDate; 
                             });
                             listLikeReads.sort(function (a, b) {
-                              return b.time - a.time; // sắp xếp theo lượng like
+                              return b.time - a.time; 
                             });
                             res.render('home', {
                               listCommentReads: listCommentReads,

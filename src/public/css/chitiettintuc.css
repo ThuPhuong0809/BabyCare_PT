@@ -64,7 +64,6 @@
 
 .chitiettintuc .main_tintuc{
   margin-top: 5px;
-  border-bottom: 1px solid #D9D9D9;
   padding: 0px 10px;
   display: flex;
   flex-direction: row;
@@ -80,6 +79,7 @@
 
  .chitiettintuc .div_luotxem_cmt {
   padding: 0px 10px;
+  border-top: 1px solid #D9D9D9;
  }
 
  .chitiettintuc .div_luotxem_cmt i{

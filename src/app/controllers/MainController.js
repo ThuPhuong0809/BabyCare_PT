@@ -43,6 +43,7 @@ class MainController {
             newTemp.authorName = data[i].authorName;
             newTemp.authorImage = data[i].authorImage;
             newTemp.image = data[i].image;
+            newTemp.video = data[i].video;
             newTemp.status = data[i].status;
             newTemp.countLike = data[i].countLike;
             newTemp.countComment = data[i].countComment;
@@ -210,6 +211,7 @@ class MainController {
             newTemp.authorName = data[i].authorName;
             newTemp.authorImage = data[i].authorImage;
             newTemp.image = data[i].image;
+            newTemp.video = data[i].video;
             newTemp.status = data[i].status;
             newTemp.countLike = data[i].countLike;
             newTemp.countComment = data[i].countComment;
@@ -1109,6 +1111,7 @@ class MainController {
               newTemp.authorName = data[i].authorName;
               newTemp.authorImage = data[i].authorImage;
               newTemp.image = data[i].image;
+              newTemp.video = data[i].video;
               newTemp.status = data[i].status;
               newTemp.countLike = data[i].countLike;
               newTemp.countComment = data[i].countComment;
@@ -1548,6 +1551,7 @@ class MainController {
                       newTemp.authorName = data[i].authorName;
                       newTemp.authorImage = data[i].authorImage;
                       newTemp.image = data[i].image;
+                      newTemp.video = data[i].video;
                       newTemp.status = data[i].status;
                       newTemp.countLike = data[i].countLike;
                       newTemp.countComment = data[i].countComment;
@@ -2066,6 +2070,7 @@ class MainController {
                   newTemp.authorName = data[i].authorName;
                   newTemp.authorImage = data[i].authorImage;
                   newTemp.image = data[i].image;
+                  newTemp.video = data[i].video;
                   newTemp.status = data[i].status;
                   newTemp.countLike = data[i].countLike;
                   newTemp.countComment = data[i].countComment;
@@ -2265,6 +2270,7 @@ class MainController {
                   newTemp.authorName = data[i].authorName;
                   newTemp.authorImage = data[i].authorImage;
                   newTemp.image = data[i].image;
+                  newTemp.video = data[i].video;
                   newTemp.status = data[i].status;
                   newTemp.countLike = data[i].countLike;
                   newTemp.countComment = data[i].countComment;
@@ -2467,6 +2473,7 @@ class MainController {
                       newTemp.authorName = data[i].authorName;
                       newTemp.authorImage = data[i].authorImage;
                       newTemp.image = data[i].image;
+                      newTemp.video = data[i].video;
                       newTemp.status = data[i].status;
                       newTemp.countLike = data[i].countLike;
                       newTemp.countComment = data[i].countComment;
@@ -2558,6 +2565,7 @@ class MainController {
             newTemp.authorName = data[i].authorName;
             newTemp.authorImage = data[i].authorImage;
             newTemp.image = data[i].image;
+            newTemp.video = data[i].video;
             newTemp.status = data[i].status;
             newTemp.countLike = data[i].countLike;
             newTemp.countComment = data[i].countComment;

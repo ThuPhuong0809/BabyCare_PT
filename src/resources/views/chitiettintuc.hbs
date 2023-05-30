@@ -28,14 +28,21 @@
                         <div class="content_main">
                             <p style="" class="title">{{data.title}}</p>
                             <p  style="margin-top:-15px" class="sub_main">{{data.content}}</p>
+        
                         </div>
                         {{#if data.image }}
                             <img
                                 src={{data.image}}
                                 alt='ảnh thẻ header'
-                                style='width: 28%;margin:10px 0;align-self: center; '/>
+                                style='width: 28%;height:28%;margin:10px 0;'/>
+                            
                         {{/if}}
                     </div>
+                    {{#if data.video }}
+                        <video controls style='width: 95%;margin:10px 0; align-self: center;'>
+                            <source src={{data.video}}>
+                        </video>
+                    {{/if}}
 
                     <div class="div_luotxem_cmt">
                         {{#if liked }}

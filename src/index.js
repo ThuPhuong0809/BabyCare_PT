@@ -112,7 +112,7 @@ const storage = multer.memoryStorage({
 });
 
 function checkFileType(file, cb) {
-  const fileTypes = /jpeg|jpg|png|gif/;
+  const fileTypes = /jpeg|jpg|png|gif|mp4/;
 
   const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
   const minetype = fileTypes.test(file.mimetype);
@@ -125,7 +125,7 @@ function checkFileType(file, cb) {
 
 const upload = multer({
   storage,
-  limits: { fieldSize: 2000000 },
+  limits: { fieldSize: 100000000 },
   fileFilter(req, file, cb) {
     checkFileType(file, cb);
   },
@@ -168,69 +168,176 @@ app.post('/images', upload.single('image'), async (req, res) => {
   });
 });
 
-app.post('/dangtin', upload.single('image'), async (req, res) => {
-  const { idUser } = req.body;
-  const file = req.file;
-  if (file) {
-    const image = file.originalname.split('.');
-    const fileType = image[image.length - 1];
-    const filePath = `${uuid() + Date.now().toString()}.${fileType}`;
+app.post(
+  '/dangtin',
+  upload.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'video', maxCount: 6 },
+  ]),
+  async (req, res) => {
+    const { idUser } = req.body;
+    const file = req.files;
+    console.log('file---------', file);
 
-    const params = {
-      Bucket: 'babycaredoan',
-      Key: filePath,
-      Body: file.buffer,
-    };
+    if (file.image && !file.video) {
+      const image = file.image[0].originalname.split('.');
+      const fileType = image[image.length - 1];
+      const filePath = `${uuid() + Date.now().toString()}.${fileType}`;
 
-    s3.upload(params, (error, data) => {
-      if (error) {
-        return res.send('Internal Server Error');
-      } else {
-        const news = new New(req.body);
-        news.authorId = Number(req.body.authorId);
-        news.image = `${CLOUND_FONT_URL}${filePath}`;
-        const idNewType = Number(req.body.typeId);
-        NewType.findOne({ idNewType: idNewType }, (err, newType) => {
-          if (!err) {
-            if (newType) {
-              news.nameType = newType.name;
-              console.log('-----ddd----', news);
+      const params = {
+        Bucket: 'babycaredoan',
+        Key: filePath,
+        Body: file.image[0].buffer,
+      };
 
-              news
-                .save()
-                .then(() => res.redirect('/danhsachtincho'))
-                .catch(error => {
-                  console.log('-----error----', error);
-                });
+      s3.upload(params, (error, data) => {
+        if (error) {
+          return res.send('Internal Server Error');
+        } else {
+          const news = new New(req.body);
+          news.authorId = Number(req.body.authorId);
+          news.image = `${CLOUND_FONT_URL}${filePath}`;
+          news.video = '';
+          const idNewType = Number(req.body.typeId);
+          NewType.findOne({ idNewType: idNewType }, (err, newType) => {
+            if (!err) {
+              if (newType) {
+                news.nameType = newType.name;
+                console.log('-----ddd----', news);
+
+                news
+                  .save()
+                  .then(() => res.redirect('/danhsachtincho'))
+                  .catch(error => {
+                    console.log('-----error----', error);
+                  });
+              }
+            } else {
+              res.status(400).json({ error: 'ERROR!!!' });
             }
-          } else {
-            res.status(400).json({ error: 'ERROR!!!' });
-          }
-        }).lean();
-      }
-    });
-  } else {
-    const news = new New(req.body);
-    news.authorId = Number(req.body.authorId);
-    news.image = '';
-    const idNewType = Number(req.body.typeId);
-    NewType.findOne({ idNewType: idNewType }, (err, newType) => {
-      if (!err) {
-        if (newType) {
-          news.nameType = newType.name;
-          news
-            .save()
-            .then(() => res.redirect('/danhsachtincho'))
-            .catch(error => {
-              console.log('-----error----', error);
-            });
+          }).lean();
         }
-      } else {
-        res.status(400).json({ error: 'ERROR!!!' });
-      }
-    }).lean();
+      });
+    } else if (file.video && !file.image) {
+      const image = file.video[0].originalname.split('.');
+      const fileType = image[image.length - 1];
+      const filePath = `${uuid() + Date.now().toString()}.${fileType}`;
+
+      const params = {
+        Bucket: 'babycaredoan',
+        Key: filePath,
+        Body: file.video[0].buffer,
+      };
+
+      s3.upload(params, (error, data) => {
+        if (error) {
+          return res.send('Internal Server Error');
+        } else {
+          const news = new New(req.body);
+          news.authorId = Number(req.body.authorId);
+          news.video = `${CLOUND_FONT_URL}${filePath}`;
+          news.image = '';
+          const idNewType = Number(req.body.typeId);
+          NewType.findOne({ idNewType: idNewType }, (err, newType) => {
+            if (!err) {
+              if (newType) {
+                news.nameType = newType.name;
+                console.log('-----ddd----', news);
+
+                news
+                  .save()
+                  .then(() => res.redirect('/danhsachtincho'))
+                  .catch(error => {
+                    console.log('-----error----', error);
+                  });
+              }
+            } else {
+              res.status(400).json({ error: 'ERROR!!!' });
+            }
+          }).lean();
+        }
+      });
+    } else if (file.video && file.image) {
+      const image = file.image[0].originalname.split('.');
+      const fileType = image[image.length - 1];
+      const filePath = `${uuid() + Date.now().toString()}.${fileType}`;
+
+      const video = file.video[0].originalname.split('.');
+      const fileTypeVideo = video[video.length - 1];
+      const filePathVideo = `${
+        uuid() + Date.now().toString() + 'video'
+      }.${fileTypeVideo}`;
+
+      const params = {
+        Bucket: 'babycaredoan',
+        Key: filePath,
+        Body: file.image[0].buffer,
+      };
+
+      const paramsVideo = {
+        Bucket: 'babycaredoan',
+        Key: filePathVideo,
+        Body: file.video[0].buffer,
+      };
+
+      s3.upload(params, (error, data) => {
+        if (error) {
+          return res.send('Internal Server Error');
+        } else {
+          s3.upload(paramsVideo, (error, data) => {
+            if (error) {
+              return res.send('Internal Server Error');
+            } else {
+              const news = new New(req.body);
+              news.authorId = Number(req.body.authorId);
+              news.image = `${CLOUND_FONT_URL}${filePath}`;
+              news.video = `${CLOUND_FONT_URL}${filePathVideo}`;
+              const idNewType = Number(req.body.typeId);
+              NewType.findOne({ idNewType: idNewType }, (err, newType) => {
+                if (!err) {
+                  if (newType) {
+                    news.nameType = newType.name;
+                    console.log('-----ddd----', news);
+
+                    news
+                      .save()
+                      .then(() => res.redirect('/danhsachtincho'))
+                      .catch(error => {
+                        console.log('-----error----', error);
+                      });
+                  }
+                } else {
+                  res.status(400).json({ error: 'ERROR!!!' });
+                }
+              }).lean();
+            }
+          });
+        }
+      });
+    } else {
+      const news = new New(req.body);
+      news.authorId = Number(req.body.authorId);
+      news.image = '';
+      news.video = '';
+      const idNewType = Number(req.body.typeId);
+      NewType.findOne({ idNewType: idNewType }, (err, newType) => {
+        if (!err) {
+          if (newType) {
+            news.nameType = newType.name;
+            news
+              .save()
+              .then(() => res.redirect('/danhsachtincho'))
+              .catch(error => {
+                console.log('-----error----', error);
+              });
+          }
+        } else {
+          res.status(400).json({ error: 'ERROR!!!' });
+        }
+      }).lean();
+    }
   }
-});
+);
 
 // const data = require('./database/db.config');
 

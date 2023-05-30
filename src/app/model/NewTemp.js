@@ -15,6 +15,7 @@ const NewTemp = new Schema(
     authorName: { type: String, maxLength: 255 },
     authorImage: { type: String, maxLength: 255 },
     image: { type: String, maxLength: 255 },
+    video: { type: String, maxLength: 255 },
     status: { type: Number },
     countLike: { type: Number },
     countComment: { type: Number },

@@ -15,6 +15,7 @@ const New = new Schema(
     authorName: { type: String, maxLength: 255 },
     authorImage: { type: String, maxLength: 255 },
     image: { type: String, maxLength: 255 },
+    video: { type: String, maxLength: 255 },
     typeId: { type: Number },
     nameType: { type: String, maxLength: 255 },
     status: { type: Number },

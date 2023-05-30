@@ -63,8 +63,15 @@ class MainController {
                     return b.countLike - a.countLike; // sắp xếp theo lượng like
                   });
                   if (arraySort.length > 5) {
-                    for (var i = 0; i < 5; i++) {
-                      arraySortNew.push(arraySort[i]);
+                    for (var i = 0; i < arraySort.length; i++) {
+                      var date1 = new Date(); // current date
+                      var date2 = new Date(arraySort[i].createdDate);
+                      if (
+                        date2.getTime() - date1.getTime() >= -5184000000 &&
+                        arraySortNew.length < 5
+                      ) {
+                        arraySortNew.push(arraySort[i]);
+                      }
                     }
                   } else {
                     for (var i = 0; i < arraySort.length; i++) {
@@ -222,8 +229,15 @@ class MainController {
                     return b.countLike - a.countLike;
                   });
                   if (arraySort.length > 5) {
-                    for (var i = 0; i < 5; i++) {
-                      arraySortNew.push(arraySort[i]);
+                    for (var i = 0; i < arraySort.length; i++) {
+                      var date1 = new Date(); // current date
+                      var date2 = new Date(arraySort[i].createdDate);
+                      if (
+                        date2.getTime() - date1.getTime() >= -5184000000 &&
+                        arraySortNew.length < 5
+                      ) {
+                        arraySortNew.push(arraySort[i]);
+                      }
                     }
                   } else {
                     for (var i = 0; i < arraySort.length; i++) {
@@ -1556,8 +1570,18 @@ class MainController {
                               });
 
                               if (arraySort.length > 5) {
-                                for (var i = 0; i < 5; i++) {
-                                  arraySortNew.push(arraySort[i]);
+                                for (var i = 0; i < arraySort.length; i++) {
+                                  var date1 = new Date(); // current date
+                                  var date2 = new Date(
+                                    arraySort[i].createdDate
+                                  );
+                                  if (
+                                    date2.getTime() - date1.getTime() >=
+                                      -5184000000 &&
+                                    arraySortNew.length < 5
+                                  ) {
+                                    arraySortNew.push(arraySort[i]);
+                                  }
                                 }
                               } else {
                                 for (var i = 0; i < arraySort.length; i++) {
@@ -2014,8 +2038,15 @@ class MainController {
             return b.countLike - a.countLike;
           });
           if (arraySort.length > 5) {
-            for (var i = 0; i < 5; i++) {
-              arraySortNew.push(arraySort[i]);
+            for (var i = 0; i < arraySort.length; i++) {
+              var date1 = new Date(); // current date
+              var date2 = new Date(arraySort[i].createdDate);
+              if (
+                date2.getTime() - date1.getTime() >= -5184000000 &&
+                arraySortNew.length < 5
+              ) {
+                arraySortNew.push(arraySort[i]);
+              }
             }
           } else {
             for (var i = 0; i < arraySort.length; i++) {
@@ -2206,8 +2237,15 @@ class MainController {
             return b.countLike - a.countLike;
           });
           if (arraySort.length > 5) {
-            for (var i = 0; i < 5; i++) {
-              arraySortNew.push(arraySort[i]);
+            for (var i = 0; i < arraySort.length; i++) {
+              var date1 = new Date(); // current date
+              var date2 = new Date(arraySort[i].createdDate);
+              if (
+                date2.getTime() - date1.getTime() >= -5184000000 &&
+                arraySortNew.length < 5
+              ) {
+                arraySortNew.push(arraySort[i]);
+              }
             }
           } else {
             for (var i = 0; i < arraySort.length; i++) {

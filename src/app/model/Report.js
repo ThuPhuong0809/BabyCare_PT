@@ -9,18 +9,15 @@ const Schema = mongoose.Schema;
 // moment().format('DD/MM/YYYY'); // date time hiện tại có format YYYY MM DD
 // let date = moment(Date.now).format('DD/MM/YYYY');
 
-const CommentTemp = new Schema(
+const Report = new Schema(
   {
-    idCommentTemp: { type: Number },
-    userName: { type: String, maxLength: 255 },
-    userImage: { type: String, maxLength: 255 },
-    newId: { type: Number },
-    titleNew: { type: String, maxLength: 255 },
-    content: { type: String, maxLength: 255 },
+    idReport: { type: Number },
+    userId: { type: Number },
+    commentId: { type: Number },
     reason: { type: Array },
     status: { type: Number },
-    createdDate: { type: Date },
-    updatedDate: { type: Date },
+    createdDate: { type: Date, default: Date.now },
+    updatedDate: { type: Date, default: Date.now },
   },
   {
     timestamps: true,
@@ -29,7 +26,7 @@ const CommentTemp = new Schema(
 
 // Add plugin
 mongoose.plugin(slug);
-CommentTemp.plugin(AutoIncrement, { inc_field: 'idCommentTemp' });
-CommentTemp.plugin(mongooseDelete, { deletedAt: true, overrideMethods: 'all' });
+Report.plugin(AutoIncrement, { inc_field: 'idReport' });
+Report.plugin(mongooseDelete, { deletedAt: true, overrideMethods: 'all' });
 
-module.exports = mongoose.model('CommentTemp', CommentTemp);
+module.exports = mongoose.model('Report', Report);

@@ -23,7 +23,11 @@ router.get('/dangtin', mainController.taotinthanhvien);
 router.get('/danhsachtypenew', mainController.danhsachtypenew);
 router.get('/thichtintuc/:idNew', mainController.thichtintuc);
 router.get('/danhsachtincho', mainController.danhsachtincho);
-router.get('/baocaobinhluan/:newId/:idComment', mainController.baocaobinhluan);
+router.get(
+  '/baocaobinhluan/:newId/:idComment',
+  mainController.loadbaocaobinhluan
+);
+router.post('/baocaobinhluan', mainController.baocaobinhluan);
 
 router.post('/timkiemtin', mainController.timkiemtin);
 

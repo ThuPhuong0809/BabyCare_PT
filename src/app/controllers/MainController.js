@@ -8,6 +8,7 @@ const Chat = require('../model/Chat');
 const ListChat = require('../model/ListChat');
 const NewType = require('../model/NewType');
 const Like = require('../model/Like');
+const Report = require('../model/Report');
 
 const CommentTemp = require('../model/CommentTemp');
 const UserTempCV = require('../model/UserTempCV');
@@ -2002,20 +2003,52 @@ class MainController {
     }
   }
 
-  baocaobinhluan(req, res) {
+  loadbaocaobinhluan(req, res) {
     if (req.session.isAuth) {
       console.log('-----------req.idComment', req.params.idComment);
       console.log('-----------req.newId', req.params.newId);
-      var newId = Number(req.params.newId);
+      res.render('baocaobinhluan', {
+        accountId: req.session.accountId,
+        username: req.session.username,
+        userId: req.session.userId,
+        avatar: req.session.avatar,
+        role: req.session.role,
+        newId: Number(req.params.newId),
+        idComment: Number(req.params.idComment),
+      });
+    } else {
+      req.session.back = '/home';
+      res.redirect('/login/');
+    }
+  }
+
+  baocaobinhluan(req, res) {
+    if (req.session.isAuth) {
+      console.log('-----------req.body', req.body);
+      var newId = Number(req.body.newId);
+      const report = new Report();
+      report.userId = Number(req.body.userId);
+      report.commentId = Number(req.body.commentId);
+      report.reason = req.body.reason;
+      report.status = 1;
+      console.log('------report-----req.report', report);
       Comment.updateOne(
-        { idComment: Number(req.params.idComment) },
+        { idComment: Number(req.body.commentId) },
         { status: 0 }
       )
         .then(() => {
-          req.flash('success', 'Báo cáo thành công thành công!');
-          res.redirect(`/chitiettintuc/${newId}`);
+          report
+            .save()
+            .then(() => {
+              req.flash('success', 'Báo cáo thành công thành công!');
+              res.redirect(`/chitiettintuc/${newId}`);
+            })
+            .catch(error => {
+              console.log('error', error);
+            });
         })
         .catch(err => {
+          console.log('err 2050', err);
           req.flash('error', 'Lỗi! Vui lòng kiểm tra thông tin nhập!');
         });
     } else {
@@ -2493,6 +2526,9 @@ class MainController {
                               array.sort(function (a, b) {
                                 return b.createdDate - a.createdDate;
                               });
+                              array.sort(function (a, b) {
+                                return a.status - b.status;
+                              });
                             }
                             if (listNewType.length == data.length) {
                               res.render('homeadmin', {
@@ -2625,7 +2661,7 @@ class MainController {
           res.redirect('/admin/home');
         })
         .catch(err => {
-          console.log('=========err', err);
+          console.log('=======err', err);
         });
     } else {
       req.session.back = '/admin/home';
@@ -2672,35 +2708,47 @@ class MainController {
               if (!err) {
                 listNewType.push(news);
                 commentTemp.titleNew = news.title;
-                array.push(commentTemp);
-
-                if (array.length > 0) {
-                  array.sort(function (a, b) {
-                    return b.createdDate - a.createdDate;
-                  });
-                  array.sort(function (a, b) {
-                    return a.status - b.status;
-                  });
-                }
-
-                if (listNewType.length == data.length) {
-                  res.render('quanlybinhluan', {
-                    array: array,
-                    accountId: req.session.accountId,
-                    username: req.session.username,
-                    userId: req.session.userId,
-                    avatar: req.session.avatar,
-                    role: req.session.role,
-                    countNewChuaDuyet: countNewChuaDuyet,
-                    countCommentChuaDuyet: countCommentChuaDuyet,
-                    countNoti: countNewChuaDuyet + countCommentChuaDuyet,
-                  });
+                if (commentTemp.status == 0) {
+                  Report.findOne(
+                    { commentId: commentTemp.idCommentTemp, status: 1 },
+                    (err, report) => {
+                      if (!err) {
+                        commentTemp.reason = report.reason;
+                        array.push(commentTemp);
+                      } else {
+                        res.status(400).json({ error: 'ERROR!!!' });
+                      }
+                    }
+                  ).lean();
+                } else {
+                  array.push(commentTemp);
                 }
               } else {
                 res.status(400).json({ error: 'ERROR!!!' });
               }
             }).lean();
           }
+          setTimeout(function () {
+            if (array.length > 0) {
+              array.sort(function (a, b) {
+                return b.createdDate - a.createdDate;
+              });
+              array.sort(function (a, b) {
+                return a.status - b.status;
+              });
+            }
+            res.render('quanlybinhluan', {
+              array: array,
+              accountId: req.session.accountId,
+              username: req.session.username,
+              userId: req.session.userId,
+              avatar: req.session.avatar,
+              role: req.session.role,
+              countNewChuaDuyet: countNewChuaDuyet,
+              countCommentChuaDuyet: countCommentChuaDuyet,
+              countNoti: countNewChuaDuyet + countCommentChuaDuyet,
+            });
+          }, 500);
         } else {
           res.status(400).json({ error: 'ERROR!!!' });
         }

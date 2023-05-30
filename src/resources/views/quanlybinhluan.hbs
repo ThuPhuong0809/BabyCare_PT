@@ -22,6 +22,7 @@
                                                     <th>STT</th>
                                                     <th>Mã bình luận</th>
                                                     <th>Nội dung bình luận</th>
+                                                    <th>Nguyên nhân báo cáo</th>
                                                     <th>Tiêu đề tin</th>
                                                     <th>Ngày bình luận</th>
                                                     <th>Tên tác giả</th>
@@ -35,6 +36,7 @@
                                                     <td>{{sum @index 1}}</td>
                                                     <td>{{this.idCommentTemp}}</td>
                                                     <td>{{this.content}}</td>
+                                                    <td style="color: red;">{{#if this.reason}}{{this.reason}}{{else}}{{/if}}</td>
                                                     <td>{{this.newId}} - {{this.titleNew}}</td>
                                                     <td>{{{changeNgay this.createdDate}}}</td>
                                                     <td>{{this.userName}}</td>
